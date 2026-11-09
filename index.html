@@ -51,9 +51,9 @@
 .review-card{box-sizing:border-box;flex:0 0 calc(50% - 8px);min-width:0;margin:0;overflow-wrap:anywhere;padding:clamp(10px,2.5vw,28px);border-block:1px solid var(--line);background:var(--ivory);display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start}
 .review-card:nth-child(even){scroll-snap-align:none}
 .review-card .review-event{margin:0 0 12px;font-size:.9rem;font-weight:700;color:#005b80}
-.review-card blockquote{margin:0 0 18px;color:var(--navy);font:italic clamp(.9rem,2.1vw,1.25rem)/1.5 Georgia,serif}
+.review-card blockquote,.review-card .review-summary{margin:0 0 18px;color:var(--navy);font:italic clamp(.9rem,2.1vw,1.25rem)/1.5 Georgia,serif}
 .review-card figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:.9rem;font-weight:700;color:var(--navy)}
-.review-heading-stars{color:#906018;font-size:1.4rem;letter-spacing:.18em;line-height:1.4;margin-top:8px}
+.review-heading-rating{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 12px;margin-top:8px;color:var(--navy);font-weight:650}.review-heading-stars{color:#906018;font-size:1.4rem;letter-spacing:.18em;line-height:1.4}
 .review-card .review-flourish{color:#906018;font-size:.9rem;letter-spacing:.17em}
 #reviews .review-actions{justify-content:center;gap:10px;margin-top:10px;padding-inline:12px}
 
@@ -143,7 +143,7 @@
     <div class="heading">
       <p class="eyebrow">From Thumbtack</p>
       <h2 id="reviews-title">Customer <em style="display:inline">reviews</em></h2>
-      <div class="review-heading-stars" role="img" aria-label="Five-star customer reviews">★★★★★</div>
+      <div class="review-heading-rating"><span class="review-heading-stars" aria-hidden="true">★★★★★</span> <span>12 five-star reviews</span></div>
       <p>Excerpts and summaries from <a href="https://www.thumbtack.com/fl/hollywood/balloon-decorators/rivdecor-by-rivplusllc/service/537284316657459202">our Thumbtack reviews</a></p>
     </div>
   </div>
@@ -183,24 +183,24 @@
         <figcaption>- Krystyna K.</figcaption>
       </figure>
       <figure class="review-card">
-        <p>Ellen praised Andie’s attention to detail and easy communication, and said the décor made the day feel more personal and elegant.</p>
-        <figcaption>Ellen C.</figcaption>
+        <p class="review-summary">Ellen praised Andie’s attention to detail and easy communication, and said the décor made the day feel more personal and elegant.</p>
+        <figcaption>- Ellen C.</figcaption>
       </figure>
       <figure class="review-card">
-        <p>Jeff described Andie as exceptionally caring and kind to work with.</p>
-        <figcaption>Jeff N.</figcaption>
+        <p class="review-summary">Jeff described Andie as exceptionally caring and kind to work with.</p>
+        <figcaption>- Jeff N.</figcaption>
       </figure>
       <figure class="review-card">
-        <p>Noa praised the quality and value of the work and appreciated getting options that fit the event budget.</p>
-        <figcaption>Noa W.</figcaption>
+        <p class="review-summary">Noa praised the quality and value of the work and appreciated getting options that fit the event budget.</p>
+        <figcaption>- Noa W.</figcaption>
       </figure>
       <figure class="review-card">
-        <p>Keely found Andie professional and easy to work with and said she would book again.</p>
-        <figcaption>Keely M.</figcaption>
+        <p class="review-summary">Keely found Andie professional and easy to work with and said she would book again.</p>
+        <figcaption>- Keely M.</figcaption>
       </figure>
       <figure class="review-card">
-        <p>Kathy appreciated Andie’s help making the gender reveal a success.</p>
-        <figcaption>Kathy B.</figcaption>
+        <p class="review-summary">Kathy appreciated Andie’s help making the gender reveal a success.</p>
+        <figcaption>- Kathy B.</figcaption>
       </figure>
     </div>
     <div class="review-actions" aria-label="Review carousel controls">
