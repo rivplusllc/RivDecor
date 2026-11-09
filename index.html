@@ -99,6 +99,7 @@
   .package-mobile-body{padding:14px 16px 16px}
   .package-mobile-heading{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 10px}
   .package-mobile-heading h3{font:italic 1.55rem Georgia,serif}
+  .package-mobile-addons{margin:6px 0 12px;color:var(--navy);font-size:.875rem;font-weight:650}
   .package-mobile-body summary{color:var(--navy);font-weight:700;cursor:pointer;padding:8px 0}
   .package-mobile-body h4{margin:12px 0 4px;color:var(--navy)}
   .package-mobile-body ul{margin:0;padding-left:20px;line-height:1.45}
@@ -258,6 +259,7 @@ mobilePackages.innerHTML=standardPackages.map(p=>`
     <img src="assets/${p.image}.webp" alt="${photoAlt[p.image]}" loading="lazy">
     <div class="package-mobile-body">
       <div class="package-mobile-heading"><h3>${p.name}</h3><strong>Starting at $${p.price.toLocaleString()}</strong></div>
+      <p class="package-mobile-addons">Optional add-ons available</p>
       <details>
         <summary>View ${p.name} Package Details</summary>
         ${comparisonRows.filter(([,key])=>p[key]?.length).map(([label,key])=>`
