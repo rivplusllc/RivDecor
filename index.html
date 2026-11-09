@@ -251,6 +251,7 @@ const comparisonRows=[
   ['Included extras','extras'],
 ];
 const standardPackages=packages.filter(p=>p.name!=='Personalized');
+const packageAddOnNote='<strong>Optional add-ons for any package</strong><br>Choose extras like additional balloon garlands, custom signs, florals, or LED marquee letters when you request a quote.';
 const mobilePackages=$('#packageMobileCards');
 mobilePackages.innerHTML=standardPackages.map(p=>`
   <article class="package-mobile-card">
@@ -266,7 +267,7 @@ mobilePackages.innerHTML=standardPackages.map(p=>`
       </details>
     </div>
   </article>
-`).join('')+'<p class="package-mobile-note"><strong>Choose any extras you’d like included in your quote.</strong></p>';
+`).join('')+`<p class="package-mobile-note">${packageAddOnNote}</p>`;
 mobilePackages.addEventListener('click',event=>{
   const button=event.target.closest('[data-mobile-quote]');
   if(button)openQuote(button.dataset.mobileQuote);
@@ -284,7 +285,7 @@ comparison.innerHTML=`
     ${comparisonRows.map(([label,key])=>`<tr><th scope="row">${label}</th>${standardPackages.map(p=>`<td>${p[key]?'<ul>'+p[key].map(item=>`<li>${item}</li>`).join('')+'</ul>':'—'}</td>`).join('')}</tr>`).join('')}
   </tbody>
   <tbody id="packageQuoteRow" hidden><tr><td class="package-quote-cell" colspan="${standardPackages.length+1}"><div class="package-quote-actions"><button class="btn btn-gold" type="button" id="selectedPackageQuote"></button></div></td></tr></tbody>
-  <tfoot><tr><td colspan="${standardPackages.length+1}"><p>Choose any extras you’d like included in your quote.</p></td></tr></tfoot>
+  <tfoot><tr><td colspan="${standardPackages.length+1}"><p>${packageAddOnNote}</p></td></tr></tfoot>
 `;
 const comparisonDetails=$('#packageComparisonDetails');
 const packageQuoteRow=$('#packageQuoteRow');
