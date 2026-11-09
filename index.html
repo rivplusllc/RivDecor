@@ -122,19 +122,18 @@
 <header class="header"><div class="shell nav"><a href="#home" class="logo" aria-label="RIVDECOR home"><img class="brand-logo" src="assets/rivdecor-logo.png" alt="RIVDECOR by RIVPLUS LLC"></a><button class="menu" aria-label="Toggle navigation" aria-expanded="false" id="menu">☰</button><nav class="navlinks" id="navlinks"><a href="#home">Home</a><a href="#packages">Packages</a><a href="#reviews">Reviews</a><a href="#booking" class="btn btn-blue" id="navQuoteLink">Book your event →</a></nav></div></header>
 <main><section class="shell hero" id="home"><div class="hero-gallery hero-video" id="event-videos"><video poster="assets/rivdecor-montage-clean-opening.jpg" autoplay loop muted playsinline controls preload="metadata" aria-label="RivDecor event décor montage and booking message"><source src="assets/rivdecor-montage-final-cut.mp4" type="video/mp4">Your browser does not support video playback.</video></div><div class="hero-content"><h1>Good times deserve <em>a great backdrop.</em></h1><p>Custom balloon garlands, backdrops, and signs styled for your celebration.</p><p class="hero-location">Serving Miami-Dade, Broward, and Palm Beach counties</p><div class="occasions"><span>♡ Birthdays</span><span>♡ Baby showers</span><span>♡ Graduations</span><span>♡ Prom send-offs</span></div><div class="hero-actions"><a class="btn btn-gold" href="#packages">Explore packages</a><a class="btn btn-outline" href="#reviews">Read client reviews</a></div></div></section>
 
-<section class="section" id="packages"><div class="shell"><div class="heading"><p class="eyebrow">Curated for your celebration</p><h2>Our décor packages</h2><p>Choose from Basic, Signature, or Statement. We’ll tailor the colors and styling to your event, and you can add any extras you’d like quoted.</p></div><div class="package-compare">
+<section class="section" id="packages"><div class="shell"><div class="heading"><p class="eyebrow">Compare your options</p><h2>Balloon décor packages</h2><p>Start with an easel and balloons, choose a round arch, or go with a full backdrop. Pick your colors and request any extras when you ask for a quote.</p></div><div class="package-compare">
   <div class="package-mobile-cards" id="packageMobileCards" aria-label="Décor packages"></div>
   <div class="package-compare-scroll" role="region" aria-label="Compare package prices and inclusions" tabindex="0">
     <table id="packageComparison" aria-label="Package prices and inclusions"></table>
   </div>
 </div>
-<p class="center note"><strong>Basic, Signature, and Statement include professional setup and rental pickup. Final pricing varies by event details, add-ons, and travel.</strong></p><section class="personalized-offer" id="booking" aria-labelledby="personalizedTitle">
+<p class="center note"><strong>Setup and rental pickup are included in all three packages. Your final quote depends on your event details, add-ons, and travel.</strong></p><section class="personalized-offer" id="booking" aria-labelledby="personalizedTitle">
   <img id="personalizedPhoto" alt="" loading="lazy">
   <div>
-    <h2 id="personalizedTitle">Personalized</h2>
-    <p><strong>Have a different setup in mind?</strong></p>
-    <p>Tell us what you have in mind. We’ll design a setup around your space, theme, and budget.</p>
-    <button class="btn btn-gold" type="button" id="quoteButton">Request a Personalized quote →</button>
+    <h2 id="personalizedTitle">Custom décor</h2>
+    <p>Have a different setup in mind? Share your theme, space, and budget so we can put together a custom quote.</p>
+    <button class="btn btn-gold" type="button" id="quoteButton">Request a custom quote →</button>
   </div>
 </section></div></section>
 <section class="section extras" id="reviews" aria-labelledby="reviews-title">
@@ -200,18 +199,18 @@ photoAlt['orange-display-original']=photoAlt['orange-display'];
 photoAlt['basic-custom-poster']='Orange and cream balloon garland with sunflowers framing a custom 20 by 30 poster board on an easel';
 const packages=[
   {name:'Basic',price:280,image:'basic-custom-poster',
-    overview:'A 5 ft easel sign and 6 ft half balloon garland for smaller celebrations.',
+    overview:'A custom poster on a 5 ft easel with a 6 ft balloon garland.',
     setup:['One 5 ft easel rental','Custom 20 × 30 poster board'],
     balloons:['6 ft half organic balloon garland','Up to 3 standard balloon colors'],
     pickup:'Professional setup and rental pickup included'},
   {name:'Signature',price:450,image:'signature-custom-text',
-    overview:'A 7 ft round arch, an 8 ft balloon garland, a standard vinyl decal, and a covered cylinder stand.',
+    overview:'A 7 ft round arch with an 8 ft balloon garland, standard vinyl lettering, and a covered display stand.',
     setup:['One 7 ft circular arch rental','Standard vinyl decal (e.g., &ldquo;Happy birthday&rdquo; or &ldquo;Let&rsquo;s party&rdquo;)'],
     balloons:['8 ft half organic balloon garland','Up to 4 standard balloon colors'],
     extras:['One white arch cover','One cylinder display stand with a white cover'],
     pickup:'Professional setup and rental pickup included'},
   {name:'Statement',price:650,image:'statement-custom-banner',
-    overview:'A 10 × 10 ft backdrop framed with balloons, a custom banner, and a welcome arch or sign. Includes a digital design preview after booking.',
+    overview:'A 10 × 10 ft balloon-framed backdrop with a custom banner and your choice of a welcome arch or sign. You’ll get a digital design preview after booking.',
     setup:['10 × 10 ft enhanced backdrop','One custom 2 × 8 ft banner'],
     balloons:['Balloon garland framing the 10 × 10 ft backdrop','Up to 4 standard balloon colors','Choice of an 8 ft gold welcome arch or a welcome sign'],
     extras:['Themed decorative accents such as balloon spikes or faux florals'],
@@ -245,7 +244,7 @@ mobilePackages.innerHTML=standardPackages.map(p=>`
       </details>
     </div>
   </article>
-`).join('')+'<p class="package-mobile-note"><strong>Want to add something extra? You can select optional add-ons when you request a quote.</strong></p>';
+`).join('')+'<p class="package-mobile-note"><strong>Choose any extras you’d like included in your quote.</strong></p>';
 mobilePackages.addEventListener('click',event=>{
   const button=event.target.closest('[data-mobile-quote]');
   if(button)openQuote(button.dataset.mobileQuote);
@@ -264,7 +263,7 @@ comparison.innerHTML=`
     ${comparisonRows.map(([label,key])=>`<tr><th scope="row">${label}</th>${standardPackages.map(p=>`<td>${p[key]?'<ul>'+p[key].map(item=>`<li>${item}</li>`).join('')+'</ul>':'—'}</td>`).join('')}</tr>`).join('')}
   </tbody>
   <tbody id="packageQuoteRow" hidden><tr><td class="package-quote-cell" colspan="${standardPackages.length+1}"><div class="package-quote-actions"><button class="btn btn-gold" type="button" id="selectedPackageQuote"></button></div></td></tr></tbody>
-  <tfoot><tr><td colspan="${standardPackages.length+1}"><p>Want to add something extra? You can select optional add-ons when you request a quote.</p></td></tr></tfoot>
+  <tfoot><tr><td colspan="${standardPackages.length+1}"><p>Choose any extras you’d like included in your quote.</p></td></tr></tfoot>
 `;
 const comparisonDetails=$('#packageComparisonDetails');
 const packageQuoteRow=$('#packageQuoteRow');
