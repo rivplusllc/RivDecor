@@ -49,6 +49,7 @@
 #reviews .heading{margin-bottom:22px}
 .review-grid{display:flex;gap:16px;max-width:960px;margin-inline:auto;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;padding:0 16px 8px}
 .review-card{box-sizing:border-box;flex:0 0 calc(50% - 8px);min-width:0;margin:0;overflow-wrap:anywhere;padding:clamp(10px,2.5vw,28px);border-block:1px solid var(--line);background:var(--ivory);display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start}
+.review-card:nth-child(even){scroll-snap-align:none}
 .review-card .review-event{margin:0 0 12px;font-size:.9rem;font-weight:700;color:#005b80}
 .review-card blockquote{margin:0 0 18px;color:var(--navy);font:italic clamp(.9rem,2.1vw,1.25rem)/1.5 Georgia,serif}
 .review-card figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:.9rem;font-weight:700;color:var(--navy)}
@@ -141,7 +142,7 @@
     <div class="heading">
       <p class="eyebrow">From Thumbtack</p>
       <h2 id="reviews-title">Customer <em style="display:inline">reviews</em></h2>
-      <p>Excerpts from customer reviews on Thumbtack</p>
+      <p>Excerpts and summaries from <a href="https://www.thumbtack.com/fl/hollywood/balloon-decorators/rivdecor-by-rivplusllc/service/537284316657459202">our Thumbtack reviews</a></p>
     </div>
   </div>
     <div class="review-grid" id="review-carousel" role="region" aria-label="Customer review carousel" tabindex="0">
@@ -178,6 +179,26 @@
       <figure class="review-card">
         <blockquote>“RivDecor THANK YOU! Everything was beautifully organized, stress-free and memorable😍”</blockquote>
         <figcaption>- Krystyna K.</figcaption>
+      </figure>
+      <figure class="review-card">
+        <p>Ellen praised Andie’s attention to detail and easy communication, and said the décor made the day feel more personal and elegant.</p>
+        <figcaption>Ellen C.</figcaption>
+      </figure>
+      <figure class="review-card">
+        <p>Jeff described Andie as exceptionally caring and kind to work with.</p>
+        <figcaption>Jeff N.</figcaption>
+      </figure>
+      <figure class="review-card">
+        <p>Noa praised the quality and value of the work and appreciated getting options that fit the event budget.</p>
+        <figcaption>Noa W.</figcaption>
+      </figure>
+      <figure class="review-card">
+        <p>Keely found Andie professional and easy to work with and said she would book again.</p>
+        <figcaption>Keely M.</figcaption>
+      </figure>
+      <figure class="review-card">
+        <p>Kathy appreciated Andie’s help making the gender reveal a success.</p>
+        <figcaption>Kathy B.</figcaption>
       </figure>
     </div>
     <div class="review-actions" aria-label="Review carousel controls">
@@ -692,7 +713,7 @@ function setReviewsPlaying(playing){
 function moveReviews(step){
   const spacing=reviewCards[1].offsetLeft-reviewCards[0].offsetLeft;
   const behavior=reducedReviewMotion.matches?'instant':'smooth';
-  reviewCarousel.scrollBy({left:step*spacing,behavior});
+  reviewCarousel.scrollBy({left:step*spacing*2,behavior});
 }
 document.querySelectorAll('[data-review-step]').forEach(button=>{
   button.addEventListener('click',()=>{
