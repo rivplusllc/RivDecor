@@ -77,7 +77,6 @@
 .package-compare h3{margin:8px 0 4px;font:italic 1.4rem Georgia,serif}
 .package-compare .price{display:inline-block;min-width:0;padding:6px 14px}
 .package-compare .price strong{display:block}
-.package-compare .package-overview{margin:8px 0 0;font-weight:400;color:var(--navy)}
 .package-compare ul{margin:0;padding-left:1.1em}
 .package-compare li+li{margin-top:4px}
 .package-compare td .btn{width:100%;padding:10px 6px}
@@ -100,7 +99,6 @@
   .package-mobile-body{padding:14px 16px 16px}
   .package-mobile-heading{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 10px}
   .package-mobile-heading h3{font:italic 1.55rem Georgia,serif}
-  .package-mobile-body p{margin:8px 0 12px;font-size:.95rem;line-height:1.45}
   .package-mobile-body summary{color:var(--navy);font-weight:700;cursor:pointer;padding:8px 0}
   .package-mobile-body h4{margin:12px 0 4px;color:var(--navy)}
   .package-mobile-body ul{margin:0;padding-left:20px;line-height:1.45}
@@ -228,18 +226,15 @@ photoAlt['orange-display-original']=photoAlt['orange-display'];
 photoAlt['basic-custom-poster']='Orange and cream balloon garland with sunflowers framing a custom 20 by 30 poster board on an easel';
 const packages=[
   {name:'Basic',price:280,image:'basic-custom-poster',
-    overview:'A custom poster on a 5 ft easel with a 6 ft balloon garland.',
     setup:['One 5 ft easel rental','Custom 20 × 30 poster board'],
     balloons:['6 ft half organic balloon garland','Up to 3 standard balloon colors'],
     pickup:'Professional setup and rental pickup included'},
   {name:'Signature',price:450,image:'signature-custom-text',
-    overview:'A 7 ft round arch with an 8 ft balloon garland, standard vinyl lettering, and a covered display stand.',
     setup:['One 7 ft circular arch rental','Standard vinyl decal (e.g., &ldquo;Happy birthday&rdquo; or &ldquo;Let&rsquo;s party&rdquo;)'],
     balloons:['8 ft half organic balloon garland','Up to 4 standard balloon colors'],
     extras:['One white arch cover','One cylinder display stand with a white cover'],
     pickup:'Professional setup and rental pickup included'},
   {name:'Statement',price:650,image:'statement-custom-banner',
-    overview:'A 10 × 10 ft balloon-framed backdrop with a custom banner and your choice of a welcome arch or sign. You’ll get a digital design preview after booking.',
     setup:['10 × 10 ft enhanced backdrop','One custom 2 × 8 ft banner'],
     balloons:['Balloon garland framing the 10 × 10 ft backdrop','Up to 4 standard balloon colors','Choice of an 8 ft gold welcome arch or a welcome sign'],
     extras:['Themed decorative accents such as balloon spikes or faux florals'],
@@ -263,7 +258,6 @@ mobilePackages.innerHTML=standardPackages.map(p=>`
     <img src="assets/${p.image}.webp" alt="${photoAlt[p.image]}" loading="lazy">
     <div class="package-mobile-body">
       <div class="package-mobile-heading"><h3>${p.name}</h3><strong>Starting at $${p.price.toLocaleString()}</strong></div>
-      <p>${p.overview}</p>
       <details>
         <summary>View ${p.name} Package Details</summary>
         ${comparisonRows.filter(([,key])=>p[key]?.length).map(([label,key])=>`
@@ -283,7 +277,6 @@ comparison.innerHTML=`
   <thead><tr><th scope="col">Package</th>${standardPackages.map(p=>`<th scope="col">
     <img src="assets/${p.image}.webp" alt="${photoAlt[p.image]}" loading="lazy">
     <h3>${p.name}</h3><span class="price"><small>Starting at</small><strong>$${p.price.toLocaleString()}</strong></span>
-    <p class="package-overview">${p.overview}</p>
   </th>`).join('')}</tr></thead>
   <tbody>
     <tr><th scope="row">Package details</th>${standardPackages.map(p=>`<td><button class="btn btn-blue" type="button" data-inquire-package="${p.name}" aria-controls="packageComparisonDetails" aria-expanded="false">View ${p.name} Package Details</button></td>`).join('')}</tr>
