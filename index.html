@@ -326,7 +326,15 @@ function inquirySelect(label,name,options,required=true){return `<label>${label}
 let inquiryPhotos=[],inquiryPhotoUrls=[];
 function clearInquiryPhotos(){inquiryPhotoUrls.forEach(url=>URL.revokeObjectURL(url));inquiryPhotoUrls=[];inquiryPhotos=[];}
 function validateInquiryPhotos(files){if(files.length>6)return 'Please choose up to 6 photos.';if(files.some(file=>!['image/jpeg','image/png','image/webp'].includes(file.type)))return 'Please choose JPG, PNG or WebP photos.';if(files.some(file=>file.size>10*1024*1024))return 'Each photo must be 10 MB or smaller.';return '';}
-function inquiryMessage(form){const f=new FormData(form);return ['RIVDECOR event inquiry',...Array.from(new Set(f.keys())).map(key=>`${key}: ${f.getAll(key).filter(String).join(', ')||'Not provided'}`),`Inspiration photos: ${inquiryPhotos.length?inquiryPhotos.map(file=>file.name).join(', '):'None selected'}`].join('\n');}
+function inquiryFormData(form){
+  const data=new FormData(form);
+  for(const input of form.querySelectorAll('[data-eastern-time]')){
+    const value=data.get(input.name);
+    if(value)data.set(input.name,value.toUpperCase().replace(/ ?([AP]M)$/,' $1')+' ET');
+  }
+  return data;
+}
+function inquiryMessage(form){const f=inquiryFormData(form);return ['RIVDECOR event inquiry',...Array.from(new Set(f.keys())).map(key=>`${key}: ${f.getAll(key).filter(String).join(', ')||'Not provided'}`),`Inspiration photos: ${inquiryPhotos.length?inquiryPhotos.map(file=>file.name).join(', '):'None selected'}`].join('\n');}
 const personalizedPackage=packages.find(p=>p.name==='Personalized');
 const personalizedPhoto=$('#personalizedPhoto');
 personalizedPhoto.src='assets/'+personalizedPackage.image+'.webp';
@@ -426,7 +434,7 @@ ${inquirySelect('What are you planning?','Engagement type',['Proposal setup','En
 <label class="form-wide" id="engagementPartyFocus" hidden>What would you like us to style for the engagement party? (optional)<input name="Engagement party décor focus" maxlength="240" placeholder="For example, a welcome display, backdrop, or dessert table" disabled></label>
 <div class="form-wide form-fields" id="proposalDetails" hidden>
 <p class="form-wide note">Share what you have in mind, even if it’s just a few ideas. We can help you plan the décor, time the setup, and keep the surprise under wraps.</p>
-<label>Setup ready by (optional)<input type="time" name="Proposal setup ready by" disabled></label>
+<label>Setup ready by (Eastern Time, optional)<input type="text" name="Proposal setup ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern Time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
 <label>Is it a surprise?<select name="Surprise proposal" disabled><option value="">Please choose</option><option>Yes</option><option>No</option><option>Not sure yet</option></select></label>
 <fieldset class="form-wide">
 <legend>Proposal décor (optional)</legend>
@@ -447,9 +455,9 @@ ${type==='Baby shower'?'<label id="babyShowerOtherArea" hidden>What else would y
 </fieldset>`).join('')}
 <p class="form-wide note" id="hotelRoomPrice" hidden><strong>Hotel room décor starts at $125.</strong></p>
 <label>Event date *<input type="date" name="Event date" required></label>
-<label id="hotelRoomReady" hidden>Room ready by (optional)<input type="time" name="Room ready by" disabled></label>
-<label>Event start time *<input type="time" name="Event start time" required></label>
-<label>Event end time *<input type="time" name="Event end time" required></label>
+<label id="hotelRoomReady" hidden>Room ready by (Eastern Time, optional)<input type="text" name="Room ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern Time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
+<label>Event start time (Eastern Time) *<input type="text" name="Event start time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern Time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" required></label>
+<label>Event end time (Eastern Time) *<input type="text" name="Event end time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern Time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" required></label>
 <p class="form-wide" data-full-event><strong>Please note décor setup requires a minimum of 2 hours prior to the start of the event and a minimum of one hour for breakdown.</strong></p>
 ${inquirySelect('Estimated guest count','Guest count',['0–24','25–49','50–100','101+','Not sure yet'])}
 ${inquirySelect('Venue type','Venue type',['Private residence / home / backyard','Event venue / banquet hall','Park / outdoor public space','Boat / yacht','Hotel room','Other','Not sure yet'])}
@@ -756,7 +764,7 @@ editInquiry.onclick=()=>{
 
 sendInquiry.onclick=async()=>{
   if(!token||sending||sent)return;
-  const data=new FormData(form);
+  const data=inquiryFormData(form);
   data.set('email',data.get('Email address'));
   data.set('cf-turnstile-response',token);
   inquiryPhotos.forEach(file=>data.append('attachments[]',file));
