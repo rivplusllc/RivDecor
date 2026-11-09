@@ -72,7 +72,7 @@
 .package-compare thead th{text-align:center}
 .package-compare thead th:first-child{text-align:left}
 .package-compare img{display:block;width:100%;height:160px;object-fit:contain;background:#f2ecdf;border-radius:8px}
-.package-compare h3{margin:8px 0 4px;font:italic 1.4rem Georgia,serif}
+.package-compare h3{margin:0 0 8px;font:italic 1.4rem Georgia,serif}
 .package-compare .price{display:inline-block;min-width:0;padding:6px 14px}
 .package-compare .price strong{display:block}
 .package-compare ul{margin:0;padding-left:1.1em}
@@ -95,8 +95,7 @@
   .package-mobile-card{overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--paper)}
   .package-mobile-card img{display:block;width:100%;height:190px;object-fit:contain;background:#f2ecdf}
   .package-mobile-body{padding:14px 16px 16px}
-  .package-mobile-heading{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 10px}
-  .package-mobile-heading h3{font:italic 1.55rem Georgia,serif}
+  .package-mobile-title{padding:12px 16px;text-align:center;font:italic 1.55rem Georgia,serif}
   .package-mobile-addons{margin:6px 0 12px;color:var(--navy);font-size:.875rem;font-weight:650}
   .package-mobile-body summary{color:var(--navy);font-weight:700;cursor:pointer;padding:8px 0}
   .package-mobile-body h4{margin:12px 0 4px;color:var(--navy)}
@@ -252,9 +251,10 @@ const standardPackages=packages.filter(p=>p.name!=='Personalized');
 const mobilePackages=$('#packageMobileCards');
 mobilePackages.innerHTML=standardPackages.map(p=>`
   <article class="package-mobile-card">
+    <h3 class="package-mobile-title">${p.name}</h3>
     <img src="assets/${p.image}.webp" alt="${photoAlt[p.image]}" loading="lazy">
     <div class="package-mobile-body">
-      <div class="package-mobile-heading"><h3>${p.name}</h3><strong>Starting at $${p.price.toLocaleString()}</strong></div>
+      <strong>Starting at $${p.price.toLocaleString()}</strong>
       <p class="package-mobile-addons">Optional add-ons available</p>
       <details>
         <summary>View ${p.name} Package Details</summary>
@@ -273,8 +273,9 @@ mobilePackages.addEventListener('click',event=>{
 const comparison=$('#packageComparison');
 comparison.innerHTML=`
   <thead><tr><th scope="col">Package</th>${standardPackages.map(p=>`<th scope="col">
+    <h3>${p.name}</h3>
     <img src="assets/${p.image}.webp" alt="${photoAlt[p.image]}" loading="lazy">
-    <h3>${p.name}</h3><span class="price"><small>Starting at</small><strong>$${p.price.toLocaleString()}</strong></span>
+    <span class="price"><small>Starting at</small><strong>$${p.price.toLocaleString()}</strong></span>
   </th>`).join('')}</tr></thead>
   <tbody>
     <tr><th scope="row">Package details</th>${standardPackages.map(p=>`<td><button class="btn btn-blue" type="button" data-inquire-package="${p.name}" aria-controls="packageComparisonDetails" aria-expanded="false">View ${p.name} Package Details</button></td>`).join('')}</tr>
