@@ -60,14 +60,15 @@
 .hero-video video{width:min(100%,310px);height:auto;max-height:none;aspect-ratio:9/16;border-radius:12px}
 @media(min-width:651px){.hero{max-width:1000px;grid-template-columns:minmax(0,1fr) minmax(0,38%)}}
 @media(max-width:650px){.hero-video video{width:min(100%,240px)}}
-#customStylingQuote{margin-top:12px}
 .package-compare-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
 .package-compare-scroll:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
-.package-compare table{width:100%;min-width:800px;border-spacing:0;table-layout:fixed;text-align:left;background:var(--paper);font-size:.875rem;line-height:1.45}
+.package-compare table{width:100%;min-width:650px;border-spacing:0;table-layout:fixed;text-align:left;background:var(--paper);font-size:.875rem;line-height:1.45}
 .package-compare th,.package-compare td{padding:12px;vertical-align:top}
 .package-compare th:first-child{position:sticky;left:0;width:104px;background:var(--ivory);color:var(--navy);z-index:1}
 .package-compare td,.package-compare th+th{border-left:1px solid var(--line)}
 .package-compare tbody tr>*{border-top:1px solid var(--line)}
+.package-compare tfoot td{border:0;border-top:1px solid var(--line);background:var(--ivory)}
+.package-compare tfoot p{position:sticky;left:12px;width:min(100%,calc(100vw - 72px));margin:0;text-align:center;font-weight:700}
 .package-compare thead th{text-align:center}
 .package-compare thead th:first-child{text-align:left}
 .package-compare img{display:block;width:100%;height:160px;object-fit:contain;background:#f2ecdf;border-radius:8px}
@@ -78,27 +79,64 @@
 .package-compare ul{margin:0;padding-left:1.1em}
 .package-compare li+li{margin-top:4px}
 .package-compare td .btn{width:100%;padding:10px 6px}
+.package-quote-cell .package-quote-actions{position:sticky;left:12px;width:min(100%,calc(100vw - 72px));text-align:center}
+.package-compare .package-quote-cell .btn{width:auto;padding:10px 16px}
+.personalized-offer{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:24px;align-items:center;max-width:760px;margin:24px auto;padding:20px;border:1px solid var(--line);border-radius:14px;background:var(--paper)}
+.personalized-offer img{display:block;width:100%;height:185px;object-fit:contain;background:var(--ivory);border-radius:8px}
+.personalized-offer h2{font:italic clamp(2rem,4vw,2.75rem) Georgia,serif}
+.personalized-offer p{margin:8px 0;line-height:1.5}
+.personalized-offer .btn{margin-top:8px}
+@media(max-width:570px){.personalized-offer{grid-template-columns:1fr;gap:14px;text-align:center}.personalized-offer img{height:160px}}
 .package-compare .is-selected{background:#f9edcc}
 .package-compare thead .is-selected{box-shadow:inset 0 4px var(--gold)}
-.package-compare-next{display:flex;justify-content:center;margin-top:16px}
-.package-compare-hint{display:none;margin:0 0 8px;font-size:.85rem}
-@media(max-width:845px){.package-compare-hint{display:block}}
+.package-mobile-cards{display:none}
+@media(max-width:695px){
+  .package-compare-scroll{display:none}
+  .package-mobile-cards{display:grid;gap:14px}
+  .package-mobile-card{overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--paper)}
+  .package-mobile-card img{display:block;width:100%;height:190px;object-fit:contain;background:#f2ecdf}
+  .package-mobile-body{padding:14px 16px 16px}
+  .package-mobile-heading{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 10px}
+  .package-mobile-heading h3{font:italic 1.55rem Georgia,serif}
+  .package-mobile-body p{margin:8px 0 12px;font-size:.95rem;line-height:1.45}
+  .package-mobile-body summary{color:var(--navy);font-weight:700;cursor:pointer;padding:8px 0}
+  .package-mobile-body h4{margin:12px 0 4px;color:var(--navy)}
+  .package-mobile-body ul{margin:0;padding-left:20px;line-height:1.45}
+  .package-mobile-body .btn{margin-top:14px;min-height:44px}
+  .package-mobile-note{margin:0;text-align:center;font-size:.875rem}
+}
 @media(max-width:540px){.package-compare th,.package-compare td{padding:9px}.package-compare th:first-child{width:80px}.package-compare img{height:145px}}
-.quote-form .unlisted-add-on{margin-top:16px}
+.quote-form .choice.is-included{padding:6px 8px;border-radius:6px;background:#f9edcc}
+.included-add-on-badge{display:inline-block;margin-left:5px;color:var(--navy);font-weight:700}
+.quote-form .unlisted-add-on{display:block;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.quote-form .included-package{background:var(--ivory)}
+.included-package-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(72px,24%);gap:12px;align-items:start}
+.included-package-sample{margin:0;text-align:center}
+.included-package-sample figcaption{margin-top:5px;color:var(--navy);font-size:.8rem;font-weight:700}
+.included-package-photo{display:block;width:100%;max-height:140px;object-fit:contain;background:var(--paper);border-radius:8px}
+.quote-form .included-package .choice input{opacity:1}
+.inquiry-extras summary{cursor:pointer;padding:10px 0;color:var(--navy);font-weight:700}
+.final-details-fields>label{display:flex;flex-direction:column;gap:5px}
+.quote-form .final-details-fields>label>input,.quote-form .final-details-fields>label>select{margin-top:auto;min-height:42px}
 </style></head><body>
 <header class="header"><div class="shell nav"><a href="#home" class="logo" aria-label="RIVDECOR home"><img class="brand-logo" src="assets/rivdecor-logo.png" alt="RIVDECOR by RIVPLUS LLC"></a><button class="menu" aria-label="Toggle navigation" aria-expanded="false" id="menu">☰</button><nav class="navlinks" id="navlinks"><a href="#home">Home</a><a href="#packages">Packages</a><a href="#reviews">Reviews</a><a href="#booking" class="btn btn-blue" id="navQuoteLink">Book your event →</a></nav></div></header>
-<main><section class="shell hero" id="home"><div class="hero-gallery hero-video" id="event-videos"><video poster="assets/rivdecor-montage-clean-opening.jpg" autoplay loop muted playsinline controls preload="metadata" aria-label="RivDecor event décor montage and booking message"><source src="assets/rivdecor-montage-final-cut.mp4" type="video/mp4">Your browser does not support video playback.</video></div><div class="hero-content"><h1>Your vision.<em>Our décor.</em></h1><p>Thoughtfully curated décor packages designed to bring your celebration to life.</p><p class="hero-location">Serving Miami-Dade, Broward &amp; Palm Beach County</p><div class="occasions"><span>♡ Birthdays</span><span>♡ Baby showers</span><span>♡ Celebrations</span><span>♡ Intimate events</span></div><div class="hero-actions"><button class="btn btn-gold" type="button" id="heroQuoteButton">Request a custom quote</button><a class="btn btn-outline" href="#packages">View packages</a><a class="btn btn-outline" href="#reviews">Reviews</a></div></div></section>
+<main><section class="shell hero" id="home"><div class="hero-gallery hero-video" id="event-videos"><video poster="assets/rivdecor-montage-clean-opening.jpg" autoplay loop muted playsinline controls preload="metadata" aria-label="RivDecor event décor montage and booking message"><source src="assets/rivdecor-montage-final-cut.mp4" type="video/mp4">Your browser does not support video playback.</video></div><div class="hero-content"><h1>Your vision.<em>Our décor.</em></h1><p>Thoughtfully curated décor packages designed to bring your celebration to life.</p><p class="hero-location">Serving Miami-Dade, Broward &amp; Palm Beach County</p><div class="occasions"><span>♡ Birthdays</span><span>♡ Baby showers</span><span>♡ Celebrations</span><span>♡ Intimate events</span></div><div class="hero-actions"><a class="btn btn-gold" href="#packages">Explore packages</a><a class="btn btn-outline" href="#reviews">Reviews</a></div></div></section>
 
-<section class="section" id="packages"><div class="shell"><div class="heading"><p class="eyebrow">Curated for your celebration</p><h2>Our décor packages</h2><p>Basic and Signature are ready-made starting points that we can style to suit your colors and theme. Have a different layout or look in mind? Tell us what you envision, and we can design a setup for your event and venue.</p><button class="btn btn-outline" type="button" id="customStylingQuote">Ask about custom styling</button></div><div class="package-compare">
-  <p class="package-compare-hint">Swipe across to compare all four packages.</p>
+<section class="section" id="packages"><div class="shell"><div class="heading"><p class="eyebrow">Curated for your celebration</p><h2>Our décor packages</h2><p>Choose from Basic, Signature, or Statement. We’ll tailor the colors and styling to your event, and you can add any extras you’d like quoted.</p></div><div class="package-compare">
+  <div class="package-mobile-cards" id="packageMobileCards" aria-label="Décor packages"></div>
   <div class="package-compare-scroll" role="region" aria-label="Compare package prices and inclusions" tabindex="0">
     <table id="packageComparison" aria-label="Package prices and inclusions"></table>
   </div>
-  <div class="package-compare-next">
-    <button class="btn btn-gold" type="button" id="continuePackageInquiry" hidden>Continue to quote form</button>
-  </div>
 </div>
-<p class="center note">RIVDECOR event photos and design mockups shown for inspiration. Signature and Statement images are design mockups. Pictured upgrades may cost extra. Final pricing varies by event details, add-ons and travel.</p></div></section>
+<p class="center note"><strong>Basic, Signature, and Statement include professional setup and rental pickup. Final pricing varies by event details, add-ons, and travel.</strong></p><section class="personalized-offer" id="booking" aria-labelledby="personalizedTitle">
+  <img id="personalizedPhoto" alt="" loading="lazy">
+  <div>
+    <h2 id="personalizedTitle">Personalized</h2>
+    <p><strong>Have a different setup in mind?</strong></p>
+    <p>Tell us what you have in mind. We’ll design a setup around your space, theme, and budget.</p>
+    <button class="btn btn-gold" type="button" id="quoteButton">Request a Personalized quote →</button>
+  </div>
+</section></div></section>
 <section class="section extras" id="reviews" aria-labelledby="reviews-title">
   <div class="shell">
     <div class="heading">
@@ -149,7 +187,7 @@
       <button class="btn btn-outline" type="button" data-review-step="1" aria-controls="review-carousel">Next ›</button>
     </div>
 </section>
-<section class="booking" id="booking"><h2>Let's bring your<br>vision to life!</h2><p>Tell us about your event, your preferred package, and any special touches you'd like to include. We'd love to create something memorable.</p><div class="booking-actions"><button class="btn btn-gold" id="quoteButton">Request a custom quote &nbsp; ›</button><a class="btn btn-outline" href="mailto:hello@rivdecor.com?subject=RIVDECOR%20event%20inquiry" id="emailLink" style="display:none">Email us</a></div><p class="note">A booking retainer is required to reserve your date. Availability is confirmed directly.</p></section></main>
+</main>
 <footer class="footer"><img class="footer-logo" src="assets/rivdecor-logo.png" alt="RIVDECOR by RIVPLUS LLC">© <span id="year"></span> RIVDECOR by RIVPLUS LLC</footer>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="dialog"><button class="close" id="closeModal" aria-label="Close">×</button><div id="modalBody"></div></div></div>
 <script>
@@ -162,37 +200,27 @@ photoAlt['orange-display-original']=photoAlt['orange-display'];
 photoAlt['basic-custom-poster']='Orange and cream balloon garland with sunflowers framing a custom 20 by 30 poster board on an easel';
 const packages=[
   {name:'Basic',price:280,image:'basic-custom-poster',
-    overview:'Easel sign and balloons for smaller celebrations.',
+    overview:'A 5 ft easel sign and 6 ft half balloon garland for smaller celebrations.',
     setup:['One 5 ft easel rental','Custom 20 × 30 poster board'],
     balloons:['6 ft half organic balloon garland','Up to 3 standard balloon colors'],
-    popularAddOns:['Themed decorative accents (e.g., balloon spikes, artificial or fresh florals)'],
     pickup:'Professional setup and rental pickup included'},
   {name:'Signature',price:450,image:'signature-custom-text',
-    overview:'A 7 ft arch and 8 ft garland for birthdays and showers.',
-    setup:['One 7 ft circular arch','Standard vinyl decal (e.g., &ldquo;Happy birthday&rdquo; or &ldquo;Let&rsquo;s party&rdquo;)'],
+    overview:'A 7 ft round arch, an 8 ft balloon garland, a standard vinyl decal, and a covered cylinder stand.',
+    setup:['One 7 ft circular arch rental','Standard vinyl decal (e.g., &ldquo;Happy birthday&rdquo; or &ldquo;Let&rsquo;s party&rdquo;)'],
     balloons:['8 ft half organic balloon garland','Up to 4 standard balloon colors'],
     extras:['One white arch cover','One cylinder display stand with a white cover'],
-    popularAddOns:['LED marquee letters or numbers','Set of 2 cylinder stands','Themed decorative accents (e.g., balloon spikes, artificial or fresh florals)'],
     pickup:'Professional setup and rental pickup included'},
   {name:'Statement',price:650,image:'statement-custom-banner',
-    overview:'A 10 × 10 ft backdrop with a custom banner and welcome display.',
+    overview:'A 10 × 10 ft backdrop framed with balloons, a custom banner, and a welcome arch or sign. Includes a digital design preview after booking.',
     setup:['10 × 10 ft enhanced backdrop','One custom 2 × 8 ft banner'],
     balloons:['Balloon garland framing the 10 × 10 ft backdrop','Up to 4 standard balloon colors','Choice of an 8 ft gold welcome arch or a welcome sign'],
-    extras:['Themed decorative accents (e.g., balloon spikes, artificial or fresh florals)','One free hour with a 2-hour minimum booking through our photography partner'],
+    extras:['Themed decorative accents such as balloon spikes or faux florals'],
     planning:['Personalized design planning','Digital design preview after booking'],
-    popularAddOns:['Shimmer wall or floral wall (size confirmed with quote)'],
     pickup:'Professional setup and rental pickup included'},
-  {name:'Custom Plus',price:850,image:'teddy-bear-clean',
-    overview:'A personalized setup designed around your event theme.',
-    setup:['Coordinated backdrop and focal point'],
-    balloons:['Balloon, floral, or other décor elements selected for your theme'],
-    extras:['Your choice of two complimentary items from Signature or Statement included extras'],
-    popularAddOns:['Table styling and centerpieces'],
-    planning:['Custom styling concept and design plan'],
-    pickup:'Setup and rental pickup are outlined in your custom quote'},
+  {name:'Personalized',image:'teddy-bear-clean'},
 ];
 photoAlt["cylinder-stands"]="Three white cylinder display stands with desserts";
-const addons=[["Foil balloon accents", "room-celebration"], ["Balloon column", "lavender-celebration"], ["Additional 7 ft balloon garland", null], ["Table styling", "styled-dinner"], ["Photography", null], ["Set of 3 cylinder stands", "cylinder-stands"], ["Draping", "blue-drapery"], ["Custom sign or banner", "orange-display"]];
+const addons=[["Foil balloon accents", "room-celebration"], ["Balloon column", "lavender-celebration"], ["Additional balloon garland", null], ["Table styling", "styled-dinner"], ["Photography", null], ["Set of 3 cylinder stands", "cylinder-stands"], ["Draping", "blue-drapery"], ["Custom sign or banner", "orange-display"]];
 const $=s=>document.querySelector(s);const modal=$('#modal');function show(html){$('#modalBody').innerHTML=html;modal.classList.add('open');document.body.style.overflow='hidden';$('#closeModal').focus()}function hide(){modal.classList.remove('open');document.body.style.overflow=''}$('#closeModal').onclick=hide;modal.onclick=e=>{if(e.target===modal)hide()};document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});
 const comparisonRows=[
   ['Design planning','planning'],
@@ -200,30 +228,57 @@ const comparisonRows=[
   ['Balloon décor','balloons'],
   ['Included extras','extras'],
 ];
+const standardPackages=packages.filter(p=>p.name!=='Personalized');
+const mobilePackages=$('#packageMobileCards');
+mobilePackages.innerHTML=standardPackages.map(p=>`
+  <article class="package-mobile-card">
+    <img src="assets/${p.image}.webp" alt="${photoAlt[p.image]}" loading="lazy">
+    <div class="package-mobile-body">
+      <div class="package-mobile-heading"><h3>${p.name}</h3><strong>Starting at $${p.price.toLocaleString()}</strong></div>
+      <p>${p.overview}</p>
+      <details>
+        <summary>View ${p.name} package details</summary>
+        ${comparisonRows.filter(([,key])=>p[key]?.length).map(([label,key])=>`
+          <h4>${label}</h4><ul>${p[key].map(item=>`<li>${item}</li>`).join('')}</ul>
+        `).join('')}
+        <button class="btn btn-gold" type="button" data-mobile-quote="${p.name}">Request a ${p.name} quote</button>
+      </details>
+    </div>
+  </article>
+`).join('')+'<p class="package-mobile-note"><strong>Want to add something extra? You can select optional add-ons when you request a quote.</strong></p>';
+mobilePackages.addEventListener('click',event=>{
+  const button=event.target.closest('[data-mobile-quote]');
+  if(button)openQuote(button.dataset.mobileQuote);
+});
 const comparison=$('#packageComparison');
 comparison.innerHTML=`
-  <thead><tr><th scope="col">Package</th>${packages.map(p=>`<th scope="col">
+  <thead><tr><th scope="col">Package</th>${standardPackages.map(p=>`<th scope="col">
     <img src="assets/${p.image}.webp" alt="${photoAlt[p.image]}" loading="lazy">
     <h3>${p.name}</h3><span class="price"><small>Starting at</small><strong>$${p.price.toLocaleString()}</strong></span>
     <p class="package-overview">${p.overview}</p>
   </th>`).join('')}</tr></thead>
   <tbody>
-    <tr><th scope="row">Inquiries</th>${packages.map(p=>`<td><button class="btn btn-blue" type="button" data-inquire-package="${p.name}" aria-controls="packageComparisonDetails" aria-expanded="false">Inquire about ${p.name} →</button></td>`).join('')}</tr>
+    <tr><th scope="row">Package details</th>${standardPackages.map(p=>`<td><button class="btn btn-blue" type="button" data-inquire-package="${p.name}" aria-controls="packageComparisonDetails" aria-expanded="false">View ${p.name} package details</button></td>`).join('')}</tr>
   </tbody>
   <tbody id="packageComparisonDetails" hidden>
-    ${comparisonRows.map(([label,key])=>`<tr><th scope="row">${label}</th>${packages.map(p=>`<td>${p[key]?'<ul>'+p[key].map(item=>`<li>${item}</li>`).join('')+'</ul>':'—'}</td>`).join('')}</tr>`).join('')}
-    <tr><th scope="row">Setup and pickup</th>${packages.map(p=>`<td>${p.pickup}</td>`).join('')}</tr>
-    <tr><th scope="row">Popular add-ons (additional cost)</th>${packages.map(p=>`<td>${p.popularAddOns?'<ul>'+p.popularAddOns.map(item=>`<li>${item}</li>`).join('')+'</ul>':''}</td>`).join('')}</tr>
+    ${comparisonRows.map(([label,key])=>`<tr><th scope="row">${label}</th>${standardPackages.map(p=>`<td>${p[key]?'<ul>'+p[key].map(item=>`<li>${item}</li>`).join('')+'</ul>':'—'}</td>`).join('')}</tr>`).join('')}
   </tbody>
+  <tbody id="packageQuoteRow" hidden><tr><td class="package-quote-cell" colspan="${standardPackages.length+1}"><div class="package-quote-actions"><button class="btn btn-gold" type="button" id="selectedPackageQuote"></button></div></td></tr></tbody>
+  <tfoot><tr><td colspan="${standardPackages.length+1}"><p>Want to add something extra? You can select optional add-ons when you request a quote.</p></td></tr></tfoot>
 `;
 const comparisonDetails=$('#packageComparisonDetails');
-const continuePackageInquiry=$('#continuePackageInquiry');
+const packageQuoteRow=$('#packageQuoteRow');
+const selectedPackageQuote=$('#selectedPackageQuote');
+selectedPackageQuote.addEventListener('click',()=>openQuote(selectedPackageQuote.dataset.package));
 comparison.addEventListener('click',event=>{
   const button=event.target.closest('[data-inquire-package]');
   if(!button)return;
-  const selectedPackage=button.dataset.inquirePackage;
   const column=button.closest('td').cellIndex;
   comparisonDetails.hidden=false;
+  const packageName=button.dataset.inquirePackage;
+  selectedPackageQuote.dataset.package=packageName;
+  selectedPackageQuote.textContent='Request a '+packageName+' quote';
+  packageQuoteRow.hidden=false;
   for(const row of comparison.rows){
     row.querySelector('.is-selected')?.classList.remove('is-selected');
     row.cells[column].classList.add('is-selected');
@@ -231,12 +286,7 @@ comparison.addEventListener('click',event=>{
   for(const trigger of comparison.querySelectorAll('[data-inquire-package]')){
     trigger.setAttribute('aria-expanded',String(trigger===button));
   }
-  continuePackageInquiry.dataset.package=selectedPackage;
-  continuePackageInquiry.textContent='Continue with '+selectedPackage+' →';
-  continuePackageInquiry.hidden=false;
 });
-continuePackageInquiry.addEventListener('click',()=>openQuote(continuePackageInquiry.dataset.package));
-$('#customStylingQuote').addEventListener('click',()=>openQuote('Custom Plus'));
 const inquiryAddOns=[
   ...addons.flatMap(([name])=>{
     if(name==='Photography')return [];
@@ -246,72 +296,366 @@ const inquiryAddOns=[
   'Balloon garland or installation',
   'Backdrop or arch rental',
   'LED marquee letters or numbers',
-  'Artificial florals',
-  'Flower wall',
-  'Fresh-cut flowers',
+  'Florals',
+  'Flower wall (white, 8 ft × 5.5 ft)',
   'Foil balloon numbers or letters',
-  'Shimmer wall'
+  'Shimmer wall (gold, 6 ft × 4 ft)'
 ].sort((a,b)=>a.localeCompare(b,'en'));
 inquiryAddOns.push('Not sure — I’d love recommendations');
-const inquiryServices=['Custom invitation design','Photography (promo code: RIVDECOR for 10% off total cost)'];
+const inquiryServices=['Custom event stationery (invitations, menus, and more)','Photography'];
 function inquirySelect(label,name,options,required=true){return `<label>${label}${required?' *':''}<select name="${name}" ${required?'required':''}><option value="">Please choose</option>${options.map(o=>`<option>${o}</option>`).join('')}</select></label>`;}
 let inquiryPhotos=[],inquiryPhotoUrls=[];
 function clearInquiryPhotos(){inquiryPhotoUrls.forEach(url=>URL.revokeObjectURL(url));inquiryPhotoUrls=[];inquiryPhotos=[];}
 function validateInquiryPhotos(files){if(files.length>6)return 'Please choose up to 6 photos.';if(files.some(file=>!['image/jpeg','image/png','image/webp'].includes(file.type)))return 'Please choose JPG, PNG or WebP photos.';if(files.some(file=>file.size>10*1024*1024))return 'Each photo must be 10 MB or smaller.';return '';}
 function inquiryMessage(form){const f=new FormData(form);return ['RIVDECOR event inquiry',...Array.from(new Set(f.keys())).map(key=>`${key}: ${f.getAll(key).filter(String).join(', ')||'Not provided'}`),`Inspiration photos: ${inquiryPhotos.length?inquiryPhotos.map(file=>file.name).join(', ')+' (attach these photos when sending)':'None selected'}`].join('\n');}
+const personalizedPackage=packages.find(p=>p.name==='Personalized');
+const personalizedPhoto=$('#personalizedPhoto');
+personalizedPhoto.src='assets/'+personalizedPackage.image+'.webp';
+personalizedPhoto.alt=photoAlt[personalizedPackage.image];
+const occasionQuestions={
+  "Birthday party": [
+    [
+      "Birthday name or age for signage",
+      "For example, Maya’s 30th. Share only what you’d like displayed."
+    ],
+    [
+      "Birthday décor focus",
+      "For example, a cake table, photo backdrop, or welcome display."
+    ]
+  ],
+  "Graduation": [
+    [
+      "Graduate details for signage",
+      "For example, the graduate’s name, school, or class year."
+    ],
+    [
+      "Graduation display requests",
+      "For example, a photo display, diploma table, or custom banner."
+    ]
+  ],
+  "Baby shower": [
+    [
+      "Which areas would you like decorated?",
+      ["Photo backdrop", "Welcome sign", "Table styling and centerpieces", "Multiple areas", "Other"]
+    ]
+  ],
+  "Hotel room décor": [
+    [
+      "Hotel room occasion",
+      "For example, a birthday, anniversary, or surprise."
+    ],
+    [
+      "Room access plan",
+      "If known, tell us who can let us into the room for setup."
+    ]
+  ],
+  "Dinner party / table setup": [
+    [
+      "Table count and shape",
+      "For example, one long table for 12 or two round tables."
+    ],
+    [
+      "Table styling requests",
+      "For example, centerpieces, place settings, menus, or candles."
+    ]
+  ],
+  "Intimate wedding reception (fewer than 50 guests)": [
+    [
+      "Reception areas to style",
+      "For example, the sweetheart table, guest tables, welcome area, or photo backdrop."
+    ],
+    [
+      "Names or wording for wedding signage",
+      "Share names, initials, or a message if you’d like signage."
+    ]
+  ],
+  "Other": [
+    [
+      "Areas or displays to decorate",
+      "For example, the entrance, a stage, tables, or a photo area."
+    ]
+  ]
+};
+const proposalDecorOptions=[
+  '“Will you marry me?” LED sign',
+  '“Will you marry me?” marquee letters',
+  'Heart-shaped backdrop stand',
+  'Roses or rose arrangements',
+  'Candles or flameless candles',
+  'Rose-petal aisle',
+  'Personalized photo display',
+  'I’d love help choosing décor',
+];
+const personalizedStyleOptions=['Backdrop and balloons','Welcome display','Table décor','I’d love recommendations'];
 function openQuote(pkg=''){
 show(`<h3 id="modalTitle">Tell us about your event</h3><p>Share the details once so we can prepare a thoughtful quote. Fields marked * are required; estimates are welcome.</p><form class="quote-form" id="quoteForm">
 <fieldset><legend>Your contact details</legend><div class="form-fields">
 <label>Full name *<input name="Full name" autocomplete="name" required maxlength="150"></label>
-<label>Phone number *<input type="tel" name="Phone number" autocomplete="tel" required maxlength="40"></label>
 <label>Email address *<input type="email" name="Email address" autocomplete="email" required maxlength="254"></label>
+<label>Phone number *<input type="tel" name="Phone number" autocomplete="tel" required maxlength="40"></label>
 ${inquirySelect('Preferred contact method','Preferred contact method',['Text','Phone call','Email','No preference'])}
-${inquirySelect('How did you hear about us? (optional)','How did you hear about us?',['Google search','Instagram','Facebook','TikTok','Thumbtack','Repeat customer','Other'],false)}
-<label id="referralDetails" hidden>Who can we thank for this referral?<input type="text" name="Referral name" maxlength="150" disabled></label>
 </div></fieldset>
-<fieldset><legend>Your celebration</legend><div class="form-fields">
-<label>Event date *<input type="date" name="Event date" required></label>
+<fieldset><legend>Your event</legend><div class="form-fields">
 ${inquirySelect('Event type','Event type',['Birthday party','Engagement','Graduation','Baby shower','Hotel room décor','Dinner party / table setup','Intimate wedding reception (fewer than 50 guests)','Other'])}
+<fieldset class="form-wide" id="engagementDetails" hidden disabled>
+<legend>Engagement details</legend>
+<div class="form-fields">
+${inquirySelect('What are you planning?','Engagement type',['Proposal setup','Engagement party','Both (proposal setup and engagement party)','Not sure yet'])}
+<label>Where should we set up? (optional)<input name="Engagement setup location" maxlength="200" placeholder="For example, a rooftop terrace or dinner table"></label>
+<label class="form-wide" id="engagementPartyFocus" hidden>What would you like us to style for the engagement party? (optional)<input name="Engagement party décor focus" maxlength="240" placeholder="For example, a welcome display, backdrop, or dessert table" disabled></label>
+<div class="form-wide form-fields" id="proposalDetails" hidden>
+<p class="form-wide note">Share what you have in mind, even if it’s just a few ideas. We can help you plan the décor, time the setup, and keep the surprise under wraps.</p>
+<label>Setup ready by (optional)<input type="time" name="Proposal setup ready by" disabled></label>
+<label>Is it a surprise?<select name="Surprise proposal" disabled><option value="">Please choose</option><option>Yes</option><option>No</option><option>Not sure yet</option></select></label>
+<fieldset class="form-wide">
+<legend>Proposal décor (optional)</legend>
+<p class="note">Select anything you’d like us to include in your quote.</p>
+<div class="choices">${proposalDecorOptions.map(item=>`<label class="choice"><input type="checkbox" name="Proposal décor" value="${item}" disabled><span>${item}</span></label>`).join('')}</div>
+</fieldset>
+</div>
+</div>
+</fieldset>
 <label class="form-wide">If other, tell us the event type<input name="Other event type" maxlength="200"></label>
+${Object.entries(occasionQuestions).map(([type,questions])=>`<fieldset class="form-wide" data-occasion="${type}" hidden disabled>
+<legend>${type==='Other'?'Décor details':type+' details'}</legend>
+<div class="form-fields">${questions.map(([label,answer])=>Array.isArray(answer)
+  ? inquirySelect(label+' (optional)',label,answer,false)
+  : `<label>${label} (optional)<input name="${label}" maxlength="240" placeholder="${answer}"></label>`).join('')}
+${type==='Baby shower'?'<label id="babyShowerOtherArea" hidden>What else would you like decorated?<input name="Other baby shower area" maxlength="240" disabled></label>':''}
+</div>
+</fieldset>`).join('')}
+<p class="form-wide note" id="hotelRoomPrice" hidden><strong>Hotel room décor starts at $125.</strong></p>
+<label>Event date *<input type="date" name="Event date" required></label>
+<label id="hotelRoomReady" hidden>Room ready by (optional)<input type="time" name="Room ready by" disabled></label>
+<label>Event start time *<input type="time" name="Event start time" required></label>
+<label>Event end time *<input type="time" name="Event end time" required></label>
+<p class="form-wide" data-full-event><strong>Please note décor setup requires a minimum of 2 hours prior to the start of the event and a minimum of one hour for breakdown.</strong></p>
 ${inquirySelect('Estimated guest count','Guest count',['0–24','25–49','50–100','101+','Not sure yet'])}
 ${inquirySelect('Venue type','Venue type',['Private residence / home / backyard','Event venue / banquet hall','Park / outdoor public space','Boat / yacht','Hotel room','Other','Not sure yet'])}
-<label class="form-wide">Venue name and event address, including city and ZIP code *<input name="Venue and address" required maxlength="500" placeholder="If not booked, share the planned city and ZIP code"></label>
+<label><span id="venueNameLabel">Venue name</span><input id="venueName" name="Venue name" maxlength="150" placeholder="If known"></label>
+<label>Event street address<input name="Event street address" maxlength="200" placeholder="If known"></label>
+<label>Event city *<input name="Event city" required maxlength="100" placeholder="Planned city"></label>
+<label>Event ZIP code (if known)<input name="Event ZIP code" inputmode="numeric" maxlength="10" placeholder="Planned ZIP code"></label>
 ${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indoors and outdoors','Not sure yet'])}
-</div><p class="note">Outdoor installations depend on weather, venue restrictions and setup requirements.</p></fieldset>
-<fieldset><legend>Your design and budget</legend><div class="form-fields">
-<label class="form-wide">Theme and preferred color palette *<textarea name="Theme and colors" required maxlength="2000" placeholder="Theme, colors, occasion or honoree — or ask us for recommendations"></textarea></label>
-${inquirySelect('Décor budget','Décor budget',['Signage only','$280–$349','$350–$549','$550–$849','$850–$1,249','$1,250+','Not sure — help me choose'])}
+</div><p class="note" data-full-event>Outdoor installations depend on weather, venue restrictions and setup requirements.</p></fieldset>
+<fieldset id="quotePackageSection"><legend>Your package and budget</legend>
 <label>Preferred package<select name="Preferred package"><option value="">Not sure yet</option>${packages.map(p=>`<option ${p.name===pkg?'selected':''}>${p.name}</option>`).join('')}</select></label>
-<div class="form-wide"><label for="inspirationPhotos">Upload inspiration photos (optional)</label><input id="inspirationPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photoHelp photoStatus"><p class="field-help" id="photoHelp">Choose up to 6 JPG, PNG or WebP photos, up to 10 MB each. Preview your choices below. Photos stay on your device until you share or attach them when sending your inquiry.</p><p id="photoStatus" class="review-status" role="status"></p><div id="photoPreviews" class="photo-previews"></div></div>
-</div><p class="note">Package prices start at $280. Transportation and optional add-ons are quoted separately; your budget selection is not a final quote.</p>
+<fieldset class="included-package" id="includedPackage" hidden>
+<legend id="includedPackageTitle"></legend>
+<div class="included-package-layout">
+  <div><p class="note">Your starting price includes these items.</p>
+  <div class="choices" id="includedPackageItems"></div></div>
+  <figure class="included-package-sample">
+    <img class="included-package-photo" id="includedPackagePhoto" alt="">
+    <figcaption id="includedPackagePrice"></figcaption>
+  </figure>
+</div>
+<input type="hidden" id="includedPackageSummary" disabled>
+</fieldset>
+<fieldset id="personalizedBuilder" hidden disabled>
+<legend>What would you like us to style?</legend>
+<p class="note">Select any that fit your event.</p>
+<div class="choices">${personalizedStyleOptions.map(item=>`<label class="choice"><input type="checkbox" name="Personalized styling" value="${item}"><span>${item}</span></label>`).join('')}</div>
+</fieldset>
+${inquirySelect('Décor budget','Décor budget',['Signage only','$280–$349','$350–$549','$550–$849','$850–$1,249','$1,250+','Not sure — help me choose'])}
+<p class="note">Transportation and optional add-ons are quoted separately. Your budget selection is an estimate.</p>
+</fieldset>
+<details class="inquiry-extras" id="inquiryExtras" open>
+<summary id="inquiryExtrasToggle">See optional extras</summary>
+<fieldset id="quoteExtrasSection"><legend>Optional add-ons and services</legend>
 <fieldset><legend>Popular add-ons</legend>
-<p class="note">Select any extras you’d like included in your quote.</p>
-<div class="choices">${inquiryAddOns.map(name=>`<label class="choice"><input type="checkbox" name="Popular add-ons" value="${name.replaceAll('&','&amp;')}"${name==='Foil balloon numbers or letters'?' id="foilBalloonChoice" aria-controls="foilBalloonDetails"':''}><span>${name}</span></label>${name==='Foil balloon numbers or letters'?'<label id="foilBalloonDetails" hidden>Which numbers or letters?<input type="text" name="Requested foil balloon numbers or letters" maxlength="120" placeholder="For example, 30 or LOVE" disabled></label>':''}`).join('')}</div>
+<p class="note">Highlighted items are already included in your preferred package. Select them only if you’d like more.</p>
+<div class="choices">${inquiryAddOns.map(name=>`<label class="choice"><input type="checkbox" name="Popular add-ons" value="${name.replaceAll('&','&amp;')}"${name==='Foil balloon numbers or letters'?' id="foilBalloonChoice" aria-controls="foilBalloonDetails"':name==='Additional balloon garland'?' id="additionalGarlandChoice" aria-controls="additionalGarlandDetails"':name==='Florals'?' id="floralsChoice" aria-controls="floralsDetails"':name==='LED marquee letters or numbers'?' id="marqueeChoice" aria-controls="marqueeDetails"':name==='Set of 3 cylinder stands'?' id="cylinderStandChoice" aria-controls="cylinderStandDetails"':name.startsWith('Shimmer wall')?' id="shimmerWallChoice" aria-controls="shimmerWallDetails"':''}><span><span class="add-on-name">${name}</span> <small class="included-add-on-badge" hidden></small></span></label>${name==='Foil balloon numbers or letters'?'<label id="foilBalloonDetails" hidden>Which numbers or letters?<input type="text" name="Requested foil balloon numbers or letters" maxlength="120" placeholder="For example, 30 or LOVE" disabled></label>':name==='Additional balloon garland'?'<label id="additionalGarlandDetails" hidden>Additional garland length<select name="Additional garland length" disabled><option value="">Choose a length</option><option>6 ft</option><option>7 ft</option><option>10 ft</option></select></label>':name==='Florals'?'<label id="floralsDetails" hidden>Floral type<select name="Floral type" disabled><option value="">Choose a floral type</option><option>Faux</option><option>Authentic</option></select></label>':name==='LED marquee letters or numbers'?'<label id="marqueeDetails" hidden>Which LED marquee letters or numbers?<input type="text" name="Requested LED marquee letters or numbers" maxlength="120" placeholder="For example, 30 or LOVE" disabled></label>':name==='Set of 3 cylinder stands'?'<label id="cylinderStandDetails" hidden>Preferred cylinder stand color (optional)<input type="text" name="Preferred cylinder stand color" maxlength="120" disabled></label>':name.startsWith('Shimmer wall')?'<label id="shimmerWallDetails" hidden>Preferred shimmer wall color (optional)<input type="text" name="Preferred shimmer wall color" maxlength="120" placeholder="Gold or another color" disabled></label>':''}`).join('')}</div>
 <label class="unlisted-add-on">Item not listed (optional)<textarea name="Item not listed" maxlength="500" placeholder="Tell us what you’re looking for"></textarea></label>
 </fieldset>
 <fieldset><legend>Services of interest</legend>
 <p class="note">Select all that apply. Availability will be confirmed with your quote.</p>
-<div class="choices">${inquiryServices.map(name=>`<label class="choice"><input type="checkbox" name="Services of interest" value="${name}"><span>${name}</span></label>`).join('')}</div>
+<div class="choices">${inquiryServices.map(name=>`<label class="choice"><input type="checkbox" name="Services of interest" value="${name}"${name==='Photography'?' aria-describedby="photographyOffer"':''}><span>${name}${name==='Photography'?'<small class="field-help" id="photographyOffer"><strong>Photography partner offer</strong><br>Book at least 2 hours with our photography partner and get 1 additional hour free with a referral code.</small>':''}</span></label>`).join('')}</div>
 </fieldset>
 </fieldset>
-<fieldset><legend>Timing and logistics</legend><div class="form-fields">
-<label>Event start time *<input type="time" name="Event start time" required></label>
-<label>Event end time *<input type="time" name="Event end time" required></label>
-<p class="form-wide"><strong>Please note décor setup requires a minimum of 2 hours prior to the start of the event and a minimum of one hour for breakdown.</strong></p>
-<label class="form-wide">Access details or venue restrictions<textarea name="Access and restrictions" maxlength="2000" placeholder="Parking, stairs or elevator, loading area, venue rules, and outdoor backup plan"></textarea></label>
+</details>
+<fieldset><legend>Your vision</legend><div class="form-fields">
+<label class="form-wide"><span id="visionPrompt">Theme and preferred color palette *</span><textarea name="Theme and colors" required maxlength="2000" placeholder="Share your theme, colors, or must-haves"></textarea></label>
+<div class="form-wide"><label for="inspirationPhotos">Upload inspiration photos (optional)</label><input id="inspirationPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photoHelp photoStatus"><p class="field-help" id="photoHelp">Choose up to 6 JPG, PNG or WebP photos, up to 10 MB each. Preview your choices below. Photos stay on your device until you share or attach them when sending your inquiry.</p><p id="photoStatus" class="review-status" role="status"></p><div id="photoPreviews" class="photo-previews"></div></div>
 <label class="form-wide">Anything else we should know?<textarea name="Additional details" maxlength="3000" placeholder="Personalization wording, special rental requests, priorities or questions"></textarea></label>
+</div></fieldset>
+<fieldset><legend>Final details</legend><div class="form-fields final-details-fields">
+${inquirySelect('How did you hear about us? (optional)','How did you hear about us?',['Google search','Instagram','Facebook','TikTok','Thumbtack','Repeat customer','Referral','Other'],false)}
+<label id="referralDetails" hidden>Who can we thank for this referral?<input type="text" name="Referral name" maxlength="150" disabled></label>
+<label id="otherSourceDetails" hidden>Tell us how you heard about us (optional)<input type="text" name="Other referral source" maxlength="150" disabled></label>
 </div></fieldset>
 <p class="note">Submitting an inquiry does not confirm availability or reserve your date. Your booking is secured after availability is confirmed and the required nonrefundable retainer is received.</p>
 <button type="submit" class="btn btn-gold">Review my inquiry →</button><p class="note">Review your answers, then copy them or open a text message to send. Nothing is sent automatically.</p>
 </form><div id="inquiryReview" hidden><h4>Review your event details</h4><p>Check your answers before sending. Your text app may have message-length limits; you can also copy the full inquiry.</p><pre class="inquiry-review" id="inquirySummary"></pre><div class="review-actions"><button class="btn btn-outline" id="editInquiry">Edit details</button><button class="btn btn-outline" id="copyInquiry">Copy inquiry</button><button class="btn btn-gold" id="shareInquiry" hidden>Share inquiry &amp; photos →</button><a class="btn btn-gold" id="sendInquiry">Open text message →</a></div><p class="review-status" id="inquiryStatus" role="status"></p><p class="note">Text-message links cannot attach photos automatically. Use “Share inquiry &amp; photos” when available, or attach your chosen photos in your messaging app. Send to RIVDECOR at +1 (786) 791-1833. Nothing is sent automatically, and an inquiry does not confirm your booking.</p></div>`);
 const form=$('#quoteForm'),review=$('#inquiryReview');
+const preferredPackage=form.elements.namedItem('Preferred package');
+const eventType=form.elements.namedItem('Event type');
+const engagementType=form.elements.namedItem('Engagement type');
+const engagementDetails=$('#engagementDetails');
+const engagementPartyFocus=$('#engagementPartyFocus');
+const occasionFields=form.querySelectorAll('[data-occasion]');
+const babyShowerArea=form.elements.namedItem('Which areas would you like decorated?');
+const babyShowerOtherArea=$('#babyShowerOtherArea');
+const babyShowerOtherText=babyShowerOtherArea.querySelector('input');
+babyShowerArea.addEventListener('change',()=>{
+  const showOther=babyShowerArea.value==='Other';
+  babyShowerOtherArea.hidden=!showOther;
+  babyShowerOtherText.disabled=!showOther;
+});
+const proposalDetails=$('#proposalDetails');
+const fullEventFields=['Other event type','Event start time','Event end time','Guest count','Venue type','Event setting']
+  .map(name=>form.elements.namedItem(name));
+const fullEventNotes=form.querySelectorAll('[data-full-event]');
+const hotelRoomPrice=$('#hotelRoomPrice');
+const venueNameLabel=$('#venueNameLabel');
+const venueName=$('#venueName');
+const hotelRoomReady=$('#hotelRoomReady');
+const hotelRoomReadyTime=hotelRoomReady.querySelector('input');
+const quotePackageSection=$('#quotePackageSection');
+const quoteExtrasSection=$('#quoteExtrasSection');
+const packageAddOnLabels=[...form.querySelectorAll('input[name="Popular add-ons"]')].map(input=>({
+  input,
+  name:input.value,
+  label:input.closest('label'),
+  badge:input.closest('label').querySelector('.included-add-on-badge'),
+}));
+const includedAddOnsByPackage={
+  Basic:{'Balloon garland or installation':'Included'},
+  Signature:{'Balloon garland or installation':'Included','Backdrop or arch rental':'Included','Set of 3 cylinder stands':'1 stand included'},
+  Statement:{'Balloon garland or installation':'Included','Backdrop or arch rental':'Included','Welcome arch':'Included option','Florals':'Faux included'},
+};
+const personalizedBuilder=$('#personalizedBuilder');
+const inquiryExtras=$('#inquiryExtras');
+const inquiryExtrasToggle=$('#inquiryExtrasToggle');
+const visionPrompt=$('#visionPrompt');
+const visionDetails=form.elements.namedItem('Theme and colors');
+inquiryExtras.addEventListener('invalid',()=>{inquiryExtras.open=true;},true);
+const includedPackage=$('#includedPackage');
+const includedPackageTitle=$('#includedPackageTitle');
+const includedPackageItems=$('#includedPackageItems');
+const includedPackagePhoto=$('#includedPackagePhoto');
+const includedPackagePrice=$('#includedPackagePrice');
+const includedPackageSummary=$('#includedPackageSummary');
+function updateIncludedPackage(){
+  const addOns=includedAddOnsByPackage[preferredPackage.value]||{};
+  for(const {input,name,label,badge} of packageAddOnLabels){
+    const status=addOns[name];
+    if(name==='Set of 3 cylinder stands'){
+      const displayName=preferredPackage.value==='Signature'?'Add 2 stands for a set of 3':name;
+      label.querySelector('.add-on-name').textContent=displayName;
+      input.value=displayName;
+    }
+    label.classList.toggle('is-included',Boolean(status));
+    badge.hidden=!status;
+    badge.textContent=status||'';
+  }
+  const isHotel=eventType.value==='Hotel room décor';
+  const isEngagement=eventType.value==='Engagement';
+  const isProposal=isEngagement && engagementType.value==='Proposal setup';
+  const includesProposal=isProposal||(isEngagement && engagementType.value==='Both (proposal setup and engagement party)');
+  const isShortInquiry=isHotel||isProposal;
+  engagementDetails.hidden=!isEngagement;
+  engagementDetails.disabled=!isEngagement;
+  const includesEngagementParty=isEngagement && (engagementType.value==='Engagement party'||(includesProposal&&!isProposal));
+  engagementPartyFocus.hidden=!includesEngagementParty;
+  engagementPartyFocus.querySelector('input').disabled=!includesEngagementParty;
+  for(const fields of occasionFields){
+    const isSelected=fields.dataset.occasion===eventType.value;
+    fields.hidden=!isSelected;
+    fields.disabled=!isSelected;
+  }
+  proposalDetails.hidden=!includesProposal;
+  for(const field of proposalDetails.querySelectorAll('input, select'))field.disabled=!includesProposal;
+  const isPersonalized=preferredPackage.value===personalizedPackage.name;
+  for(const field of fullEventFields){
+    const hideField=field.name==='Other event type' ? eventType.value!=='Other' : isShortInquiry;
+    field.closest('label').hidden=hideField;
+    field.disabled=hideField;
+  }
+  for(const note of fullEventNotes)note.hidden=isShortInquiry;
+  hotelRoomPrice.hidden=!isHotel;
+  venueNameLabel.textContent=isHotel?'Hotel name':'Venue name';
+  venueName.name=venueNameLabel.textContent;
+  hotelRoomReady.hidden=!isHotel;
+  hotelRoomReadyTime.disabled=!isHotel;
+  quotePackageSection.hidden=isShortInquiry;
+  quotePackageSection.disabled=isShortInquiry;
+  inquiryExtras.hidden=isShortInquiry;
+  quoteExtrasSection.disabled=isShortInquiry;
+  personalizedBuilder.hidden=!isPersonalized;
+  personalizedBuilder.disabled=!isPersonalized;
+  inquiryExtras.open=!isPersonalized;
+  inquiryExtrasToggle.hidden=!isPersonalized;
+  const optionalVision=isPersonalized||isShortInquiry;
+  visionPrompt.textContent=optionalVision?'What look are you going for? (optional)':'Theme and preferred color palette *';
+  visionDetails.required=!optionalVision;
+  const selected=packages.find(p=>p.name===preferredPackage.value && p.name!=='Personalized');
+  includedPackage.hidden=!selected;
+  includedPackageSummary.disabled=!selected;
+  if(!selected)return;
+  const items=[...comparisonRows.flatMap(([,key])=>selected[key]||[]),selected.pickup].sort((a,b)=>a.localeCompare(b,'en'));
+  const title='Included in selected package: '+selected.name;
+  includedPackageTitle.textContent=title;
+  includedPackagePhoto.src='assets/'+selected.image+'.webp';
+  includedPackagePhoto.alt=photoAlt[selected.image];
+  includedPackagePrice.textContent='Starting at $'+selected.price.toLocaleString();
+  includedPackageItems.innerHTML=items.map(item=>`<label class="choice"><input type="checkbox" checked disabled><span>${item}</span></label>`).join('');
+  includedPackageSummary.name=title;
+  includedPackageSummary.value=[...includedPackageItems.querySelectorAll('span')].map(item=>item.textContent).join('; ');
+}
+preferredPackage.addEventListener('change',updateIncludedPackage);
+eventType.addEventListener('change',updateIncludedPackage);
+engagementType.addEventListener('change',updateIncludedPackage);
+updateIncludedPackage();
 const referralSource=form.elements.namedItem('How did you hear about us?');
 const referralDetails=$('#referralDetails');
 const referralName=referralDetails.querySelector('input');
+const otherSourceDetails=$('#otherSourceDetails');
+const otherSource=otherSourceDetails.querySelector('input');
 referralSource.addEventListener('change',()=>{
+  const isReferral=referralSource.value==='Referral';
   const isOther=referralSource.value==='Other';
-  referralDetails.hidden=!isOther;
-  referralName.disabled=!isOther;
+  referralDetails.hidden=!isReferral;
+  referralName.disabled=!isReferral;
+  otherSourceDetails.hidden=!isOther;
+  otherSource.disabled=!isOther;
+});
+const garlandChoice=$('#additionalGarlandChoice');
+const garlandDetails=$('#additionalGarlandDetails');
+const garlandLength=garlandDetails.querySelector('select');
+garlandChoice.addEventListener('change',()=>{
+  garlandDetails.hidden=!garlandChoice.checked;
+  garlandLength.disabled=!garlandChoice.checked;
+  garlandLength.required=garlandChoice.checked;
+});
+const floralsChoice=$('#floralsChoice');
+const floralsDetails=$('#floralsDetails');
+const floralType=floralsDetails.querySelector('select');
+floralsChoice.addEventListener('change',()=>{
+  floralsDetails.hidden=!floralsChoice.checked;
+  floralType.disabled=!floralsChoice.checked;
+  floralType.required=floralsChoice.checked;
+});
+const shimmerWallChoice=$('#shimmerWallChoice');
+const shimmerWallDetails=$('#shimmerWallDetails');
+const shimmerWallColor=shimmerWallDetails.querySelector('input');
+shimmerWallChoice.addEventListener('change',()=>{
+  shimmerWallDetails.hidden=!shimmerWallChoice.checked;
+  shimmerWallColor.disabled=!shimmerWallChoice.checked;
+});
+const cylinderStandChoice=$('#cylinderStandChoice');
+const cylinderStandDetails=$('#cylinderStandDetails');
+const cylinderStandColor=cylinderStandDetails.querySelector('input');
+cylinderStandChoice.addEventListener('change',()=>{
+  cylinderStandDetails.hidden=!cylinderStandChoice.checked;
+  cylinderStandColor.disabled=!cylinderStandChoice.checked;
+});
+const marqueeChoice=$('#marqueeChoice');
+const marqueeDetails=$('#marqueeDetails');
+const marqueeText=marqueeDetails.querySelector('input');
+marqueeChoice.addEventListener('change',()=>{
+  marqueeDetails.hidden=!marqueeChoice.checked;
+  marqueeText.disabled=!marqueeChoice.checked;
 });
 const foilChoice=$('#foilBalloonChoice'),foilDetails=$('#foilBalloonDetails');
 foilChoice.addEventListener('change',()=>{
@@ -327,7 +671,7 @@ $('#editInquiry').onclick=()=>{review.hidden=true;form.hidden=false;form.querySe
 $('#copyInquiry').onclick=async()=>{try{await navigator.clipboard.writeText($('#inquirySummary').textContent);$('#inquiryStatus').textContent='Full inquiry copied. Paste it into your message to RIVDECOR.';}catch{const selection=window.getSelection(),range=document.createRange();range.selectNodeContents($('#inquirySummary'));selection.removeAllRanges();selection.addRange(range);$('#inquiryStatus').textContent='Select and copy the highlighted inquiry using your device’s copy command.';}};
 }
 // The inquiry is reviewed locally before the client chooses to copy it or open their SMS app.
-document.querySelector("#heroQuoteButton").addEventListener("click",()=>openQuote());$('#navQuoteLink').addEventListener('click',event=>{event.preventDefault();openQuote();});window.openQuote=openQuote;$('#quoteButton').onclick=()=>openQuote();$('#menu').onclick=()=>{let expanded=$('#navlinks').classList.toggle('open');$('#menu').setAttribute('aria-expanded',expanded)};document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>{$('#navlinks').classList.remove('open');$('#menu').setAttribute('aria-expanded','false')}));$('#year').textContent=new Date().getFullYear();
+$('#navQuoteLink').addEventListener('click',event=>{event.preventDefault();openQuote();});window.openQuote=openQuote;$('#quoteButton').onclick=()=>openQuote(personalizedPackage.name);$('#menu').onclick=()=>{let expanded=$('#navlinks').classList.toggle('open');$('#menu').setAttribute('aria-expanded',expanded)};document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>{$('#navlinks').classList.remove('open');$('#menu').setAttribute('aria-expanded','false')}));$('#year').textContent=new Date().getFullYear();
 
 document.querySelectorAll('[data-work-photo]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();show('<h3 id="modalTitle">Our work</h3>');const photo=document.createElement('img');photo.src=link.getAttribute('href');photo.alt=link.querySelector('img').alt;photo.className='work-photo-full';document.querySelector('#modalBody').append(photo);}));
 const reviewCarousel=document.querySelector('#review-carousel');
@@ -367,5 +711,5 @@ window.setInterval(()=>{
   const atEnd=reviewCarousel.scrollLeft+reviewCarousel.clientWidth>=reviewCarousel.scrollWidth-2;
   if(atEnd)reviewCarousel.scrollTo({left:0,behavior:'instant'});
   else moveReviews(1);
-},9000);
+},12000);
 </script></body></html>
