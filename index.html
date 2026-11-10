@@ -419,6 +419,42 @@ const basinEndpoint='https://usebasin.com/f/5eb36457b7a6';
 const turnstileSiteKey='0x4AAAAAAF5d4wBzD6zilpc8';
 function openQuote(pkg=''){
 show(`<h3 id="modalTitle">Tell us about your event</h3><p>Share the details once so we can prepare a thoughtful quote. Fields marked * are required; estimates are welcome.</p><form class="quote-form" id="quoteForm">
+<fieldset id="quotePackageSection"><legend>Your package and budget</legend>
+<label>Preferred package<select name="Preferred package"><option value="">Not sure yet</option>${packages.map(p=>`<option ${p.name===pkg?'selected':''}>${p.name}</option>`).join('')}</select></label>
+<fieldset class="included-package" id="includedPackage" hidden>
+<legend id="includedPackageTitle"></legend>
+<div class="included-package-layout">
+  <div><p class="note">Your starting price includes these items.</p>
+  <div class="choices" id="includedPackageItems"></div></div>
+  <figure class="included-package-sample">
+    <img class="included-package-photo" id="includedPackagePhoto" alt="">
+    <figcaption id="includedPackagePrice"></figcaption>
+  </figure>
+</div>
+<input type="hidden" id="includedPackageSummary" disabled>
+</fieldset>
+<fieldset id="personalizedBuilder" hidden disabled>
+<legend>What would you like us to style?</legend>
+<p class="note">Select any that fit your event.</p>
+<div class="choices">${personalizedStyleOptions.map(item=>`<label class="choice"><input type="checkbox" name="Personalized styling" value="${item}"><span>${item}</span></label>`).join('')}</div>
+</fieldset>
+${inquirySelect('Décor budget','Décor budget',['Signage only','$280–$349','$350–$549','$550–$849','$850–$1,249','$1,250+','Not sure — help me choose'])}
+<p class="note">Transportation and optional add-ons are quoted separately. Your budget selection is an estimate.</p>
+</fieldset>
+<details class="inquiry-extras" id="inquiryExtras" open>
+<summary id="inquiryExtrasToggle">See optional extras</summary>
+<fieldset id="quoteExtrasSection"><legend>Optional add-ons and services</legend>
+<fieldset><legend>Popular add-ons</legend>
+<p class="note">Highlighted items are already included in your preferred package. Select them only if you’d like more.</p>
+<div class="choices">${inquiryAddOns.map(name=>`<label class="choice"><input type="checkbox" name="Popular add-ons" value="${name.replaceAll('&','&amp;')}"${name==='Foil balloon numbers or letters'?' id="foilBalloonChoice" aria-controls="foilBalloonDetails"':name==='Additional balloon garland'?' id="additionalGarlandChoice" aria-controls="additionalGarlandDetails"':name==='Florals'?' id="floralsChoice" aria-controls="floralsDetails"':name==='LED marquee letters or numbers'?' id="marqueeChoice" aria-controls="marqueeDetails"':name==='Set of 3 cylinder stands'?' id="cylinderStandChoice" aria-controls="cylinderStandDetails"':name.startsWith('Shimmer wall')?' id="shimmerWallChoice" aria-controls="shimmerWallDetails"':''}><span><span class="add-on-name">${name}</span> <small class="included-add-on-badge" hidden></small></span></label>${name==='Foil balloon numbers or letters'?'<label id="foilBalloonDetails" hidden>Which numbers or letters?<input type="text" name="Requested foil balloon numbers or letters" maxlength="120" placeholder="For example, 30 or LOVE" disabled></label>':name==='Additional balloon garland'?'<label id="additionalGarlandDetails" hidden>Additional garland length<select name="Additional garland length" disabled><option value="">Choose a length</option><option>6 ft</option><option>7 ft</option><option>10 ft</option></select></label>':name==='Florals'?'<label id="floralsDetails" hidden>Floral type<select name="Floral type" disabled><option value="">Choose a floral type</option><option>Faux</option><option>Authentic</option></select></label>':name==='LED marquee letters or numbers'?'<label id="marqueeDetails" hidden>Which LED marquee letters or numbers?<input type="text" name="Requested LED marquee letters or numbers" maxlength="120" placeholder="For example, 30 or LOVE" disabled></label>':name==='Set of 3 cylinder stands'?'<label id="cylinderStandDetails" hidden>Preferred cylinder stand color (optional)<input type="text" name="Preferred cylinder stand color" maxlength="120" disabled></label>':name.startsWith('Shimmer wall')?'<label id="shimmerWallDetails" hidden>Preferred shimmer wall color (optional)<input type="text" name="Preferred shimmer wall color" maxlength="120" placeholder="Gold or another color" disabled></label>':''}`).join('')}</div>
+<label class="unlisted-add-on">Item not listed (optional)<textarea name="Item not listed" maxlength="500" placeholder="Tell us what you’re looking for"></textarea></label>
+</fieldset>
+<fieldset><legend>Services of interest</legend>
+<p class="note">Select all that apply. Availability will be confirmed with your quote.</p>
+<div class="choices">${inquiryServices.map(name=>`<label class="choice"><input type="checkbox" name="Services of interest" value="${name}"${name==='Photography'?' aria-describedby="photographyOffer"':''}><span>${name}${name==='Photography'?'<small class="field-help" id="photographyOffer"><strong>Photography partner offer</strong><br>Book at least 2 hours with our photography partner and get 1 additional hour free with a referral code.</small>':''}</span></label>`).join('')}</div>
+</fieldset>
+</fieldset>
+</details>
 <fieldset><legend>Your contact details</legend><div class="form-fields">
 <label>Full name *<input name="Full name" autocomplete="name" required maxlength="150"></label>
 <label>Email address *<input type="email" name="Email address" autocomplete="email" required maxlength="254"></label>
@@ -468,42 +504,6 @@ ${inquirySelect('Venue type','Venue type',['Private residence / home / backyard'
 <label>Event ZIP code (if known)<input name="Event ZIP code" inputmode="numeric" maxlength="10" placeholder="Planned ZIP code"></label>
 ${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indoors and outdoors','Not sure yet'])}
 </div><p class="note" data-full-event>Outdoor installations depend on weather, venue restrictions and setup requirements.</p></fieldset>
-<fieldset id="quotePackageSection"><legend>Your package and budget</legend>
-<label>Preferred package<select name="Preferred package"><option value="">Not sure yet</option>${packages.map(p=>`<option ${p.name===pkg?'selected':''}>${p.name}</option>`).join('')}</select></label>
-<fieldset class="included-package" id="includedPackage" hidden>
-<legend id="includedPackageTitle"></legend>
-<div class="included-package-layout">
-  <div><p class="note">Your starting price includes these items.</p>
-  <div class="choices" id="includedPackageItems"></div></div>
-  <figure class="included-package-sample">
-    <img class="included-package-photo" id="includedPackagePhoto" alt="">
-    <figcaption id="includedPackagePrice"></figcaption>
-  </figure>
-</div>
-<input type="hidden" id="includedPackageSummary" disabled>
-</fieldset>
-<fieldset id="personalizedBuilder" hidden disabled>
-<legend>What would you like us to style?</legend>
-<p class="note">Select any that fit your event.</p>
-<div class="choices">${personalizedStyleOptions.map(item=>`<label class="choice"><input type="checkbox" name="Personalized styling" value="${item}"><span>${item}</span></label>`).join('')}</div>
-</fieldset>
-${inquirySelect('Décor budget','Décor budget',['Signage only','$280–$349','$350–$549','$550–$849','$850–$1,249','$1,250+','Not sure — help me choose'])}
-<p class="note">Transportation and optional add-ons are quoted separately. Your budget selection is an estimate.</p>
-</fieldset>
-<details class="inquiry-extras" id="inquiryExtras" open>
-<summary id="inquiryExtrasToggle">See optional extras</summary>
-<fieldset id="quoteExtrasSection"><legend>Optional add-ons and services</legend>
-<fieldset><legend>Popular add-ons</legend>
-<p class="note">Highlighted items are already included in your preferred package. Select them only if you’d like more.</p>
-<div class="choices">${inquiryAddOns.map(name=>`<label class="choice"><input type="checkbox" name="Popular add-ons" value="${name.replaceAll('&','&amp;')}"${name==='Foil balloon numbers or letters'?' id="foilBalloonChoice" aria-controls="foilBalloonDetails"':name==='Additional balloon garland'?' id="additionalGarlandChoice" aria-controls="additionalGarlandDetails"':name==='Florals'?' id="floralsChoice" aria-controls="floralsDetails"':name==='LED marquee letters or numbers'?' id="marqueeChoice" aria-controls="marqueeDetails"':name==='Set of 3 cylinder stands'?' id="cylinderStandChoice" aria-controls="cylinderStandDetails"':name.startsWith('Shimmer wall')?' id="shimmerWallChoice" aria-controls="shimmerWallDetails"':''}><span><span class="add-on-name">${name}</span> <small class="included-add-on-badge" hidden></small></span></label>${name==='Foil balloon numbers or letters'?'<label id="foilBalloonDetails" hidden>Which numbers or letters?<input type="text" name="Requested foil balloon numbers or letters" maxlength="120" placeholder="For example, 30 or LOVE" disabled></label>':name==='Additional balloon garland'?'<label id="additionalGarlandDetails" hidden>Additional garland length<select name="Additional garland length" disabled><option value="">Choose a length</option><option>6 ft</option><option>7 ft</option><option>10 ft</option></select></label>':name==='Florals'?'<label id="floralsDetails" hidden>Floral type<select name="Floral type" disabled><option value="">Choose a floral type</option><option>Faux</option><option>Authentic</option></select></label>':name==='LED marquee letters or numbers'?'<label id="marqueeDetails" hidden>Which LED marquee letters or numbers?<input type="text" name="Requested LED marquee letters or numbers" maxlength="120" placeholder="For example, 30 or LOVE" disabled></label>':name==='Set of 3 cylinder stands'?'<label id="cylinderStandDetails" hidden>Preferred cylinder stand color (optional)<input type="text" name="Preferred cylinder stand color" maxlength="120" disabled></label>':name.startsWith('Shimmer wall')?'<label id="shimmerWallDetails" hidden>Preferred shimmer wall color (optional)<input type="text" name="Preferred shimmer wall color" maxlength="120" placeholder="Gold or another color" disabled></label>':''}`).join('')}</div>
-<label class="unlisted-add-on">Item not listed (optional)<textarea name="Item not listed" maxlength="500" placeholder="Tell us what you’re looking for"></textarea></label>
-</fieldset>
-<fieldset><legend>Services of interest</legend>
-<p class="note">Select all that apply. Availability will be confirmed with your quote.</p>
-<div class="choices">${inquiryServices.map(name=>`<label class="choice"><input type="checkbox" name="Services of interest" value="${name}"${name==='Photography'?' aria-describedby="photographyOffer"':''}><span>${name}${name==='Photography'?'<small class="field-help" id="photographyOffer"><strong>Photography partner offer</strong><br>Book at least 2 hours with our photography partner and get 1 additional hour free with a referral code.</small>':''}</span></label>`).join('')}</div>
-</fieldset>
-</fieldset>
-</details>
 <fieldset><legend>Your vision</legend><div class="form-fields">
 <label class="form-wide"><span id="visionPrompt">Theme and preferred color palette *</span><textarea name="Theme and colors" required maxlength="2000" placeholder="Share your theme, colors, or must-haves"></textarea></label>
 <div class="form-wide"><label for="inspirationPhotos">Upload inspiration photos (optional)</label><input id="inspirationPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photoHelp photoStatus"><p class="field-help" id="photoHelp">Choose up to 6 JPG, PNG or WebP photos, up to 10 MB each. Preview your choices below. Photos upload with your inquiry after you review it and choose Send Inquiry.</p><p id="photoStatus" class="review-status" role="status"></p><div id="photoPreviews" class="photo-previews"></div></div>
