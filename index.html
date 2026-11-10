@@ -116,6 +116,7 @@
 .final-details-fields>label{display:flex;flex-direction:column;gap:5px}
 .quote-form .final-details-fields>label>input,.quote-form .final-details-fields>label>select{margin-top:auto;min-height:42px}
 .package-compare h3,.package-mobile-title,.personalized-offer h2{font-weight:700}
+.venue-setting-fields{display:grid;gap:14px}
 </style></head><body>
 <header class="header"><div class="shell nav"><a href="#home" class="logo" aria-label="RIVDECOR home"><img class="brand-logo" src="assets/rivdecor-wordmark.png" alt="RIVDECOR"></a><button class="menu" aria-label="Toggle navigation" aria-expanded="false" id="menu">☰</button><nav class="navlinks" id="navlinks"><a href="#home">Home</a><a href="#packages">Packages</a><a href="#reviews">Reviews</a><a href="#booking" class="btn btn-blue" id="navQuoteLink">Request a Quote →</a></nav></div></header>
 <main><section class="shell hero" id="home"><div class="hero-gallery hero-video" id="event-videos"><video poster="assets/rivdecor-montage-wide-opening.jpg" autoplay loop muted playsinline controls preload="metadata" aria-label="RivDecor event décor montage and booking message"><source src="assets/rivdecor-montage-wide-opening.mp4" type="video/mp4">Your browser does not support video playback.</video></div><div class="hero-content"><h1 class="hero-title">Good times deserve <em>a great backdrop.</em></h1><p class="hero-tagline">Custom decorations styled for special celebrations!</p><p class="hero-location">Serving Miami-Dade, Broward, and Palm Beach counties</p><div class="hero-actions"><a class="btn btn-gold" href="#packages">Explore Packages</a><a class="btn btn-outline" href="#reviews">Client Reviews</a></div></div></section>
@@ -487,12 +488,14 @@ ${type==='Baby shower'?'<label id="babyShowerOtherArea" hidden>What else would y
 <label>Event end time (Eastern Time) *<input type="text" name="Event end time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern Time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" required></label>
 <p class="form-wide" data-full-event><strong>Please note décor setup requires a minimum of 2 hours prior to the start of the event and a minimum of one hour for breakdown.</strong></p>
 ${inquirySelect('Estimated guest count','Guest count',['0–24','25–49','50–100','101+','Not sure yet'])}
+<div class="form-wide venue-setting-fields">
 ${inquirySelect('Venue type','Venue type',['Private residence / home / backyard','Event venue / banquet hall','Park / outdoor public space','Boat / yacht','Hotel room','Other','Not sure yet'])}
+${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indoors and outdoors','Not sure yet'])}
+</div>
 <label><span id="venueNameLabel">Venue name</span><input id="venueName" name="Venue name" maxlength="150" placeholder="If known"></label>
 <label>Event street address<input name="Event street address" maxlength="200" placeholder="If known"></label>
 <label>Event city *<input name="Event city" required maxlength="100" placeholder="Planned city"></label>
 <label>Event ZIP code (if known)<input name="Event ZIP code" inputmode="numeric" maxlength="10" placeholder="Planned ZIP code"></label>
-${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indoors and outdoors','Not sure yet'])}
 </div><p class="note" data-full-event>Outdoor installations depend on weather, venue restrictions and setup requirements.</p></fieldset>
 <fieldset><legend>Your vision</legend><div class="form-fields">
 <label class="form-wide"><span id="visionPrompt">Theme and preferred color palette *</span><textarea name="Theme and colors" required maxlength="2000" placeholder="Share your theme, colors, or must-haves"></textarea></label>
