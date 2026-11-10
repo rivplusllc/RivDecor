@@ -257,7 +257,7 @@ mobilePackages.innerHTML=standardPackages.map(p=>`
       <strong>Starting at $${p.price.toLocaleString()}</strong>
       <p class="package-mobile-addons">Optional add-ons available</p>
       <details>
-        <summary>View ${p.name} Package Details</summary>
+        <summary>What’s included in ${p.name}</summary>
         ${comparisonRows.filter(([,key])=>p[key]?.length).map(([label,key])=>`
           <h4>${label}</h4><ul>${p[key].map(item=>`<li>${item}</li>`).join('')}</ul>
         `).join('')}
@@ -278,7 +278,7 @@ comparison.innerHTML=`
     <span class="price"><small>Starting at</small><strong>$${p.price.toLocaleString()}</strong></span>
   </th>`).join('')}</tr></thead>
   <tbody>
-    <tr><th scope="row">Package details</th>${standardPackages.map(p=>`<td><button class="btn btn-blue" type="button" data-inquire-package="${p.name}" aria-controls="packageComparisonDetails" aria-expanded="false">View ${p.name} Package Details</button></td>`).join('')}</tr>
+    <tr><th scope="row">What’s included</th>${standardPackages.map(p=>`<td><button class="btn btn-blue" type="button" data-inquire-package="${p.name}" aria-controls="packageComparisonDetails" aria-expanded="false">What’s included in ${p.name}</button></td>`).join('')}</tr>
   </tbody>
   <tbody id="packageComparisonDetails" hidden>
     ${comparisonRows.map(([label,key])=>`<tr><th scope="row">${label}</th>${standardPackages.map(p=>`<td>${p[key]?'<ul>'+p[key].map(item=>`<li>${item}</li>`).join('')+'</ul>':'—'}</td>`).join('')}</tr>`).join('')}
