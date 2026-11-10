@@ -418,7 +418,7 @@ const personalizedStyleOptions=['Backdrop and balloons','Welcome display','Table
 const basinEndpoint='https://usebasin.com/f/5eb36457b7a6';
 const turnstileSiteKey='0x4AAAAAAF5d4wBzD6zilpc8';
 function openQuote(pkg=''){
-show(`<h3 id="modalTitle">Tell us about your event</h3><p>Share the details once so we can prepare a thoughtful quote. Fields marked * are required; estimates are welcome.</p><form class="quote-form" id="quoteForm">
+show(`<h3 id="modalTitle">Tell us about your event</h3><p>Fields marked * are required. The more details, the better!</p><form class="quote-form" id="quoteForm">
 <fieldset id="quotePackageSection"><legend>Your package and budget</legend>
 <label>Preferred package<select name="Preferred package"><option value="">Not sure yet</option>${packages.map(p=>`<option ${p.name===pkg?'selected':''}>${p.name}</option>`).join('')}</select></label>
 <fieldset class="included-package" id="includedPackage" hidden>
