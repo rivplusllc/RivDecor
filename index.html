@@ -121,9 +121,10 @@
 .package-compare thead h3{color:var(--navy)}
 .package-compare thead th.is-selected{background:#f9edcc}
 .package-mobile-body>strong{color:#906018}
-.personalized-offer{display:flex;justify-content:flex-end;min-height:310px;background:var(--paper) url("assets/personalized-event-collage-v2.webp") left center/cover no-repeat}
-.personalized-offer>div{width:min(100%,380px);padding:18px;border-radius:10px;background:var(--ivory)}
-@media(max-width:570px){.personalized-offer{display:block;padding:145px 12px 12px;text-align:center;background-position:center top}.personalized-offer>div{width:100%}}
+.personalized-offer{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:0;padding:0;overflow:hidden}
+.personalized-collage{display:block;width:100%;height:auto}
+.personalized-offer>div{padding:clamp(16px,3vw,26px)}
+@media(max-width:570px){.personalized-offer{grid-template-columns:1fr;text-align:center}}
 :root{
   --font-heading:Georgia,serif;
   --font-body:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -159,9 +160,10 @@ h1,h2,h3,.quote-form legend,.review-card blockquote{font-family:var(--font-headi
   </div>
 </div>
 <p class="center note"><strong>All three packages include preparation and rental pickup. Your final quote will reflect your selected add-ons, setup requirements, booking retainer and travel.</strong></p><section class="personalized-offer" id="booking" aria-labelledby="personalizedTitle">
+  <img class="personalized-collage" src="assets/personalized-event-collage-v2.webp" alt="Collage of RivDecor balloon displays and event setups" loading="lazy">
   <div>
     <h2 id="personalizedTitle">Personalized</h2>
-    <p><strong>Have a different setup in mind?</strong></p><p>Tell us what you have in mind. We’ll design a setup around your space, theme, and budget.</p>
+    <p><strong>Have a different setup in mind?</strong> We’ll design around your space, theme, and budget.</p>
     <button class="btn btn-gold" type="button" id="quoteButton">Request a Personalized Quote →</button>
   </div>
 </section></div></section>
