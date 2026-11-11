@@ -124,6 +124,30 @@
 .personalized-offer{display:flex;justify-content:flex-end;min-height:310px;background:var(--paper) url("assets/personalized-event-collage.webp") left center/cover no-repeat}
 .personalized-offer>div{width:min(100%,380px);padding:18px;border-radius:10px;background:var(--ivory)}
 @media(max-width:570px){.personalized-offer{display:block;padding:145px 12px 12px;text-align:center;background-position:center top}.personalized-offer>div{width:100%}}
+:root{
+  --font-heading:Georgia,serif;
+  --font-body:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --text-body:1rem;
+  --text-small:.875rem;
+  --text-heading:clamp(1.8rem,4vw,2.75rem);
+  --text-subheading:clamp(1.35rem,2.5vw,1.65rem);
+  --text-muted:#526170;
+}
+body{font-family:var(--font-body);font-size:var(--text-body);line-height:1.5}
+h1,h2,h3,.quote-form legend,.review-card blockquote{font-family:var(--font-heading)}
+.heading h2,.personalized-offer h2,.dialog h3{font-size:var(--text-heading);line-height:1.15}
+.package-compare h3,.package-mobile-title,.quote-form legend{font-size:var(--text-subheading);line-height:1.2}
+.heading h2,.personalized-offer h2,.dialog h3,.package-compare h3,.package-mobile-title{font-weight:700}
+.hero-content .hero-tagline,.hero-content .hero-location{white-space:normal;font-size:var(--text-body)}
+.hero-content .hero-location{font-size:var(--text-small)}
+.package-compare table,.package-mobile-body,.dialog p,.dialog li,.review-card blockquote{font-size:var(--text-body);line-height:1.5}
+.btn,.navlinks,.quote-form label,.review-card .review-event,.review-card figcaption,.included-package-sample figcaption,.review-status,.footer{font-size:var(--text-small)}
+.quote-form input,.quote-form select,.quote-form textarea{font-family:var(--font-body);font-size:var(--text-body);font-weight:400}
+.inquiry-review{font:var(--text-body)/1.5 var(--font-body)}
+.note{font-size:var(--text-small)!important;color:var(--text-muted)}
+.quote-form .field-help{font-size:var(--text-small);color:var(--text-muted)}
+.eyebrow,.price small{font-size:.75rem;font-weight:700}
+.review-card .review-event,.package-mobile-body>strong{color:var(--navy)}
 </style></head><body>
 <header class="header"><div class="shell nav"><a href="#home" class="logo" aria-label="RIVDECOR home"><img class="brand-logo" src="assets/rivdecor-wordmark.png" alt="RIVDECOR"></a><button class="menu" aria-label="Toggle navigation" aria-expanded="false" id="menu">☰</button><nav class="navlinks" id="navlinks"><a href="#home">Home</a><a href="#packages">Packages</a><a href="#reviews">Reviews</a><a href="#booking" class="btn btn-blue" id="navQuoteLink">Request a Quote →</a></nav></div></header>
 <main><section class="shell hero" id="home"><div class="hero-gallery hero-video" id="event-videos"><video poster="assets/rivdecor-montage-wide-opening.jpg" autoplay loop muted playsinline controls preload="metadata" aria-label="RivDecor event décor montage and booking message"><source src="assets/rivdecor-montage-wide-opening.mp4" type="video/mp4">Your browser does not support video playback.</video></div><div class="hero-content"><h1 class="hero-title">Good times deserve <em>a great backdrop.</em></h1><p class="hero-tagline">Custom decorations styled for special celebrations!</p><p class="hero-location">Serving Miami-Dade, Broward, and Palm Beach counties</p><div class="hero-actions"><a class="btn btn-gold" href="#packages">Explore Packages</a><a class="btn btn-outline" href="#reviews">Client Reviews</a></div></div></section>
