@@ -201,9 +201,6 @@ h1,h2,h3,.quote-form legend,.review-card blockquote{font-family:var(--font-headi
 @media(min-width:651px){.hero{grid-template-columns:minmax(0,1fr) minmax(0,38%);align-items:center}}
 .homepage-photos img.hero-photo-slide{width:min(100%,520px);height:clamp(240px,42vw,520px);aspect-ratio:auto;object-fit:contain;background:none}
 .personalized-photo-grid{position:relative;margin:0;overflow:hidden}
-.personalized-photo-highlight{position:absolute;top:0;left:0;width:20%;height:33.333%;border:3px solid var(--gold);box-shadow:inset 0 0 0 1px var(--paper);border-radius:6px;pointer-events:none;transition:transform .25s ease}
-.personalized-photo-pause{position:absolute;bottom:8px;right:8px;padding:5px 10px;border:1px solid var(--navy);border-radius:999px;background:var(--paper);color:var(--navy);font-size:.875rem}
-@media(prefers-reduced-motion:reduce){.personalized-photo-highlight{transition:none}}
 
 .hero#home>.hero-title{grid-column:1/-1;order:-2;width:100%;margin:0 0 18px;text-align:center;white-space:nowrap;font-size:min(4.3vw,4.75rem);line-height:1.1}
 .hero#home>.hero-title em{display:inline}
@@ -220,7 +217,7 @@ h1,h2,h3,.quote-form legend,.review-card blockquote{font-family:var(--font-headi
   </div>
 </div>
 <p class="center note"><strong>All three packages include preparation and rental pickup. Your final quote will reflect your selected add-ons, setup requirements, booking retainer and travel.</strong></p><section class="personalized-offer" id="booking" aria-labelledby="personalizedTitle">
-  <figure class="personalized-photo-grid"><img class="personalized-collage" src="assets/personalized-event-collage-v2.webp" alt="Collage of RivDecor balloon displays and event setups" loading="lazy"><span class="personalized-photo-highlight" aria-hidden="true"></span><button class="personalized-photo-pause" type="button" aria-label="Pause photo highlights" hidden>Pause</button></figure>
+  <figure class="personalized-photo-grid"><img class="personalized-collage" src="assets/personalized-event-collage-v2.webp" alt="Collage of RivDecor balloon displays and event setups" loading="lazy"></figure>
   <div>
     <h2 id="personalizedTitle">Personalized</h2>
     <p><strong>Have a different setup in mind?</strong> We’ll design around your space, theme, and budget.</p>
@@ -307,34 +304,6 @@ h1,h2,h3,.quote-form legend,.review-card blockquote{font-family:var(--font-headi
 <footer class="footer"><img class="footer-logo" src="assets/rivdecor-wordmark.png" alt="RIVDECOR">© <span id="year"></span> RIVDECOR by RIVPLUS LLC</footer>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="dialog"><button class="close" id="closeModal" aria-label="Close">×</button><div id="modalBody"></div></div></div>
 <script>
-const collageHighlight=document.querySelector('.personalized-photo-highlight');
-const collagePause=document.querySelector('.personalized-photo-pause');
-const collageMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-if(!collageMotion.matches){
-  let collageTile=0;
-  let collageTimer;
-  function playCollage(){
-    collageTimer=window.setInterval(()=>{
-      collageTile=(collageTile+1)%15;
-      collageHighlight.style.transform='translate('+(collageTile%5)*100+'%, '+Math.floor(collageTile/5)*100+'%)';
-    },2500);
-  }
-  collagePause.hidden=false;
-  collagePause.addEventListener('click',()=>{
-    if(collageTimer){
-      window.clearInterval(collageTimer);
-      collageTimer=undefined;
-      collagePause.textContent='Play';
-      collagePause.setAttribute('aria-label','Play photo highlights');
-    }else{
-      playCollage();
-      collagePause.textContent='Pause';
-      collagePause.setAttribute('aria-label','Pause photo highlights');
-    }
-  });
-  playCollage();
-}
-
 const heroPhotos=[...document.querySelectorAll('[data-hero-slide]')];
 let heroPhotoIndex=0;
 document.querySelectorAll('[data-photo-step]').forEach(button=>{
