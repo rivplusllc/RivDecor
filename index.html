@@ -464,7 +464,7 @@ const basinEndpoint='https://usebasin.com/f/5eb36457b7a6';
 const turnstileSiteKey='0x4AAAAAAF5d4wBzD6zilpc8';
 function openQuote(pkg=''){
 show(`<h3 id="modalTitle">Tell us about your event</h3><p>Fields marked * are required. The more details, the better!</p><form class="quote-form" id="quoteForm">
-<fieldset id="quotePackageSection"><legend>Your package and budget</legend>
+<div id="personalizedEventType" hidden></div><fieldset id="quotePackageSection"><legend>Your package and budget</legend>
 <label>Preferred package<select name="Preferred package"><option value="">Not sure yet</option>${packages.map(p=>`<option ${p.name===pkg?'selected':''}>${p.name}</option>`).join('')}</select></label>
 <fieldset class="included-package" id="includedPackage" hidden>
 <legend id="includedPackageTitle"></legend>
@@ -506,7 +506,7 @@ ${inquirySelect('Décor budget','Décor budget',['Signage only','$280–$349','$
 <label>Phone number *<input type="tel" name="Phone number" autocomplete="tel" required maxlength="40"></label>
 ${inquirySelect('Preferred contact method','Preferred contact method',['Text','Phone call','Email','No preference'])}
 </div></fieldset>
-<fieldset id="quoteEventSection"><legend>Your event</legend><div class="form-fields">
+<fieldset><legend>Your event</legend><div class="form-fields">
 ${inquirySelect('Event type','Event type',['Birthday party','Engagement','Graduation','Baby shower','Hotel room décor','Dinner party / table setup','Intimate wedding reception (fewer than 50 guests)','Other'])}
 <fieldset class="form-wide" id="engagementDetails" hidden disabled>
 <legend>Engagement details</legend>
@@ -600,6 +600,10 @@ const venueName=$('#venueName');
 const hotelRoomReady=$('#hotelRoomReady');
 const hotelRoomReadyTime=hotelRoomReady.querySelector('input');
 const quotePackageSection=$('#quotePackageSection');
+const personalizedEventType=form.querySelector('#personalizedEventType');
+const eventTypeLabel=eventType.closest('label');
+const eventTypePosition=document.createComment('Default event type position');
+eventTypeLabel.before(eventTypePosition);
 const quoteExtrasSection=$('#quoteExtrasSection');
 const packageAddOnLabels=[...form.querySelectorAll('input[name="Popular add-ons"]')].map(input=>({
   input,
@@ -655,8 +659,9 @@ function updateIncludedPackage(){
   proposalDetails.hidden=!includesProposal;
   for(const field of proposalDetails.querySelectorAll('input, select'))field.disabled=!includesProposal;
   const isPersonalized=preferredPackage.value===personalizedPackage.name;
-  if(isPersonalized && quotePackageSection.previousElementSibling!==quoteEventSection)quotePackageSection.before(quoteEventSection);
-  if(!isPersonalized && eventSectionPosition.nextElementSibling!==quoteEventSection)eventSectionPosition.after(quoteEventSection);
+  personalizedEventType.hidden=!isPersonalized;
+  if(isPersonalized && eventTypeLabel.parentElement!==personalizedEventType)personalizedEventType.append(eventTypeLabel);
+  if(!isPersonalized && eventTypePosition.nextElementSibling!==eventTypeLabel)eventTypePosition.after(eventTypeLabel);
   for(const field of fullEventFields){
     const hideField=field.name==='Other event type' ? eventType.value!=='Other' : isShortInquiry;
     field.closest('label').hidden=hideField;
