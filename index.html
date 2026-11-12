@@ -355,8 +355,8 @@ const comparisonRows=[
 const packageOptions=document.querySelector('.package-options');
 packageOptions.innerHTML=packages.map(p=>`
   <button class="package-option" type="button" data-package="${p.name}" ${p.name==='Personalized'?'id="booking"':''}>
-    <img src="assets/${p.image}.webp" alt="" loading="lazy">
     <strong>${p.name}</strong>
+    <img src="assets/${p.image}.webp" alt="" loading="lazy">
     <span>${p.price?'Starting at $'+p.price:'Designed around your budget'}</span>
     <span class="package-action">Request a quote →</span>
   </button>`).join('');
