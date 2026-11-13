@@ -361,7 +361,7 @@ packageOptions.innerHTML=packages.map(p=>`
   <button class="package-option" type="button" data-package="${p.name}" ${p.name==='Special request'?'id="booking"':''}>
     <strong>${p.name}</strong>
     <img src="assets/${p.image}.webp" alt="" loading="lazy">
-    <span>${p.price?'Starting at $'+p.price:'Have something different in mind? Share an inspiration photo or tell us what you&#8217;re envisioning.'}</span>
+    <span>${p.price?'Starting at $'+p.price:'<b>Have something different in mind?</b> Share an inspiration photo or tell us what you&#8217;re envisioning.'}</span>
     <span class="package-action">Request a quote →</span>
   </button>`).join('');
 packageOptions.addEventListener('click',event=>{
