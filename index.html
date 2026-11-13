@@ -256,7 +256,7 @@ h1,h2,h3,.quote-form legend,.review-card blockquote{font-family:var(--font-headi
 .compare-package-photo{display:block;width:100%;max-width:320px;aspect-ratio:4/3;object-fit:contain;border-radius:8px;background:var(--ivory)}.compare-row:has(.compare-package-photo) ul{list-style:none;padding:0}
 .package-option[data-package="Special request"]{color:#f1cd75}
 .package-option .package-action{border:2px solid var(--navy);border-radius:10px;padding:6px 12px;max-width:100%}
-.package-option[data-package="Special request"] .package-action{border-color:#f1cd75}
+.package-option[data-package="Special request"] .package-action{border:0;border-radius:999px;min-height:46px;padding:10px 16px;justify-content:center}
 #home .hero-actions .btn-outline{background:var(--ivory);color:var(--navy);border:2px solid var(--navy);box-shadow:0 2px 0 var(--navy)} #home .hero-actions .btn{border-radius:999px;min-height:46px}
 .btn.btn-navy,.package-option:not([data-package="Special request"]) .package-action{background:var(--navy);color:var(--paper);border-radius:999px}
 </style></head><body>
@@ -393,7 +393,7 @@ packageOptions.innerHTML=packages.map(p=>`
     <img src="assets/${p.image}.webp" alt="" loading="lazy">
     <span>${p.price?'<b>Starting at $'+p.price+'</b>':'<b>Have something different in mind?</b> Share an inspiration photo or tell us what you&#8217;re envisioning.'}</span>
     ${p.price?`<span class="package-summary">${packageSummaries[p.name].map((item,index)=>`<span><span aria-hidden="true">${packageSummaryIcons[index]}</span> <b>${packageSummaryLabels[index]}:</b> ${item}</span>`).join('')}</span>`:''}
-    <span class="package-action">${p.price?'View package details':'Request a quote'} →</span>
+    <span class="package-action${p.price ? "" : " btn btn-gold"}">${p.price?'View package details':'Request a quote'} →</span>
   </button>`).join('');
 packageOptions.addEventListener('click',event=>{
   const card=event.target.closest('.package-option');
