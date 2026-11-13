@@ -273,7 +273,7 @@ html{font-size:112.5%}
 #reviews .review-card figcaption{margin-top:auto;padding-top:8px;font-size:var(--text-small);line-height:1.4}
 </style></head><body>
 <header class="header"><div class="shell nav"><div class="nav-brand"><a href="#home" class="logo" aria-label="RIVDECOR home"><img class="brand-logo" src="assets/rivdecor-wordmark.png" alt="RIVDECOR"></a><span class="nav-service-area">Serving Miami-Dade, Broward, and Palm Beach counties</span></div><button class="menu" aria-label="Toggle navigation" aria-expanded="false" id="menu">☰</button><nav class="navlinks" id="navlinks"><a href="#home">Home</a><a href="#packages">Packages</a><a href="#reviews">Reviews</a><a href="#booking" class="btn btn-blue" id="navQuoteLink">Request a Quote →</a></nav></div></header>
-<main><section class="shell hero" id="home"><h1 class="hero-title">Good times deserve<br><em>a great backdrop</em></h1><div class="hero-content"><div class="hero-actions"><a class="btn btn-gold" href="#packages">Explore Packages</a><a class="btn btn-navy" href="#reviews">Client Reviews</a><a class="btn btn-navy" href="assets/rivdecor-montage-short-opening.mp4" id="workMontageLink" aria-haspopup="dialog">RivDecor Collections</a></div></div><figure class="hero-work" id="work"><img src="assets/personalized-event-collage-v2.webp" width="1349" height="795" alt="Fifteen RivDecor setups featuring balloon arches, baby shower backdrops, table styling, and room décor" fetchpriority="high"><img class="hero-work-drapery" src="assets/homepage-blue-drapery.png" alt="White draping framed by blue and white balloons and a floral arch"><img class="hero-work-prom" src="assets/homepage-prom-tile.png" alt="Emerald, black, and gold prom send-off décor"><div class="hero-work-intro" aria-hidden="true"><span>Book with</span><img src="assets/rivdecor-wordmark.png" alt=""><span>Today</span></div></figure></section>
+<main><section class="shell hero" id="home"><h1 class="hero-title">Good times deserve<br><em>a great backdrop</em></h1><div class="hero-content"><p class="hero-tagline">Balloon décor and event styling</p><div class="hero-actions"><a class="btn btn-gold" href="#packages">Explore Packages</a><a class="btn btn-navy" href="#reviews">Client Reviews</a><a class="btn btn-navy" href="assets/rivdecor-montage-short-opening.mp4" id="workMontageLink" aria-haspopup="dialog">Event montage</a></div></div><figure class="hero-work" id="work"><img src="assets/personalized-event-collage-v2.webp" width="1349" height="795" alt="Fifteen RivDecor setups featuring balloon arches, baby shower backdrops, table styling, and room décor" fetchpriority="high"><img class="hero-work-drapery" src="assets/homepage-blue-drapery.png" alt="White draping framed by blue and white balloons and a floral arch"><img class="hero-work-prom" src="assets/homepage-prom-tile.png" alt="Emerald, black, and gold prom send-off décor"><div class="hero-work-intro" aria-hidden="true"><span>Book with</span><img src="assets/rivdecor-wordmark.png" alt=""><span>Today</span></div></figure></section>
 <template id="rivdecor-homepage-montage" data-name="RIVDECOR Homepage Montage"><div class="hero-gallery hero-video homepage-montage" id="event-videos"><video poster="assets/rivdecor-montage-wide-opening.jpg" autoplay loop muted playsinline controls preload="metadata" aria-label="RivDecor event décor montage and booking message"><source src="assets/rivdecor-montage-short-opening.mp4" type="video/mp4">Your browser does not support video playback.</video></div></template>
 
 <section class="section" id="packages"><div class="shell"><div class="heading"><p class="eyebrow">Compare your options</p><h2>Balloon décor <span class="packages-title-accent">packages</span></h2><p class="packages-intro">Choose a package to request a quote. Add-ons are available for all packages.</p></div><div class="package-options" aria-label="Décor packages"></div><p class="center note"><strong>Basic, Signature, and Statement include preparation and rental pickup. Final pricing varies by event details, add-ons, and travel.</strong></p></div></section>
@@ -562,28 +562,12 @@ show(`<h3 id="modalTitle">Tell us about your event</h3><p>Fields marked * are re
 ${inquirySelect('Décor budget','Décor budget',['Signage only','$280–$349','$350–$549','$550–$849','$850–$1,249','$1,250+','Not sure — help me choose'])}
 <p class="note">Transportation and optional add-ons are quoted separately. Your budget selection is an estimate.</p>
 </fieldset>
-<details class="inquiry-extras" id="inquiryExtras" open>
-<summary id="inquiryExtrasToggle">See optional extras</summary>
-<fieldset id="quoteExtrasSection"><legend>Optional add-ons and services</legend>
-<fieldset><legend>Popular add-ons</legend>
-<p class="note">Highlighted items are already included in your preferred package. Select them only if you’d like more.</p>
-<div class="choices">${inquiryAddOns.map(name=>`<label class="choice"><input type="checkbox" name="Popular add-ons" value="${name.replaceAll('&','&amp;')}"${name==='Foil balloon numbers or letters'?' id="foilBalloonChoice" aria-controls="foilBalloonDetails"':name==='Balloon garland'?' id="additionalGarlandChoice" aria-controls="additionalGarlandDetails"':name==='Balloon column (6 ft)'?' id="balloonColumnChoice" aria-controls="balloonColumnDetails"':name==='Florals'?' id="floralsChoice" aria-controls="floralsDetails"':name==='LED marquee letters or numbers'?' id="marqueeChoice" aria-controls="marqueeDetails"':name==='Set of 3 cylinder stands'?' id="cylinderStandChoice" aria-controls="cylinderStandDetails"':name.startsWith('Shimmer wall')?' id="shimmerWallChoice" aria-controls="shimmerWallDetails"':''}><span><span class="add-on-name">${name}</span> <small class="included-add-on-badge" hidden></small></span></label>${name==='Foil balloon numbers or letters'?'<label id="foilBalloonDetails" hidden>Which numbers or letters?<input type="text" name="Requested foil balloon numbers or letters" maxlength="120" placeholder="For example, 30 or LOVE" disabled></label>':name==='Balloon garland'?'<label id="additionalGarlandDetails" hidden>Garland length<select name="Garland length" disabled><option value="">Choose a length</option><option>6 ft</option><option>7 ft</option><option>10 ft</option></select></label>':name==='Balloon column (6 ft)'?'<label id="balloonColumnDetails" hidden>Number of balloon columns<select name="Number of balloon columns" disabled><option value="">Choose a quantity</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>':name==='Florals'?'<div class="form-fields" id="floralsDetails" hidden><label>Floral type<select name="Floral type" disabled><option value="">Choose a floral type</option><option>Faux</option><option>Authentic</option></select></label><label>Flower details (optional)<input name="Flower details" maxlength="240" placeholder="Preferred colors or flower types" disabled></label></div>':name==='LED marquee letters or numbers'?'<label id="marqueeDetails" hidden>Which LED marquee letters or numbers?<input type="text" name="Requested LED marquee letters or numbers" maxlength="120" placeholder="For example, 30 or LOVE" disabled></label>':name==='Set of 3 cylinder stands'?'<label id="cylinderStandDetails" hidden>Preferred cylinder stand color (optional)<input type="text" name="Preferred cylinder stand color" maxlength="120" disabled></label>':name.startsWith('Shimmer wall')?'<label id="shimmerWallDetails" hidden>Preferred shimmer wall color (optional)<input type="text" name="Preferred shimmer wall color" maxlength="120" placeholder="Gold or another color" disabled></label>':''}`).join('')}</div>
-<label class="unlisted-add-on">Item not listed (optional)<textarea name="Item not listed" maxlength="500" placeholder="Tell us what you’re looking for"></textarea></label>
-</fieldset>
-<fieldset><legend>Services of interest</legend>
-<p class="note">Select all that apply. Availability will be confirmed with your quote.</p>
-<div class="choices">${inquiryServices.map(name=>`<label class="choice"><input type="checkbox" name="Services of interest" value="${name}"${name==='Photography'?' aria-describedby="photographyOffer"':''}><span>${name}${name==='Photography'?'<small class="field-help" id="photographyOffer"><strong>Photography partner offer</strong><br>Book at least 2 hours with our photography partner and get 1 additional hour free with a referral code.</small>':''}</span></label>`).join('')}</div>
-</fieldset>
-</fieldset>
-</details>
-<fieldset><legend>Your contact details</legend><div class="form-fields">
-<label>Full name *<input name="Full name" autocomplete="name" required maxlength="150"></label>
-<label>Email address *<input type="email" name="Email address" autocomplete="email" required maxlength="254"></label>
-<label>Phone number *<input type="tel" name="Phone number" autocomplete="tel" required maxlength="40"></label>
-${inquirySelect('Preferred contact method','Preferred contact method',['Text','Phone call','Email','No preference'])}
-</div></fieldset>
+
+
 <fieldset><legend>Your event</legend><div class="form-fields">
 ${inquirySelect('Event type','Event type',['Birthday party','Engagement','Graduation','Baby shower','Hotel room décor','Dinner party / table setup','Intimate wedding reception (fewer than 50 guests)','Other'])}
+<label>Event date *<input type="date" name="Event date" required></label>
+<label>Event city *<input name="Event city" required maxlength="100" placeholder="Planned city"></label>
 <fieldset class="form-wide" id="engagementDetails" hidden disabled>
 <legend>Engagement details</legend>
 <div class="form-fields">
@@ -612,7 +596,7 @@ ${type==='Baby shower'?'<label id="babyShowerOtherArea" hidden>What else would y
 </div>
 </fieldset>`).join('')}
 <p class="form-wide note" id="hotelRoomPrice" hidden><strong>Hotel room décor starts at $125.</strong></p>
-<label>Event date *<input type="date" name="Event date" required></label>
+
 <label id="hotelRoomReady" hidden>Room ready by (Eastern Time, optional)<input type="text" name="Room ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern Time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
 <label>Event start time (Eastern Time) *<input type="text" name="Event start time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern Time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" required></label>
 <label>Event end time (Eastern Time) *<input type="text" name="Event end time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern Time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" required></label>
@@ -624,14 +608,34 @@ ${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indo
 </div>
 <label><span id="venueNameLabel">Venue name</span><input id="venueName" name="Venue name" maxlength="150" placeholder="If known"></label>
 <label>Event street address<input name="Event street address" maxlength="200" placeholder="If known"></label>
-<label>Event city *<input name="Event city" required maxlength="100" placeholder="Planned city"></label>
+
 <label>Event ZIP code (if known)<input name="Event ZIP code" inputmode="numeric" maxlength="10" placeholder="Planned ZIP code"></label>
 </div><p class="note" data-full-event>Outdoor installations depend on weather, venue restrictions and setup requirements.</p></fieldset>
+<fieldset><legend>Your contact details</legend><div class="form-fields">
+<label>Full name *<input name="Full name" autocomplete="name" required maxlength="150"></label>
+<label>Email address *<input type="email" name="Email address" autocomplete="email" required maxlength="254"></label>
+<label>Phone number *<input type="tel" name="Phone number" autocomplete="tel" required maxlength="40"></label>
+${inquirySelect('Preferred contact method','Preferred contact method',['Text','Phone call','Email','No preference'])}
+</div></fieldset>
 <fieldset><legend>Your vision</legend><div class="form-fields">
 <label class="form-wide"><span id="visionPrompt">Theme and preferred color palette *</span><textarea name="Theme and colors" required maxlength="2000" placeholder="Share your theme, colors, or must-haves"></textarea></label>
 <div class="form-wide"><label for="inspirationPhotos">Upload inspiration photos (optional)</label><input id="inspirationPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photoHelp photoStatus"><p class="field-help" id="photoHelp">Choose up to 6 JPG, PNG or WebP photos, up to 10 MB each. Preview your choices below. Photos upload with your inquiry after you review it and choose Send Inquiry.</p><p id="photoStatus" class="review-status" role="status"></p><div id="photoPreviews" class="photo-previews"></div></div>
 <label class="form-wide">Anything else we should know?<textarea name="Additional details" maxlength="3000" placeholder="Personalization wording, special rental requests, priorities or questions"></textarea></label>
 </div></fieldset>
+<details class="inquiry-extras" id="inquiryExtras">
+<summary id="inquiryExtrasToggle">Optional add-ons and services</summary>
+<fieldset id="quoteExtrasSection"><legend>Optional add-ons and services</legend>
+<fieldset><legend>Popular add-ons</legend>
+<p class="note">Highlighted items are already included in your preferred package. Select them only if you’d like more.</p>
+<div class="choices">${inquiryAddOns.map(name=>`<label class="choice"><input type="checkbox" name="Popular add-ons" value="${name.replaceAll('&','&amp;')}"${name==='Foil balloon numbers or letters'?' id="foilBalloonChoice" aria-controls="foilBalloonDetails"':name==='Balloon garland'?' id="additionalGarlandChoice" aria-controls="additionalGarlandDetails"':name==='Balloon column (6 ft)'?' id="balloonColumnChoice" aria-controls="balloonColumnDetails"':name==='Florals'?' id="floralsChoice" aria-controls="floralsDetails"':name==='LED marquee letters or numbers'?' id="marqueeChoice" aria-controls="marqueeDetails"':name==='Set of 3 cylinder stands'?' id="cylinderStandChoice" aria-controls="cylinderStandDetails"':name.startsWith('Shimmer wall')?' id="shimmerWallChoice" aria-controls="shimmerWallDetails"':''}><span><span class="add-on-name">${name}</span> <small class="included-add-on-badge" hidden></small></span></label>${name==='Foil balloon numbers or letters'?'<label id="foilBalloonDetails" hidden>Which numbers or letters?<input type="text" name="Requested foil balloon numbers or letters" maxlength="120" placeholder="For example, 30 or LOVE" disabled></label>':name==='Balloon garland'?'<label id="additionalGarlandDetails" hidden>Garland length<select name="Garland length" disabled><option value="">Choose a length</option><option>6 ft</option><option>7 ft</option><option>10 ft</option></select></label>':name==='Balloon column (6 ft)'?'<label id="balloonColumnDetails" hidden>Number of balloon columns<select name="Number of balloon columns" disabled><option value="">Choose a quantity</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>':name==='Florals'?'<div class="form-fields" id="floralsDetails" hidden><label>Floral type<select name="Floral type" disabled><option value="">Choose a floral type</option><option>Faux</option><option>Authentic</option></select></label><label>Flower details (optional)<input name="Flower details" maxlength="240" placeholder="Preferred colors or flower types" disabled></label></div>':name==='LED marquee letters or numbers'?'<label id="marqueeDetails" hidden>Which LED marquee letters or numbers?<input type="text" name="Requested LED marquee letters or numbers" maxlength="120" placeholder="For example, 30 or LOVE" disabled></label>':name==='Set of 3 cylinder stands'?'<label id="cylinderStandDetails" hidden>Preferred cylinder stand color (optional)<input type="text" name="Preferred cylinder stand color" maxlength="120" disabled></label>':name.startsWith('Shimmer wall')?'<label id="shimmerWallDetails" hidden>Preferred shimmer wall color (optional)<input type="text" name="Preferred shimmer wall color" maxlength="120" placeholder="Gold or another color" disabled></label>':''}`).join('')}</div>
+<label class="unlisted-add-on">Item not listed (optional)<textarea name="Item not listed" maxlength="500" placeholder="Tell us what you’re looking for"></textarea></label>
+</fieldset>
+<fieldset><legend>Services of interest</legend>
+<p class="note">Select all that apply. Availability will be confirmed with your quote.</p>
+<div class="choices">${inquiryServices.map(name=>`<label class="choice"><input type="checkbox" name="Services of interest" value="${name}"${name==='Photography'?' aria-describedby="photographyOffer"':''}><span>${name}${name==='Photography'?'<small class="field-help" id="photographyOffer"><strong>Photography partner offer</strong><br>Book at least 2 hours with our photography partner and get 1 additional hour free with a referral code.</small>':''}</span></label>`).join('')}</div>
+</fieldset>
+</fieldset>
+</details>
 <fieldset><legend>Final details</legend><div class="form-fields final-details-fields">
 ${inquirySelect('How did you hear about us? (optional)','How did you hear about us?',['Google search','Instagram','Facebook','TikTok','Thumbtack','Repeat customer','Referral','Other'],false)}
 <label id="referralDetails" hidden>Who can we thank for this referral?<input type="text" name="Referral name" maxlength="150" disabled></label>
@@ -694,7 +698,6 @@ const includedAddOnsByPackage={
 };
 const personalizedBuilder=$('#personalizedBuilder');
 const inquiryExtras=$('#inquiryExtras');
-const inquiryExtrasToggle=$('#inquiryExtrasToggle');
 const visionPrompt=$('#visionPrompt');
 const visionDetails=form.elements.namedItem('Theme and colors');
 inquiryExtras.addEventListener('invalid',()=>{inquiryExtras.open=true;},true);
@@ -755,8 +758,8 @@ function updateIncludedPackage(){
   quoteExtrasSection.disabled=isShortInquiry;
   personalizedBuilder.hidden=!isPersonalized;
   personalizedBuilder.disabled=!isPersonalized;
-  inquiryExtras.open=!isPersonalized;
-  inquiryExtrasToggle.hidden=!isPersonalized;
+
+
   const optionalVision=isPersonalized||isShortInquiry;
   visionPrompt.textContent=optionalVision?'What look are you going for? (optional)':'Theme and preferred color palette *';
   visionDetails.required=!optionalVision;
@@ -989,5 +992,5 @@ window.setInterval(()=>{
   const atEnd=reviewCarousel.scrollLeft+reviewCarousel.clientWidth>=reviewCarousel.scrollWidth-2;
   if(atEnd)reviewCarousel.scrollTo({left:0,behavior:'instant'});
   else moveReviews(1);
-},12000);
+},40000);
 </script></body></html>
