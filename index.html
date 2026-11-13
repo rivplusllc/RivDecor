@@ -400,7 +400,7 @@ packageOptions.innerHTML=packages.map(p=>`
     <img src="assets/${p.image}.webp" alt="" loading="lazy">
     <span>${p.price?'<b>Starting at $'+p.price+'</b>':'<b class="special-request-question">Have something different in mind?</b>'}</span>
     ${p.price?`<span class="package-summary">${packageSummaries[p.name].map((item,index)=>`<span><span aria-hidden="true">${packageSummaryIcons[index]}</span> <b>${packageSummaryLabels[index]}:</b> ${item}</span>`).join('')}</span>`:'<span class="package-summary special-request-summary">Share an inspiration photo or tell us what you&#8217;re envisioning.</span>'}
-    <span class="package-action${p.price ? "" : " btn btn-gold"}">${p.price?p.name+' package details':'Request a quote'} →</span>
+    <span class="package-action${p.price ? "" : " btn btn-gold"}">${p.price?p.name+' package details':'Request a quote →'}</span>
   </button>`).join('');
 packageOptions.addEventListener('click',event=>{
   const card=event.target.closest('.package-option');
