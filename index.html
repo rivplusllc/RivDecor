@@ -357,8 +357,9 @@ const comparisonRows=[
   ['Balloon décor','balloons'],
   ['Included extras','extras'],
 ];
+const packageSummaryLabels=['Base','Garland','Sign'];
 const packageSummaries={
-  Basic:['4 ft easel sign', '6 ft balloon garland', 'custom 20 × 30 poster board'],
+  Basic:['4 ft easel', '6 ft balloon garland', 'custom 20 × 30 poster board'],
   Signature:['7 ft circular arch', '9 ft balloon garland', 'basic custom vinyl'],
   Statement:['10 × 10 ft backdrop', '12 ft balloon garland', 'custom 2 × 8 ft banner'],
 };
@@ -368,7 +369,7 @@ packageOptions.innerHTML=packages.map(p=>`
     <strong>${p.name}</strong>
     <img src="assets/${p.image}.webp" alt="" loading="lazy">
     <span>${p.price?'<b>Starting at $'+p.price+'</b>':'<b>Have something different in mind?</b> Share an inspiration photo or tell us what you&#8217;re envisioning.'}</span>
-    ${p.price?`<span class="package-summary">${packageSummaries[p.name].map(item=>`<span><span aria-hidden="true">&#127880;</span> ${item}</span>`).join('')}</span>`:''}
+    ${p.price?`<span class="package-summary">${packageSummaries[p.name].map((item,index)=>`<span><span aria-hidden="true">&#127880;</span> <b>${packageSummaryLabels[index]}:</b> ${item}</span>`).join('')}</span>`:''}
     <span class="package-action">${p.price?'View package details':'Request a quote'} →</span>
   </button>`).join('');
 packageOptions.addEventListener('click',event=>{
