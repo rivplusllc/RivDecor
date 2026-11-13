@@ -207,7 +207,7 @@ h1,h2,h3,.quote-form legend,.review-card blockquote{font-family:var(--font-headi
 .hero-events{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 8px;list-style:none;margin:8px 0 12px;padding:0}.hero-events li{padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--navy);font-size:.875rem}
 .package-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,2vw,24px)}
 .package-option{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--paper);color:var(--navy);font:inherit;text-align:center;cursor:pointer}
-.package-option[data-package="Build your own"]{background:var(--navy);color:var(--paper)}
+.package-option[data-package="Special request"]{background:var(--navy);color:var(--paper)}
 .package-option:hover,.package-option:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 .package-option img{width:100%;aspect-ratio:4/3;object-fit:contain;background:#f2ecdf;border-radius:8px}
 .package-option strong{font:bold italic clamp(1.1rem,2vw,1.6rem) Georgia,serif}
@@ -345,7 +345,7 @@ const packages=[
     extras:['Themed decorative accents such as balloon spikes or faux florals'],
     planning:['Personalized design planning','Digital design preview after booking'],
     pickup:'Professional setup and rental pickup included'},
-  {name:'Build your own',image:'teddy-bear-clean'},
+  {name:'Special request',image:'teddy-bear-clean'},
 ];
 photoAlt["cylinder-stands"]="Three white cylinder display stands with desserts";
 const addons=[["Foil balloon accents", "room-celebration"], ["Balloon column (6 ft)", "lavender-celebration"], ["Balloon garland", null], ["Table styling", "styled-dinner"], ["Photography", null], ["Set of 3 cylinder stands", "cylinder-stands"], ["Draping", "blue-drapery"], ["Custom sign or banner", "orange-display"]];
@@ -358,10 +358,10 @@ const comparisonRows=[
 ];
 const packageOptions=document.querySelector('.package-options');
 packageOptions.innerHTML=packages.map(p=>`
-  <button class="package-option" type="button" data-package="${p.name}" ${p.name==='Build your own'?'id="booking"':''}>
+  <button class="package-option" type="button" data-package="${p.name}" ${p.name==='Special request'?'id="booking"':''}>
     <strong>${p.name}</strong>
     <img src="assets/${p.image}.webp" alt="" loading="lazy">
-    <span>${p.price?'Starting at $'+p.price:'Have a different setup in mind? Share your inspiration for a custom design.'}</span>
+    <span>${p.price?'Starting at $'+p.price:'Have something different in mind? Share an inspiration photo or tell us what you&#8217;re envisioning.'}</span>
     <span class="package-action">Request a quote →</span>
   </button>`).join('');
 packageOptions.addEventListener('click',event=>{
@@ -396,7 +396,7 @@ function inquiryFormData(form){
   return data;
 }
 function inquiryMessage(form){const f=inquiryFormData(form);return ['RIVDECOR event inquiry',...Array.from(new Set(f.keys())).map(key=>`${key}: ${f.getAll(key).filter(String).join(', ')||'Not provided'}`),`Inspiration photos: ${inquiryPhotos.length?inquiryPhotos.map(file=>file.name).join(', '):'None selected'}`].join('\n');}
-const personalizedPackage=packages.find(p=>p.name==='Build your own');
+const personalizedPackage=packages.find(p=>p.name==='Special request');
 const occasionQuestions={
   "Graduation": [
     [
@@ -686,7 +686,7 @@ function updateIncludedPackage(){
   const optionalVision=isPersonalized||isShortInquiry;
   visionPrompt.textContent=optionalVision?'What look are you going for? (optional)':'Theme and preferred color palette *';
   visionDetails.required=!optionalVision;
-  const selected=packages.find(p=>p.name===preferredPackage.value && p.name!=='Build your own');
+  const selected=packages.find(p=>p.name===preferredPackage.value && p.name!=='Special request');
   includedPackage.hidden=!selected;
   includedPackageSummary.disabled=!selected;
   if(!selected)return;
