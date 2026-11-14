@@ -428,7 +428,7 @@ packageOptions.addEventListener('click',event=>{
     ['Request a quote',option=>[`<button class="btn btn-navy" type="button" data-compare-quote="${option.name}">Request a quote<span class="compare-quote-name"> for ${option.name}</span></button>`]],
   ];
   show(`<h3 id="modalTitle">Compare packages</h3>
-    <p><b>${pkg.name}</b> is highlighted.</p>
+    <p><b>${pkg.name}</b> is highlighted.</p><p><button class="btn btn-navy" type="button" data-compare-quote="${pkg.name}">Request a quote for ${pkg.name}</button></p>
     <div class="package-comparison">
       <div class="compare-row compare-head"><span>Package</span>${options.map(option=>`<strong class="${option===pkg?'compare-selected':''}">${option.name}</strong>`).join('')}</div>
       ${rows.map(([label,getItems])=>`<section class="compare-row" aria-label="${label}">
