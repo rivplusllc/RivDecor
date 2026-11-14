@@ -284,6 +284,18 @@ html{font-size:112.5%}
 #reviews .review-event-photo,#reviews [data-review-step],#review-autoplay{display:none}
 @media(max-width:850px){#reviews #review-carousel{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){#reviews #review-carousel{grid-template-columns:1fr;gap:16px}}
+@media(max-width:650px){
+#home .hero-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+#home .hero-actions a[href="#packages"]{grid-column:1/-1;grid-row:1}
+.package-comparison .compare-price{grid-row:2}
+.package-comparison{display:grid}
+#reviews #review-carousel:not(.expanded) .review-card:nth-child(n+4){display:none}
+#reviews .review-expand{display:inline-flex}
+}
+@media(max-width:480px){.package-options{grid-template-columns:1fr}}
+.review-expand[hidden]{display:none!important}
+@media(min-width:651px){.review-expand{display:none}}
+
 </style></head><body>
 <header class="header"><div class="service-strip"><span style="color:#f1cd75">Balloon décor and event styling</span><span class="service-strip-divider" aria-hidden="true">·</span><span>Serving Miami-Dade, Broward, and Palm Beach counties</span></div><div class="shell nav"><div class="nav-brand"><a href="#home" class="logo" aria-label="RIVDECOR home"><img class="brand-logo" src="assets/rivdecor-wordmark.png" alt="RIVDECOR"></a></div><button class="menu" aria-label="Toggle navigation" aria-expanded="false" id="menu">☰</button><nav class="navlinks" id="navlinks"><a href="#home">Home</a><a href="#packages">Packages</a><a href="#reviews">Reviews</a><a href="#booking" class="btn btn-gold" id="navQuoteLink">Request a Quote</a></nav></div></header>
 <main><section class="shell hero" id="home"><h1 class="hero-title">Good times deserve<br><em>a great backdrop</em></h1><div class="hero-content"><div class="hero-actions"><a class="btn btn-navy" href="assets/rivdecor-montage-slower-ending.mp4" id="workMontageLink" aria-haspopup="dialog">Event montage</a><a class="btn btn-gold" href="#packages">Explore Packages</a><a class="btn btn-navy" href="#reviews">Customer reviews</a></div></div><figure class="hero-work" id="work"><img src="assets/personalized-event-collage-v2.webp" width="1349" height="795" alt="Fifteen RivDecor setups featuring balloon arches, baby shower backdrops, table styling, and room décor" fetchpriority="high"><img class="hero-work-drapery" src="assets/homepage-blue-drapery.png" alt="White draping framed by blue and white balloons and a floral arch"><img class="hero-work-prom" src="assets/homepage-prom-tile.png" alt="Emerald, black, and gold prom send-off décor"><div class="hero-work-intro" aria-hidden="true"><span>Book with</span><img src="assets/rivdecor-wordmark.png" alt=""><span>Today</span></div></figure></section>
@@ -362,7 +374,7 @@ html{font-size:112.5%}
     </div>
     <div class="review-actions" aria-label="Review carousel controls">
       <button class="btn btn-outline" type="button" data-review-step="-1" aria-controls="review-carousel">‹ Previous</button>
-      <button class="btn btn-outline" type="button" id="review-autoplay" aria-controls="review-carousel">Pause</button>
+      <button class="btn btn-gold review-expand" type="button" aria-expanded="false" aria-controls="review-carousel" id="review-expand">See all reviews</button><button class="btn btn-outline" type="button" id="review-autoplay" aria-controls="review-carousel">Pause</button>
       <button class="btn btn-outline" type="button" data-review-step="1" aria-controls="review-carousel">Next ›</button>
     </div>
 </section>
@@ -440,7 +452,7 @@ packageOptions.addEventListener('click',event=>{
     <p><b>${pkg.name}</b> is highlighted.</p><p><button class="btn btn-navy" type="button" data-compare-quote="${pkg.name}">Request a quote for ${pkg.name}</button></p>
     <div class="package-comparison">
       <div class="compare-row compare-head"><span>Package</span>${options.map(option=>`<strong class="${option===pkg?'compare-selected':''}">${option.name}</strong>`).join('')}</div>
-      ${rows.map(([label,getItems])=>`<section class="compare-row" aria-label="${label}">
+      ${rows.map(([label,getItems])=>`<section class="compare-row ${label==="Starting price"?"compare-price":""}" aria-label="${label}">
         <h4>${label}</h4>
         ${options.map(option=>{
           const items=getItems(option);
@@ -553,7 +565,7 @@ const basinEndpoint='https://usebasin.com/f/5eb36457b7a6';
 const turnstileSiteKey='0x4AAAAAAF5d4wBzD6zilpc8';
 function openQuote(pkg=''){
 show(`<h3 id="modalTitle">Tell us about your event</h3><p>Fields marked * are required. The more details, the better!</p><form class="quote-form" id="quoteForm">
-<div id="personalizedEventType" hidden></div><fieldset id="quotePackageSection"><legend>Your package and budget</legend>
+<fieldset><legend>Event essentials</legend><div class="form-fields" id="personalizedEventType"></div></fieldset><fieldset id="quotePackageSection"><legend>Your package and budget</legend>
 <label>Preferred package<select name="Preferred package"><option value="">Not sure yet</option>${packages.map(p=>`<option ${p.name===pkg?'selected':''}>${p.name}</option>`).join('')}</select></label>
 <fieldset class="included-package" id="includedPackage" hidden>
 <legend id="includedPackageTitle"></legend>
@@ -695,8 +707,8 @@ const hotelRoomReadyTime=hotelRoomReady.querySelector('input');
 const quotePackageSection=$('#quotePackageSection');
 const personalizedEventType=form.querySelector('#personalizedEventType');
 const eventTypeLabel=eventType.closest('label');
-const eventTypePosition=document.createComment('Default event type position');
-eventTypeLabel.before(eventTypePosition);
+personalizedEventType.append(eventTypeLabel,form.elements.namedItem('Event date').closest('label'),form.elements.namedItem('Event city').closest('label'));
+
 const quoteExtrasSection=$('#quoteExtrasSection');
 const packageAddOnLabels=[...form.querySelectorAll('input[name="Popular add-ons"]')].map(input=>({
   input,
@@ -751,9 +763,6 @@ function updateIncludedPackage(){
   proposalDetails.hidden=!includesProposal;
   for(const field of proposalDetails.querySelectorAll('input, select'))field.disabled=!includesProposal;
   const isPersonalized=preferredPackage.value===personalizedPackage.name;
-  personalizedEventType.hidden=!isPersonalized;
-  if(isPersonalized && eventTypeLabel.parentElement!==personalizedEventType)personalizedEventType.append(eventTypeLabel);
-  if(!isPersonalized && eventTypePosition.nextElementSibling!==eventTypeLabel)eventTypePosition.after(eventTypeLabel);
   for(const field of fullEventFields){
     const hideField=field.name==='Other event type' ? eventType.value!=='Other' : isShortInquiry;
     field.closest('label').hidden=hideField;
@@ -969,6 +978,13 @@ $('#menu').onclick=()=>{let expanded=$('#navlinks').classList.toggle('open');$('
 
 document.querySelectorAll('[data-work-photo]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();show('<h3 id="modalTitle">Our work</h3>');const photo=document.createElement('img');photo.src=link.getAttribute('href');photo.alt=link.querySelector('img').alt;photo.className='work-photo-full';document.querySelector('#modalBody').append(photo);}));
 const reviewCarousel=document.querySelector('#review-carousel');
+const reviewExpand=document.querySelector('#review-expand');
+reviewExpand.addEventListener('click',()=>{
+  const expanded=reviewCarousel.classList.toggle('expanded');
+  reviewExpand.setAttribute('aria-expanded',String(expanded));
+  reviewExpand.textContent=expanded?'Show fewer reviews':'See all reviews';
+  if(!expanded)document.querySelector('#reviews-title').scrollIntoView();
+});
 const reviewCards=[...reviewCarousel.querySelectorAll('.review-card')];
 reviewCards.forEach(card=>{
   const flourish=document.createElement('span');
