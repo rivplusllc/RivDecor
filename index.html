@@ -296,6 +296,19 @@ html{font-size:112.5%}
 .review-expand[hidden]{display:none!important}
 @media(min-width:651px){.review-expand{display:none}}
 
+.phone-packages{display:none}
+@media(max-width:650px){
+.dialog .desktop-package-comparison{display:none}
+.phone-packages{display:block}
+.phone-package-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin:12px 0}
+.phone-package-tabs button{font-family:inherit;font-size:.78rem;font-weight:700;color:var(--navy);background:var(--paper);border:1px solid var(--line);border-radius:8px;min-height:44px;padding:4px}
+.phone-package-tabs button[aria-pressed=true]{background:var(--navy);color:var(--paper)}
+.phone-packages h4,.phone-packages h4+p{margin:8px 0}
+.phone-packages img{max-width:none;max-height:210px}
+.phone-packages .btn{width:100%;justify-content:center;text-align:center}
+.phone-packages details{margin-top:14px}
+.phone-packages summary{cursor:pointer;font-weight:700}
+}
 </style></head><body>
 <header class="header"><div class="service-strip"><span style="color:#f1cd75">Balloon décor and event styling</span><span class="service-strip-divider" aria-hidden="true">·</span><span>Serving Miami-Dade, Broward, and Palm Beach counties</span></div><div class="shell nav"><div class="nav-brand"><a href="#home" class="logo" aria-label="RIVDECOR home"><img class="brand-logo" src="assets/rivdecor-wordmark.png" alt="RIVDECOR"></a></div><button class="menu" aria-label="Toggle navigation" aria-expanded="false" id="menu">☰</button><nav class="navlinks" id="navlinks"><a href="#home">Home</a><a href="#packages">Packages</a><a href="#reviews">Reviews</a><a href="#booking" class="btn btn-gold" id="navQuoteLink">Request a Quote</a></nav></div></header>
 <main><section class="shell hero" id="home"><h1 class="hero-title">Good times deserve<br><em>a great backdrop</em></h1><div class="hero-content"><div class="hero-actions"><a class="btn btn-navy" href="assets/rivdecor-montage-slower-ending.mp4" id="workMontageLink" aria-haspopup="dialog">Event montage</a><a class="btn btn-gold" href="#packages">Explore Packages</a><a class="btn btn-navy" href="#reviews">Customer reviews</a></div></div><figure class="hero-work" id="work"><img src="assets/personalized-event-collage-v2.webp" width="1349" height="795" alt="Fifteen RivDecor setups featuring balloon arches, baby shower backdrops, table styling, and room décor" fetchpriority="high"><img class="hero-work-drapery" src="assets/homepage-blue-drapery.png" alt="White draping framed by blue and white balloons and a floral arch"><img class="hero-work-prom" src="assets/homepage-prom-tile.png" alt="Emerald, black, and gold prom send-off décor"><div class="hero-work-intro" aria-hidden="true"><span>Book with</span><img src="assets/rivdecor-wordmark.png" alt=""><span>Today</span></div></figure></section>
@@ -449,8 +462,18 @@ packageOptions.addEventListener('click',event=>{
     ['Request a quote',option=>[`<button class="btn btn-navy" type="button" data-compare-quote="${option.name}">Request a quote<span class="compare-quote-name"> for ${option.name}</span></button>`]],
   ];
   show(`<h3 id="modalTitle">Compare packages</h3>
-    <p><b>${pkg.name}</b> is highlighted.</p><p><button class="btn btn-navy" type="button" data-compare-quote="${pkg.name}">Request a quote for ${pkg.name}</button></p>
-    <div class="package-comparison">
+    <p class="desktop-package-comparison"><b>${pkg.name}</b> is highlighted.</p><p class="desktop-package-comparison"><button class="btn btn-navy" type="button" data-compare-quote="${pkg.name}">Request a quote for ${pkg.name}</button></p>
+    <div class="phone-packages">
+      <nav class="phone-package-tabs" aria-label="Choose a package">${options.map(option=>`<button type="button" data-phone-package="${option.name}" aria-pressed="${option===pkg}">${option.name}</button>`).join('')}</nav>
+      ${options.map(option=>`<section data-phone-panel="${option.name}" ${option===pkg?'':'hidden'}>
+        <h4>${option.name}</h4><p><b>Starting at $${option.price}</b></p>
+        <img class="compare-package-photo" src="assets/${option.image}.webp" alt="${photoAlt[option.image]}">
+        <ul>${packageSummaries[option.name].map((item,index)=>`<li><b>${packageSummaryLabels[index]}:</b> ${item}</li>`).join('')}</ul>
+        <button type="button" class="btn btn-gold" data-compare-quote="${option.name}">Request a quote for ${option.name}</button>
+        <details><summary>See all inclusions</summary><ul>${[...comparisonRows.flatMap(([,key])=>option[key]||[]),option.pickup].map(item=>`<li>${item}</li>`).join('')}</ul></details>
+      </section>`).join('')}
+    </div>
+    <div class="package-comparison desktop-package-comparison">
       <div class="compare-row compare-head"><span>Package</span>${options.map(option=>`<strong class="${option===pkg?'compare-selected':''}">${option.name}</strong>`).join('')}</div>
       ${rows.map(([label,getItems])=>`<section class="compare-row ${label==="Starting price"?"compare-price":""}" aria-label="${label}">
         <h4>${label}</h4>
@@ -463,6 +486,14 @@ packageOptions.addEventListener('click',event=>{
         }).join('')}
       </section>`).join('')}
     </div>`);
+  const phonePackages=modal.querySelector('.phone-packages');
+  phonePackages.addEventListener('click',event=>{
+    const selected=event.target.closest('[data-phone-package]');
+    if(!selected)return;
+    const name=selected.dataset.phonePackage;
+    phonePackages.querySelectorAll('[data-phone-package]').forEach(button=>button.setAttribute('aria-pressed',String(button===selected)));
+    phonePackages.querySelectorAll('[data-phone-panel]').forEach(panel=>{panel.hidden=panel.dataset.phonePanel!==name});
+  });
   modal.querySelectorAll('[data-compare-quote]').forEach(button=>{
     button.addEventListener('click',()=>openQuote(button.dataset.compareQuote));
   });
