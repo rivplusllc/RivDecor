@@ -309,7 +309,7 @@ html{font-size:112.5%}
 .phone-packages details{margin-top:14px}
 .phone-packages summary{cursor:pointer;font-weight:700}
 }
-.btn.btn-gold,.navlinks a.btn-gold:hover,.btn.btn-gold:focus-visible{color:var(--navy)}
+.btn.btn-gold{color:var(--navy)}.btn.btn-gold:is(:hover,:focus-visible),.navlinks a.btn-gold:hover,.package-option:is(:hover,:focus-visible) .btn-gold{color:var(--blue)}
 .btn.btn-navy:is(:hover,:focus-visible),.package-option:not([data-package="Special request"]):is(:hover,:focus-visible) .package-action{color:#f1cd75}
 /* Shared typography for page sections and dialogs */
 .package-option>strong,.phone-packages h4,.dialog h4{font-family:var(--font-heading);font-size:var(--text-subheading);font-weight:700;line-height:1.2}
