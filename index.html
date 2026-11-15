@@ -468,7 +468,7 @@ packageOptions.addEventListener('click',event=>{
     ['Starting price',option=>['$'+option.price]],
     ...comparisonRows.map(([label,key])=>[label,option=>option[key]||[]]),
     ['Setup and pickup',option=>[option.pickup]],
-    ['Request a quote',option=>[`<button class="btn btn-navy" type="button" data-compare-quote="${option.name}">Request a quote<span class="compare-quote-name"> for ${option.name}</span></button>`]],
+    ['Request a quote',option=>[`<button class="btn btn-navy" type="button" data-compare-quote="${option.name}">Request ${option.name} quote</button>`]],
   ];
   show(`<h3 id="modalTitle">Compare packages</h3>
     <p class="desktop-package-comparison"><b>${pkg.name}</b> is highlighted.</p><p class="desktop-package-comparison"><button class="btn btn-navy" type="button" data-compare-quote="${pkg.name}">Request a quote for ${pkg.name}</button></p>
