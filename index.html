@@ -600,7 +600,48 @@ const proposalDecorOptions=[
   'Personalized photo display',
   'I’d love help choosing décor',
 ];
-const personalizedStyleOptions=['Backdrop and balloons','Welcome display','Table décor','I’d love recommendations'];
+const stylingOptionsByEvent={
+  "Birthday party": [
+    "Cake or dessert table styling",
+    "Milestone number display",
+    "Gift table styling"
+  ],
+  "Engagement": [
+    "Proposal backdrop or arch",
+    "Floral and candle styling",
+    "Engagement party tablescape"
+  ],
+  "Graduation": [
+    "Graduation photo display",
+    "School-color décor",
+    "Dessert table styling"
+  ],
+  "Baby shower": [
+    "Baby shower photo backdrop",
+    "Gift and card table styling",
+    "Dessert table styling"
+  ],
+  "Hotel room décor": [
+    "Bed and headboard décor",
+    "Rose petals and flameless candles",
+    "Personalized room signage"
+  ],
+  "Dinner party / table setup": [
+    "Tablescape and centerpieces",
+    "Place settings and menus",
+    "Buffet or bar styling"
+  ],
+  "Intimate wedding reception (fewer than 50 guests)": [
+    "Sweetheart table styling",
+    "Seating chart display",
+    "Cake table styling"
+  ],
+  "Other": [
+    "Trade show or branded display",
+    "Stage or podium décor"
+  ]
+};
+const sharedStylingOptions=['Photo backdrop','Welcome display or signage','Table styling and centerpieces','Balloon décor','Draping or floral accents','Something else','I’d love recommendations'];
 const basinEndpoint='https://usebasin.com/f/5eb36457b7a6';
 const turnstileSiteKey='0x4AAAAAAF5d4wBzD6zilpc8';
 function openQuote(pkg=''){
@@ -619,16 +660,17 @@ show(`<h3 id="modalTitle">Tell us about your event</h3><p>Fields marked * are re
 </div>
 <input type="hidden" id="includedPackageSummary" disabled>
 </fieldset>
-<fieldset id="personalizedBuilder" hidden disabled>
-<legend>What would you like us to style?</legend>
-<p class="note">Select any that fit your event.</p>
-<div class="choices">${personalizedStyleOptions.map(item=>`<label class="choice"><input type="checkbox" name="Personalized styling" value="${item}"><span>${item}</span></label>`).join('')}</div>
-</fieldset>
+
 ${inquirySelect('Décor budget','Décor budget',['Signage only','$280–$349','$350–$549','$550–$849','$850–$1,249','$1,250+','Not sure — help me choose'])}
 <p class="note">Transportation and optional add-ons are quoted separately. Your budget selection is an estimate.</p>
 </fieldset>
 
 
+<fieldset id="personalizedBuilder" hidden disabled>
+<legend>What would you like us to style?</legend>
+<p class="note">Select any that fit your event.</p>
+<div class="choices" id="stylingChoices"></div><label id="otherStylingLabel" hidden>What else would you like styled?<input name="Other styling request" maxlength="500" disabled></label>
+</fieldset>
 <fieldset><legend>Your event</legend><div class="form-fields">
 ${inquirySelect('Event type','Event type',['Birthday party','Engagement','Graduation','Baby shower','Hotel room décor','Dinner party / table setup','Intimate wedding reception (fewer than 50 guests)','Other'])}
 <label>Event date *<input type="date" name="Event date" required></label>
@@ -676,17 +718,12 @@ ${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indo
 
 <label>Event ZIP code (if known)<input name="Event ZIP code" inputmode="numeric" maxlength="10" placeholder="Planned ZIP code"></label>
 </div><p class="note" data-full-event>Outdoor installations depend on weather, venue restrictions and setup requirements.</p></fieldset>
-<fieldset><legend>Your contact details</legend><div class="form-fields">
-<label>Full name *<input name="Full name" autocomplete="name" required maxlength="150"></label>
-<label>Email address *<input type="email" name="Email address" autocomplete="email" required maxlength="254"></label>
-<label>Phone number *<input type="tel" name="Phone number" autocomplete="tel" required maxlength="40"></label>
-${inquirySelect('Preferred contact method','Preferred contact method',['Text','Phone call','Email','No preference'])}
-</div></fieldset>
-<fieldset><legend>Your vision</legend><div class="form-fields">
-<label class="form-wide"><span id="visionPrompt">Theme and preferred color palette *</span><textarea name="Theme and colors" required maxlength="2000" placeholder="Share your theme, colors, or must-haves"></textarea></label>
+
+<details class="inquiry-extras" id="visionExtras"><summary>Theme and inspiration (optional)</summary><fieldset><legend>Your vision</legend><div class="form-fields">
+<label class="form-wide"><span id="visionPrompt">Theme and preferred color palette *</span><textarea name="Theme and colors" maxlength="2000" placeholder="Share your theme, colors, or must-haves"></textarea></label>
 <div class="form-wide"><label for="inspirationPhotos">Upload inspiration photos (optional)</label><input id="inspirationPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photoHelp photoStatus"><p class="field-help" id="photoHelp">Choose up to 6 JPG, PNG or WebP photos, up to 10 MB each. Preview your choices below. Photos upload with your inquiry after you review it and choose Send Inquiry.</p><p id="photoStatus" class="review-status" role="status"></p><div id="photoPreviews" class="photo-previews"></div></div>
 <label class="form-wide">Anything else we should know?<textarea name="Additional details" maxlength="3000" placeholder="Personalization wording, special rental requests, priorities or questions"></textarea></label>
-</div></fieldset>
+</div></fieldset></details>
 <details class="inquiry-extras" id="inquiryExtras">
 <summary id="inquiryExtrasToggle">Optional add-ons and services</summary>
 <fieldset id="quoteExtrasSection"><legend>Optional add-ons and services</legend>
@@ -701,6 +738,12 @@ ${inquirySelect('Preferred contact method','Preferred contact method',['Text','P
 </fieldset>
 </fieldset>
 </details>
+<fieldset><legend>Your contact details</legend><div class="form-fields">
+<label>Full name *<input name="Full name" autocomplete="name" required maxlength="150"></label>
+<label>Email address *<input type="email" name="Email address" autocomplete="email" required maxlength="254"></label>
+<label>Phone number *<input type="tel" name="Phone number" autocomplete="tel" required maxlength="40"></label>
+${inquirySelect('Preferred contact method','Preferred contact method',['Text','Phone call','Email','No preference'])}
+</div></fieldset>
 <fieldset><legend>Final details</legend><div class="form-fields final-details-fields">
 ${inquirySelect('How did you hear about us? (optional)','How did you hear about us?',['Google search','Instagram','Facebook','TikTok','Thumbtack','Repeat customer','Referral','Other'],false)}
 <label id="referralDetails" hidden>Who can we thank for this referral?<input type="text" name="Referral name" maxlength="150" disabled></label>
@@ -765,6 +808,7 @@ const personalizedBuilder=$('#personalizedBuilder');
 const inquiryExtras=$('#inquiryExtras');
 const visionPrompt=$('#visionPrompt');
 const visionDetails=form.elements.namedItem('Theme and colors');
+form.querySelector('#visionExtras').addEventListener('invalid',event=>{event.currentTarget.open=true;},true);
 inquiryExtras.addEventListener('invalid',()=>{inquiryExtras.open=true;},true);
 const includedPackage=$('#includedPackage');
 const includedPackageTitle=$('#includedPackageTitle');
@@ -818,11 +862,23 @@ function updateIncludedPackage(){
   quotePackageSection.disabled=isShortInquiry;
   inquiryExtras.hidden=isShortInquiry;
   quoteExtrasSection.disabled=isShortInquiry;
-  personalizedBuilder.hidden=!isPersonalized;
-  personalizedBuilder.disabled=!isPersonalized;
+  const showStyling=isPersonalized||isShortInquiry;
+  personalizedBuilder.hidden=!showStyling;
+  const stylingChoices=personalizedBuilder.querySelector('#stylingChoices');
+  if(stylingChoices.dataset.eventType!==eventType.value){
+    const checked=new Set([...stylingChoices.querySelectorAll(':checked')].map(input=>input.value));
+    const ideas=stylingOptionsByEvent[eventType.value]||[];
+    stylingChoices.innerHTML=[...sharedStylingOptions.slice(0,-2),...ideas,...sharedStylingOptions.slice(-2)].map(item=>`<label class="choice"><input type="checkbox" name="Personalized styling" value="${item}" ${checked.has(item)?'checked':''}><span>${item}</span></label>`).join('');
+    stylingChoices.dataset.eventType=eventType.value;
+  }
+  const otherStyling=personalizedBuilder.querySelector('#otherStylingLabel');
+  otherStyling.hidden=!stylingChoices.querySelector('input[value="Something else"]:checked');
+  otherStyling.querySelector('input').disabled=otherStyling.hidden;
+  personalizedBuilder.disabled=!showStyling;
 
 
-  const optionalVision=isPersonalized||isShortInquiry;
+  const optionalVision=true;
+  if(isPersonalized)form.querySelector("#visionExtras").open=true;
   visionPrompt.textContent=optionalVision?'What look are you going for? (optional)':'Theme and preferred color palette *';
   visionDetails.required=!optionalVision;
   const selected=packages.find(p=>p.name===preferredPackage.value && p.name!=='Special request');
@@ -841,6 +897,7 @@ function updateIncludedPackage(){
 }
 preferredPackage.addEventListener('change',updateIncludedPackage);
 eventType.addEventListener('change',updateIncludedPackage);
+personalizedBuilder.querySelector('#stylingChoices').addEventListener('change',updateIncludedPackage);
 engagementType.addEventListener('change',updateIncludedPackage);
 updateIncludedPackage();
 const referralSource=form.elements.namedItem('How did you hear about us?');
