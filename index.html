@@ -425,6 +425,7 @@ const packages=[
     setup:['10 × 10 ft backdrop frame rental'],
     balloons:['12 ft balloon garland framing the backdrop','Up to 4 standard balloon colors'],
     extras:['Standard LED decal','One custom 2 × 8 ft banner'],
+    planning:['Personalized design planning','Digital design preview after booking'],
     pickup:'Professional setup and rental pickup included'},
   {name:'Special request',image:'teddy-bear-clean'},
 ];
@@ -432,6 +433,7 @@ photoAlt["cylinder-stands"]="Three white cylinder display stands with desserts";
 const addons=[["Foil balloon accents", "room-celebration"], ["Balloon column (6 ft)", "lavender-celebration"], ["Balloon garland", null], ["Table styling", "styled-dinner"], ["Photography", null], ["Set of 3 cylinder stands", "cylinder-stands"], ["Draping", "blue-drapery"], ["Custom sign or banner", "orange-display"]];
 const $=s=>document.querySelector(s);const modal=$('#modal');let removeInquiryChallenge=()=>{};function show(html){removeInquiryChallenge();removeInquiryChallenge=()=>{};$('#modalBody').innerHTML=html;modal.classList.add('open');document.body.style.overflow='hidden';$('#closeModal').focus()}function hide(){modal.querySelector('video')?.pause();modal.classList.remove('open');document.body.style.overflow=''}$('#closeModal').onclick=hide;modal.onclick=e=>{if(e.target===modal)hide()};document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});
 const comparisonRows=[
+  ['Design planning','planning'],
   ['Backdrop and display','setup'],
   ['Balloon décor','balloons'],
   ['Included extras','extras'],
