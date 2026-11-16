@@ -683,6 +683,8 @@ ${inquirySelect('Décor budget','Décor budget',['Signage only','$280–$349','$
 <fieldset><legend>Your event</legend><div class="form-fields">
 ${inquirySelect('Event type','Event type',['Birthday party','Engagement','Graduation','Baby shower','Hotel room décor','Dinner party / table setup','Intimate wedding reception (fewer than 50 guests)','Other'])}
 <label>Event date *<input type="date" name="Event date" required></label>
+<label>Event city *<input name="Event city" required maxlength="100"></label>
+<label>Event state *<input name="Event state" required maxlength="50" value="FL"></label>
 <label>Event ZIP code *<input name="Event ZIP code" required inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" placeholder="Planned ZIP code"></label>
 <fieldset class="form-wide" id="engagementDetails" hidden disabled>
 <legend>Engagement details</legend>
@@ -799,7 +801,7 @@ const hotelRoomReadyTime=hotelRoomReady.querySelector('input');
 const quotePackageSection=$('#quotePackageSection');
 const personalizedEventType=form.querySelector('#personalizedEventType');
 const eventTypeLabel=eventType.closest('label');
-personalizedEventType.append(eventTypeLabel,form.elements.namedItem('Event date').closest('label'),form.elements.namedItem('Event ZIP code').closest('label'));
+personalizedEventType.append(eventTypeLabel,form.elements.namedItem('Event date').closest('label'),form.elements.namedItem('Event city').closest('label'),form.elements.namedItem('Event state').closest('label'),form.elements.namedItem('Event ZIP code').closest('label'));
 
 const quoteExtrasSection=$('#quoteExtrasSection');
 const packageAddOnLabels=[...form.querySelectorAll('input[name="Popular add-ons"]')].map(input=>({
