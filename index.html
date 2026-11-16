@@ -414,18 +414,21 @@ photoAlt['orange-display-original']=photoAlt['orange-display'];
 photoAlt['basic-poster-rounded']='Orange, cream, and brown balloon garland around a custom poster board on an easel';
 const packages=[
   {name:'Basic',price:280,image:'basic-poster-rounded',
-    setup:['One 4.5 ft easel','Custom 20″ × 30″ poster board'],
+    setup:['One 4.5 ft easel'],
+    signs:['Custom 20″ × 30″ poster board'],
     balloons:['6 ft half balloon garland','Up to 3 standard balloon colors'],
     pickup:'Professional setup and rental pickup included'},
   {name:'Signature',price:450,image:'signature-soccer-birthday',
     setup:['One 6.5 ft circular arch'],
     balloons:['8 ft half balloon garland','Up to 3 standard balloon colors'],
-    extras:['Circular arch cover (white)','Standard LED decal','Decorative foil balloon accent (e.g., a soccer ball)'],
+    signs:['Standard LED decal'],
+    extras:['Circular arch cover (white)','Decorative foil balloon accent (e.g., a soccer ball)'],
     pickup:'Professional setup and rental pickup included'},
   {name:'Statement',price:650,image:'statement-clean-backdrop',
     setup:['10 × 10 ft backdrop frame'],
     balloons:['12 ft balloon garland wall','Up to 3 standard balloon colors'],
-    extras:['Shimmer wall (gold)','Standard LED decal','One custom 2 × 8 ft banner'],
+    signs:['Standard LED decal','One custom 2 × 8 ft banner'],
+    extras:['Shimmer wall (gold)'],
     planning:['Personalized design planning'],
     pickup:'Professional setup and rental pickup included'},
   {name:'Special request',image:'teddy-bear-clean'},
@@ -436,6 +439,7 @@ const $=s=>document.querySelector(s);const modal=$('#modal');let removeInquiryCh
 const comparisonRows=[
   ['Design planning','planning'],
   ['Backdrop rentals','setup'],
+  ['Signs','signs'],
   ['Balloon décor','balloons'],
   ['Included extras','extras'],
 ];
