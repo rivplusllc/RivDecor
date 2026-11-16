@@ -731,8 +731,8 @@ ${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indo
 </div><p class="note" data-full-event>Outdoor installations depend on weather, venue restrictions and setup requirements.</p></fieldset>
 
 <fieldset><legend>Balloon colors (optional)</legend>
-<p class="note">Choose up to three standard balloon colors for your setup.</p>
-<div class="form-fields">${[1,2,3].map(number=>inquirySelect('Color '+number,'Balloon color '+number,['White','Ivory','Black','Gray','Brown','Red','Pink','Orange','Yellow','Green','Teal','Blue','Purple','Gold','Silver'],false)).join('')}</div>
+<p class="note">Enter up to three standard balloon colors for your setup.</p>
+<div class="form-fields">${[1,2,3].map(number=>`<label>Color ${number}<input name="Balloon color ${number}" maxlength="80"></label>`).join('')}</div>
 <details class="inquiry-extras"><summary>Request additional colors</summary>
 <label>Additional colors or specific shades<input name="Additional balloon colors" maxlength="240" placeholder="For example, sage green or dusty blue"></label>
 <p class="note">Additional colors can be quoted separately.</p></details>
