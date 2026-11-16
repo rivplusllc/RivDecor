@@ -730,6 +730,13 @@ ${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indo
 
 </div><p class="note" data-full-event>Outdoor installations depend on weather, venue restrictions and setup requirements.</p></fieldset>
 
+<fieldset><legend>Balloon colors (optional)</legend>
+<p class="note">Choose up to three standard balloon colors for your setup.</p>
+<div class="form-fields">${[1,2,3].map(number=>inquirySelect('Color '+number,'Balloon color '+number,['White','Ivory','Black','Gray','Brown','Red','Pink','Orange','Yellow','Green','Teal','Blue','Purple','Gold','Silver'],false)).join('')}</div>
+<details class="inquiry-extras"><summary>Request additional colors</summary>
+<label>Additional colors or specific shades<input name="Additional balloon colors" maxlength="240" placeholder="For example, sage green or dusty blue"></label>
+<p class="note">Additional colors can be quoted separately.</p></details>
+</fieldset>
 <details class="inquiry-extras" id="visionExtras"><summary>Theme and inspiration (optional)</summary><fieldset><legend>Your vision</legend><div class="form-fields">
 <label class="form-wide"><span id="visionPrompt">Theme and preferred color palette *</span><textarea name="Theme and colors" maxlength="2000" placeholder="Share your theme, colors, or must-haves"></textarea></label>
 <div class="form-wide"><label for="inspirationPhotos">Upload inspiration photos (optional)</label><input id="inspirationPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photoHelp photoStatus"><p class="field-help" id="photoHelp">Choose up to 6 JPG, PNG or WebP photos, up to 10 MB each. Preview your choices below. Photos upload with your inquiry after you review it and choose Send inquiry.</p><p id="photoStatus" class="review-status" role="status"></p><div id="photoPreviews" class="photo-previews"></div></div>
