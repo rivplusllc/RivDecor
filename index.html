@@ -902,6 +902,7 @@ function updateIncludedPackage(){
   visionDetails.required=!optionalVision;
   const selected=packages.find(p=>p.name===preferredPackage.value && p.name!=='Special request');
   includedPackage.hidden=!selected;
+  includedPackage.disabled=!selected;
   includedPackageSummary.disabled=!selected;
   if(!selected)return;
   const items=[...comparisonRows.flatMap(([,key])=>selected[key]||[]),'Up to 3 standard balloon colors',selected.pickup].sort((a,b)=>a.localeCompare(b,'en'));
