@@ -323,6 +323,12 @@ html{font-size:112.5%}
 .package-purpose{display:block;font-size:var(--text-small);font-weight:400;line-height:1.35}
 @media(min-width:850px){.dialog .compare-row .compare-cluster{white-space:nowrap;font-size:clamp(.72rem,1.5vw,.9rem)}}
 #proposalDetails>label:has([name="Proposal setup ready by"]),#proposalDetails>label:has([name="Surprise proposal"]){align-self:end}
+#visionExtras,#inquiryExtras{border:1px solid var(--navy);border-radius:12px;background:var(--ivory);padding:14px}
+#visionExtras>summary,#inquiryExtras>summary{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;list-style:none;cursor:pointer}
+#visionExtras>summary::-webkit-details-marker,#inquiryExtras>summary::-webkit-details-marker{display:none}
+#visionExtras>summary span,#inquiryExtras>summary span{flex-basis:100%;font-weight:400}
+#visionExtras>summary b,#inquiryExtras>summary b{display:inline-block;margin-top:4px;padding:8px 14px;border-radius:999px;background:var(--navy);color:var(--paper)}
+#visionExtras:not([open]) .optional-close,#inquiryExtras:not([open]) .optional-close,#visionExtras[open] .optional-open,#inquiryExtras[open] .optional-open{display:none}
 </style></head><body>
 <header class="header"><div class="service-strip"><span style="color:#f1cd75">Balloon décor and event styling</span><span class="service-strip-divider" aria-hidden="true">·</span><span>Serving Miami-Dade, Broward, and Palm Beach counties</span></div><div class="shell nav"><div class="nav-brand"><a href="#home" class="logo" aria-label="RIVDECOR home"><img class="brand-logo" src="assets/rivdecor-wordmark.png" alt="RIVDECOR"></a></div><button class="menu" aria-label="Toggle navigation" aria-expanded="false" id="menu">☰</button><nav class="navlinks" id="navlinks"><a href="#home">Home</a><a href="#packages">Packages</a><a href="#reviews">Reviews</a><a href="#booking" class="btn btn-gold" id="navQuoteLink">Request a quote</a></nav></div></header>
 <main><section class="shell hero" id="home"><h1 class="hero-title">Good times deserve<br><em>a great backdrop</em></h1><div class="hero-content"><div class="hero-actions"><a class="btn btn-navy" href="assets/rivdecor-montage-slower-ending.mp4" id="workMontageLink" aria-haspopup="dialog">Event montage</a><a class="btn btn-gold" href="#packages">Explore packages</a><a class="btn btn-navy" href="#reviews">Customer reviews</a></div></div><figure class="hero-work" id="work"><img src="assets/personalized-event-collage-v2.webp" width="1349" height="795" alt="Fifteen RivDecor setups featuring balloon arches, baby shower backdrops, table styling, and room décor" fetchpriority="high"><img class="hero-work-drapery" src="assets/homepage-blue-drapery.png" alt="White draping framed by blue and white balloons and a floral arch"><img class="hero-work-prom" src="assets/homepage-prom-tile.png" alt="Emerald, black, and gold prom send-off décor"><div class="hero-work-intro" aria-hidden="true"><span>Book with</span><img src="assets/rivdecor-wordmark.png" alt=""><span>Today</span></div></figure></section>
@@ -760,13 +766,13 @@ ${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indo
 </div><p class="note" data-full-event>Outdoor installations depend on weather, venue restrictions and setup requirements.</p></fieldset>
 
 
-<details class="inquiry-extras" id="visionExtras"><summary>Theme and inspiration (optional)</summary><fieldset><legend>Your vision</legend><div class="form-fields">
+<details class="inquiry-extras" id="visionExtras"><summary><strong>Theme and inspiration</strong><small>Optional</small><span>Tell us about your theme or upload photos of a look you love.</span><b class="optional-open">Add inspiration</b><b class="optional-close">Hide inspiration</b></summary><fieldset><legend>Your vision</legend><div class="form-fields">
 <label class="form-wide"><span id="visionPrompt">Theme and preferred color palette *</span><textarea name="Theme and colors" maxlength="2000" placeholder="Share your theme, colors, or must-haves"></textarea></label>
 <div class="form-wide"><label for="inspirationPhotos">Upload inspiration photos (optional)</label><input id="inspirationPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photoHelp photoStatus"><p class="field-help" id="photoHelp">Choose up to 6 JPG, PNG or WebP photos, up to 10 MB each. Preview your choices below. Photos upload with your inquiry after you review it and choose Send inquiry.</p><p id="photoStatus" class="review-status" role="status"></p><div id="photoPreviews" class="photo-previews"></div></div>
 <label class="form-wide">Anything else we should know?<textarea name="Additional details" maxlength="3000" placeholder="Personalization wording, special rental requests, priorities or questions"></textarea></label>
 </div></fieldset></details>
 <details class="inquiry-extras" id="inquiryExtras">
-<summary id="inquiryExtrasToggle">Optional add-ons and services</summary>
+<summary id="inquiryExtrasToggle"><strong>Add-ons and services</strong><small>Optional</small><span>Explore extras like florals, table styling, signage, and photography.</span><b class="optional-open">Browse add-ons</b><b class="optional-close">Hide add-ons</b></summary>
 <fieldset id="quoteExtrasSection"><legend>Optional add-ons and services</legend>
 <fieldset><legend>Popular add-ons</legend>
 <p class="note">Highlighted items are already included in your preferred package. Select them only if you’d like more.</p>
