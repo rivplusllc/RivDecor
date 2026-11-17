@@ -698,9 +698,10 @@ ${inquirySelect('Event type','Event type',['Birthday party','Engagement','Gradua
 <div class="form-fields">
 ${inquirySelect('What are you planning?','Engagement type',['Proposal setup','Engagement party','Both (proposal setup and engagement party)','Not sure yet'])}
 <label class="form-wide">Where should we set up? (optional)<textarea name="Engagement setup location" rows="4" maxlength="1000" placeholder="Describe where the décor should go, such as a rooftop terrace, dinner table, or entrance."></textarea></label>
+<label id="partySetupTime" hidden>Engagement party setup ready by (Eastern time, optional)<input type="text" name="Engagement party setup ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
 <div class="form-wide form-fields" id="proposalDetails" hidden>
 <p class="form-wide note">Share what you have in mind, even if it’s just a few ideas. We can help you plan the décor, time the setup, and keep the surprise under wraps.</p>
-<label>Setup ready by (Eastern time, optional)<input type="text" name="Proposal setup ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
+<label>Proposal setup ready by (Eastern time, optional)<input type="text" name="Proposal setup ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
 <label>Is it a surprise?<select name="Surprise proposal" disabled><option value="">Please choose</option><option>Yes</option><option>No</option><option>Not sure yet</option></select></label>
 <fieldset class="form-wide">
 <legend>Proposal décor (optional)</legend>
@@ -858,6 +859,10 @@ function updateIncludedPackage(){
     fields.hidden=!isSelected;
     fields.disabled=!isSelected;
   }
+  const includesParty=isEngagement && (engagementType.value==='Engagement party'||(includesProposal&&!isProposal));
+  const partySetupTime=form.querySelector('#partySetupTime');
+  partySetupTime.hidden=!includesParty;
+  partySetupTime.querySelector('input').disabled=!includesParty;
   proposalDetails.hidden=!includesProposal;
   for(const field of proposalDetails.querySelectorAll('input, select'))field.disabled=!includesProposal;
   const isPersonalized=preferredPackage.value===personalizedPackage.name;
