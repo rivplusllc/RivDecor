@@ -573,7 +573,7 @@ const occasionQuestions={
   "Baby shower": [
     [
       "Which areas would you like decorated?",
-      ["Photo backdrop", "Welcome sign", "Table styling and centerpieces", "Multiple areas", "Other"]
+      ["Photo backdrop", "Welcome sign", "Table styling and centerpieces", "Other"]
     ]
   ],
   "Hotel room décor": [
@@ -717,7 +717,9 @@ ${inquirySelect('Event setting','Engagement party setting',['Indoors','Outdoors'
 ${Object.entries(occasionQuestions).map(([type,questions])=>`<fieldset class="form-wide" data-occasion="${type}" hidden disabled>
 <legend>${type==='Other'?'Décor details':type+' details'}</legend>
 <div class="form-fields">${questions.map(([label,answer])=>Array.isArray(answer)
-  ? inquirySelect(label+' (optional)',label,answer,false)
+  ? type==='Baby shower'
+    ? `<fieldset class="form-wide"><legend>${label} (optional)</legend><div class="choices">${answer.map(area=>`<label class="choice"><input type="checkbox" name="${label}" value="${area}" ${area==='Other'?'id="babyShowerOtherChoice"':''}><span>${area}</span></label>`).join('')}</div></fieldset>`
+    : inquirySelect(label+' (optional)',label,answer,false)
   : `<label>${label} (optional)<input name="${label}" maxlength="240" placeholder="${answer}"></label>`).join('')}
 ${type==='Baby shower'?'<label id="babyShowerOtherArea" hidden>What else would you like decorated?<input name="Other baby shower area" maxlength="240" disabled></label>':''}
 </div>
@@ -827,11 +829,11 @@ const eventType=form.elements.namedItem('Event type');
 const engagementType=form.elements.namedItem('Engagement type');
 const engagementDetails=$('#engagementDetails');
 const occasionFields=form.querySelectorAll('[data-occasion]');
-const babyShowerArea=form.elements.namedItem('Which areas would you like decorated?');
+const babyShowerArea=form.querySelector('#babyShowerOtherChoice');
 const babyShowerOtherArea=$('#babyShowerOtherArea');
 const babyShowerOtherText=babyShowerOtherArea.querySelector('input');
 babyShowerArea.addEventListener('change',()=>{
-  const showOther=babyShowerArea.value==='Other';
+  const showOther=babyShowerArea.checked;
   babyShowerOtherArea.hidden=!showOther;
   babyShowerOtherText.disabled=!showOther;
 });
