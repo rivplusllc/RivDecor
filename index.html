@@ -770,11 +770,6 @@ ${inquirySelect('Décor budget','Décor budget',['Signage only','$280–$349','$
 </fieldset>
 
 
-<details class="inquiry-extras" id="visionExtras"><summary><strong>Theme and inspiration</strong><small>Optional</small><span>Tell us about your theme or upload photos of a look you love.</span><b class="optional-open">Add inspiration</b><b class="optional-close">Hide inspiration</b></summary><fieldset><legend>Your vision</legend><div class="form-fields">
-<label class="form-wide"><span id="visionPrompt">Theme and preferred color palette *</span><textarea name="Theme and colors" maxlength="2000" placeholder="Share your theme, colors, or must-haves"></textarea></label>
-<div class="form-wide"><label for="inspirationPhotos">Upload inspiration photos (optional)</label><input id="inspirationPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photoHelp photoStatus"><p class="field-help" id="photoHelp">Choose up to 6 JPG, PNG or WebP photos, up to 10 MB each. Preview your choices below. Photos upload with your inquiry after you review it and choose Send inquiry.</p><p id="photoStatus" class="review-status" role="status"></p><div id="photoPreviews" class="photo-previews"></div></div>
-<label class="form-wide">Anything else we should know?<textarea name="Additional details" maxlength="3000" placeholder="Personalization wording, special rental requests, priorities or questions"></textarea></label>
-</div></fieldset></details>
 <details class="inquiry-extras" id="inquiryExtras">
 <summary id="inquiryExtrasToggle"><strong>Add-ons and services</strong><small>Optional</small><span>Explore extras like florals, table styling, signage, and photography.</span><b class="optional-open">Browse add-ons</b><b class="optional-close">Hide add-ons</b></summary>
 <fieldset id="quoteExtrasSection"><legend>Optional add-ons and services</legend>
@@ -789,6 +784,11 @@ ${inquirySelect('Décor budget','Décor budget',['Signage only','$280–$349','$
 </fieldset>
 </fieldset>
 </details>
+<details class="inquiry-extras" id="visionExtras"><summary><strong>Theme and inspiration</strong><small>Optional</small><span>Tell us about your theme or upload photos of a look you love.</span><b class="optional-open">Add inspiration</b><b class="optional-close">Hide inspiration</b></summary><fieldset><legend>Your vision</legend><div class="form-fields">
+<label class="form-wide"><span id="visionPrompt">Theme and preferred color palette *</span><textarea name="Theme and colors" maxlength="2000" placeholder="Share your theme, colors, or must-haves"></textarea></label>
+<div class="form-wide"><label for="inspirationPhotos">Upload inspiration photos (optional)</label><input id="inspirationPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photoHelp photoStatus"><p class="field-help" id="photoHelp">Choose up to 6 JPG, PNG or WebP photos, up to 10 MB each. Preview your choices below. Photos upload with your inquiry after you review it and choose Send inquiry.</p><p id="photoStatus" class="review-status" role="status"></p><div id="photoPreviews" class="photo-previews"></div></div>
+<label class="form-wide">Anything else we should know?<textarea name="Additional details" maxlength="3000" placeholder="Personalization wording, special rental requests, priorities or questions"></textarea></label>
+</div></fieldset></details>
 <fieldset id="personalizedBuilder" hidden disabled>
 <legend>What would you like us to style?</legend>
 <p class="note">Select any that fit your event.</p>
