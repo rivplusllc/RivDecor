@@ -697,8 +697,7 @@ ${inquirySelect('Event type','Event type',['Birthday party','Engagement','Gradua
 <legend>Engagement details</legend>
 <div class="form-fields">
 ${inquirySelect('What are you planning?','Engagement type',['Proposal setup','Engagement party','Both (proposal setup and engagement party)','Not sure yet'])}
-<label>Where should we set up? (optional)<input name="Engagement setup location" maxlength="200" placeholder="For example, a rooftop terrace or dinner table"></label>
-<label class="form-wide" id="engagementPartyFocus" hidden>What would you like us to style for the engagement party? (optional)<input name="Engagement party décor focus" maxlength="240" placeholder="For example, a welcome display, backdrop, or dessert table" disabled></label>
+<label class="form-wide">Where should we set up? (optional)<textarea name="Engagement setup location" rows="4" maxlength="1000" placeholder="Describe where the décor should go, such as a rooftop terrace, dinner table, or entrance."></textarea></label>
 <div class="form-wide form-fields" id="proposalDetails" hidden>
 <p class="form-wide note">Share what you have in mind, even if it’s just a few ideas. We can help you plan the décor, time the setup, and keep the surprise under wraps.</p>
 <label>Setup ready by (Eastern time, optional)<input type="text" name="Proposal setup ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
@@ -787,7 +786,6 @@ const preferredPackage=form.elements.namedItem('Preferred package');
 const eventType=form.elements.namedItem('Event type');
 const engagementType=form.elements.namedItem('Engagement type');
 const engagementDetails=$('#engagementDetails');
-const engagementPartyFocus=$('#engagementPartyFocus');
 const occasionFields=form.querySelectorAll('[data-occasion]');
 const babyShowerArea=form.elements.namedItem('Which areas would you like decorated?');
 const babyShowerOtherArea=$('#babyShowerOtherArea');
@@ -855,9 +853,6 @@ function updateIncludedPackage(){
   const isShortInquiry=isHotel||isProposal;
   engagementDetails.hidden=!isEngagement;
   engagementDetails.disabled=!isEngagement;
-  const includesEngagementParty=isEngagement && (engagementType.value==='Engagement party'||(includesProposal&&!isProposal));
-  engagementPartyFocus.hidden=!includesEngagementParty;
-  engagementPartyFocus.querySelector('input').disabled=!includesEngagementParty;
   for(const fields of occasionFields){
     const isSelected=fields.dataset.occasion===eventType.value;
     fields.hidden=!isSelected;
