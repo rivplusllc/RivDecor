@@ -719,6 +719,7 @@ ${inquirySelect('Event setting','Engagement party setting',['Indoors','Outdoors'
 <p class="form-wide note">Share what you have in mind, even if it’s just a few ideas. We can help you plan the décor, time the setup, and keep the surprise under wraps.</p>
 <label>Proposal setup ready by (Eastern time, optional)<input type="text" name="Proposal setup ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
 <label>Is it a surprise?<select name="Surprise proposal" disabled><option value="">Please choose</option><option>Yes</option><option>No</option><option>Not sure yet</option></select></label>
+<label id="partnerArrival" hidden>What time will your partner arrive? (Eastern time, optional)<input name="Partner arrival time" data-eastern-time placeholder="3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
 <fieldset class="form-wide">
 <legend>Proposal décor (optional)</legend>
 <label>What is your proposal theme, and what colors are must-haves? (optional)<textarea name="Proposal theme and must-have colors" rows="3" maxlength="1000"></textarea></label>
@@ -783,8 +784,10 @@ ${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indo
 <label>Email address *<input type="email" name="Email address" autocomplete="email" required maxlength="254"></label>
 <label>Phone number *<input type="tel" name="Phone number" autocomplete="tel" required maxlength="40"></label>
 ${inquirySelect('Preferred contact method','Preferred contact method',['Text','Phone call','Email','No preference'])}
+<label>Best day to contact you (optional)<input name="Best contact day" maxlength="100" placeholder="For example, weekdays or Saturday"></label>
+<label>Best time to contact you (Eastern time, optional)<input name="Best contact time" maxlength="100" placeholder="For example, 5–7 PM"></label>
 <div class="form-wide"><label class="choice"><input type="checkbox" id="useContactCode"><span>Use a code phrase when contacting me (optional)</span></label>
-<label id="contactCodeField" hidden>Contact code phrase<input name="Contact code phrase" maxlength="120" placeholder="For example, weekend plans" disabled></label></div>
+<label id="contactCodeField" hidden>Contact code phrase<input name="Contact code phrase" maxlength="120" placeholder="For example, weekend plans" disabled></label><label id="contactPrivacyField" hidden>Is there anything we should leave out of calls or texts? (optional)<textarea name="Contact privacy instructions" maxlength="500" rows="3" placeholder="For example, please avoid mentioning the surprise in a voicemail." disabled></textarea></label></div>
 </div></fieldset>
 <fieldset><legend>Final details</legend><div class="form-fields final-details-fields">
 ${inquirySelect('How did you hear about us? (optional)','How did you hear about us?',['Google search','Instagram','Facebook','TikTok','Thumbtack','Repeat customer','Referral','Other'],false)}
@@ -888,6 +891,10 @@ function updateIncludedPackage(){
   partySetupTime.querySelector('input').disabled=!includesParty;
   proposalDetails.hidden=!includesProposal;
   for(const field of proposalDetails.querySelectorAll('input, select, textarea'))field.disabled=!includesProposal;
+  const partnerArrival=form.querySelector('#partnerArrival');
+  const showArrival=includesProposal && form.elements.namedItem('Surprise proposal').value==='Yes';
+  partnerArrival.hidden=!showArrival;
+  partnerArrival.querySelector('input').disabled=!showArrival;
   const proposalChoices=form.elements.namedItem('Proposal décor');
   const decorSelected=value=>includesProposal && [...proposalChoices].some(input=>input.checked && input.value===value);
   for(const [id,visible] of [
@@ -970,6 +977,9 @@ const useContactCode=form.querySelector('#useContactCode');
 const contactCodeField=form.querySelector('#contactCodeField');
 useContactCode.addEventListener('change',()=>{
   contactCodeField.hidden=!useContactCode.checked;
+  const contactPrivacyField=form.querySelector('#contactPrivacyField');
+  contactPrivacyField.hidden=!useContactCode.checked;
+  contactPrivacyField.querySelector('textarea').disabled=!useContactCode.checked;
   const input=contactCodeField.querySelector('input');
   input.disabled=!useContactCode.checked;
   input.required=useContactCode.checked;
