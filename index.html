@@ -704,6 +704,7 @@ ${inquirySelect('What are you planning?','Engagement type',['Proposal setup','En
 <label id="partyEventTime" hidden>Engagement party start time (Eastern time, optional)<input type="text" name="Engagement party start time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
 <label id="proposalEventTime" hidden>Proposal time (Eastern time, optional)<input type="text" name="Proposal time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
 ${inquirySelect('What support would you like on the day? (optional)','Engagement day-of support',['Day-of coordination','Décor setup only','Both'],false)}
+<label id="engagementVenueChoice" hidden>Same venue or different venues? *<select name="Proposal and party venues" disabled><option value="">Please choose</option><option>Same venue</option><option>Different venues</option></select></label>
 <fieldset class="form-wide" id="partyVenue" hidden disabled><legend>Engagement party venue</legend><div class="form-fields">
 ${inquirySelect('Venue type','Engagement party venue type',['Private residence','Event venue','Restaurant','Park','Hotel','Other','Not sure yet'],false)}
 ${inquirySelect('Event setting','Engagement party setting',['Indoors','Outdoors','Both indoors and outdoors','Not sure yet'],false)}
@@ -900,7 +901,12 @@ function updateIncludedPackage(){
     label.querySelector('input,select').disabled=!visible;
   }
   const partyVenue=form.querySelector('#partyVenue');
-  partyVenue.hidden=partyVenue.disabled=!(includesProposal && includesParty);
+  const venueChoice=form.querySelector('#engagementVenueChoice');
+  const venueSelect=venueChoice.querySelector('select');
+  const needsVenueChoice=includesProposal && includesParty;
+  venueChoice.hidden=venueSelect.disabled=!needsVenueChoice;
+  venueSelect.required=needsVenueChoice;
+  partyVenue.hidden=partyVenue.disabled=!(needsVenueChoice && venueSelect.value==='Different venues');
   const proposalEventTime=form.querySelector('#proposalEventTime');
   const partyEventTime=form.querySelector('#partyEventTime');
   proposalEventTime.hidden=proposalEventTime.querySelector('input').disabled=!includesProposal;
@@ -959,6 +965,7 @@ preferredPackage.addEventListener('change',updateIncludedPackage);
 eventType.addEventListener('change',updateIncludedPackage);
 personalizedBuilder.querySelector('#stylingChoices').addEventListener('change',updateIncludedPackage);
 engagementType.addEventListener('change',updateIncludedPackage);
+form.elements.namedItem('Proposal and party venues').addEventListener('change',updateIncludedPackage);
 const useContactCode=form.querySelector('#useContactCode');
 const contactCodeField=form.querySelector('#contactCodeField');
 useContactCode.addEventListener('change',()=>{
@@ -1115,7 +1122,7 @@ sendInquiry.onclick=async()=>{
     if(!response.ok||!response.headers.get("content-type")?.includes("application/json"))throw new Error("Submission failed");
     sent=true;
     textFallback.hidden=true;
-    status.innerHTML='<strong>Thank you for considering RivDecor!</strong><br>We’ve received your inquiry and are excited to hear what you have planned. We’ll review your event details and be in touch about availability, your personalized quote, and next steps.<br><br>Your date is reserved once we confirm availability and receive your booking retainer.';
+    status.innerHTML='<strong>Thank you for considering RivDecor!</strong><br>We received your inquiry. We will review your event details and follow up using your preferred contact method to discuss availability and your quote.<br><br>Your date is reserved once we confirm availability and receive your booking retainer.';
     if(review.isConnected){
       clearInquiryPhotos();
       removeInquiryChallenge();
