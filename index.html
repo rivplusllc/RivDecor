@@ -322,7 +322,7 @@ html{font-size:112.5%}
 .compare-row.compare-price ul{list-style:none;padding-inline-start:0}
 .package-purpose{display:block;font-size:var(--text-small);font-weight:400;line-height:1.35}
 @media(min-width:850px){.dialog .compare-row .compare-cluster{white-space:nowrap;font-size:clamp(.72rem,1.5vw,.9rem)}}
-#proposalDetails>label:has([name="Proposal setup ready by"]),#proposalDetails>label:has([name="Surprise proposal"]){align-self:end}
+#proposalDetails>label:has([name="Surprise proposal"]){align-self:end}
 #visionExtras,#inquiryExtras{border:1px solid var(--navy);border-radius:12px;background:var(--ivory);padding:14px}
 #visionExtras>summary,#inquiryExtras>summary{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;list-style:none;cursor:pointer}
 #visionExtras>summary::-webkit-details-marker,#inquiryExtras>summary::-webkit-details-marker{display:none}
@@ -445,7 +445,14 @@ const packages=[
 ];
 photoAlt["cylinder-stands"]="Three white cylinder display stands with desserts";
 const addons=[["Foil balloon accents", "room-celebration"], ["Balloon column (6 ft)", "lavender-celebration"], ["Balloon garland", null], ["Table styling", "styled-dinner"], ["Photography", null], ["Set of 3 cylinder stands", "cylinder-stands"], ["Draping", "blue-drapery"], ["Custom sign or banner", "orange-display"]];
-const $=s=>document.querySelector(s);const modal=$('#modal');let removeInquiryChallenge=()=>{};function show(html){removeInquiryChallenge();removeInquiryChallenge=()=>{};$('#modalBody').innerHTML=html;modal.classList.add('open');document.body.style.overflow='hidden';$('#closeModal').focus()}function hide(){modal.querySelector('video')?.pause();modal.classList.remove('open');document.body.style.overflow=''}$('#closeModal').onclick=hide;modal.onclick=e=>{if(e.target===modal)hide()};document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});
+const $=s=>document.querySelector(s);const modal=$('#modal');let dialogOpener;let removeInquiryChallenge=()=>{};function show(html){if(!modal.classList.contains('open'))dialogOpener=document.activeElement;removeInquiryChallenge();removeInquiryChallenge=()=>{};$('#modalBody').innerHTML=html;modal.classList.add('open');document.body.style.overflow='hidden';$('#closeModal').focus()}function hide(){modal.querySelector('video')?.pause();modal.classList.remove('open');document.body.style.overflow='';dialogOpener?.focus();dialogOpener=null}$('#closeModal').onclick=hide;modal.onclick=e=>{if(e.target===modal)hide()};document.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;
+if(e.key==='Escape'){hide();return}
+if(e.key==='Tab'){
+  const controls=[...modal.querySelectorAll('button,a[href],input,select,textarea,summary,[tabindex]')].filter(el=>el.tabIndex>=0&&!el.matches(':disabled')&&el.getClientRects().length);
+  const first=controls[0],last=controls.at(-1);
+  if(e.shiftKey&&(document.activeElement===first||!modal.contains(document.activeElement))){e.preventDefault();last?.focus()}
+  else if(!e.shiftKey&&(document.activeElement===last||!modal.contains(document.activeElement))){e.preventDefault();first?.focus()}
+}});
 const sharedPackageNote='All three packages include up to 3 standard balloon colors, professional setup, and rental pickup.';
 const comparisonRows=[
   ['Design planning','planning'],
@@ -662,8 +669,79 @@ const sharedStylingOptions=['Photo backdrop','Welcome display or signage','Table
 const basinEndpoint='https://usebasin.com/f/5eb36457b7a6';
 const turnstileSiteKey='0x4AAAAAAF5d4wBzD6zilpc8';
 function openQuote(pkg=''){
-show(`<h3 id="modalTitle">Tell us about your event</h3><p>Fields marked * are required. The more details, the better!</p><form class="quote-form" id="quoteForm">
-<fieldset><legend>Event essentials</legend><div class="form-fields" id="personalizedEventType"></div></fieldset><fieldset id="quotePackageSection"><legend>Your package and budget</legend>
+show(`<h3 id="modalTitle">Tell us about your event</h3><p>Fields marked * are required. The more details, the better!</p><form class="quote-form" id="quoteForm"><p id="inquiryProgress" class="note" aria-live="polite"></p><section data-stage><h4 tabindex="-1">Event details</h4>
+<fieldset><legend>Event essentials</legend><div class="form-fields" id="personalizedEventType"></div></fieldset><fieldset><legend>Your event</legend><div class="form-fields">
+${inquirySelect('Event type','Event type',['Birthday party','Engagement','Graduation','Baby shower','Hotel room décor','Dinner party / table setup','Intimate wedding reception (fewer than 50 guests)','Other'])}
+<label>Event date *<input type="date" name="Event date" required></label>
+<label>Event city *<input name="Event city" required maxlength="100"></label>
+<label>Event state *<input name="Event state" required maxlength="50" value="FL"></label>
+<label>Event ZIP code *<input name="Event ZIP code" required inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" placeholder="Planned ZIP code"></label>
+<fieldset class="form-wide" id="engagementDetails" hidden disabled>
+<legend>Engagement details</legend>
+<div class="form-fields">
+${inquirySelect('What are you planning?','Engagement type',['Proposal setup','Engagement party','Both (proposal setup and engagement party)','Not sure yet'])}
+<label class="form-wide">Where should we set up? (optional)<textarea name="Engagement setup location" rows="4" maxlength="1000" placeholder="Describe where the décor should go, such as a rooftop terrace, dinner table, or entrance."></textarea></label>
+<label id="partySetupTime" hidden>Engagement party setup ready by (Eastern time, optional)<input type="text" name="Engagement party setup ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
+<label id="partyEventTime" hidden>Engagement party start time (Eastern time, optional)<input type="text" name="Engagement party start time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
+<label id="proposalEventTime" hidden>Proposal time (Eastern time, optional)<input type="text" name="Proposal time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
+${inquirySelect('What support would you like on the day? (optional)','Engagement day-of support',['Day-of coordination','Décor setup only','Both'],false)}
+<label id="engagementVenueChoice" hidden>Same venue or different venues? *<select name="Proposal and party venues" disabled><option value="">Please choose</option><option>Same venue</option><option>Different venues</option></select></label>
+<fieldset class="form-wide" id="partyVenue" hidden disabled><legend>Engagement party venue</legend><div class="form-fields">
+${inquirySelect('Venue type','Engagement party venue type',['Private residence','Event venue','Restaurant','Park','Hotel','Other','Not sure yet'],false)}
+${inquirySelect('Event setting','Engagement party setting',['Indoors','Outdoors','Both indoors and outdoors','Not sure yet'],false)}
+<label>Venue name<input name="Engagement party venue name" maxlength="150"></label>
+<label>Street address<input name="Engagement party street address" maxlength="200"></label>
+<label>City<input name="Engagement party city" maxlength="100"></label>
+<label>State<input name="Engagement party state" maxlength="50"></label>
+<label>ZIP code<input name="Engagement party ZIP code" inputmode="numeric" maxlength="10"></label>
+<p class="form-wide note">Outdoor setups have an additional $100 fee.</p>
+</div></fieldset>
+<div class="form-wide form-fields" id="proposalDetails" hidden>
+<p class="form-wide note">Share what you have in mind, even if it’s just a few ideas. We can help you plan the décor, time the setup, and keep the surprise under wraps.</p>
+<label>Is it a surprise?<select name="Surprise proposal" disabled><option value="">Please choose</option><option>Yes</option><option>No</option><option>Not sure yet</option></select></label>
+<label id="partnerArrival" hidden>What time will your partner arrive? (Eastern time, optional)<input name="Partner arrival time" data-eastern-time placeholder="3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
+<fieldset class="form-wide">
+<legend>Proposal décor (optional)</legend>
+<label>What is your proposal theme, and what colors are must-haves? (optional)<textarea name="Proposal theme and must-have colors" rows="3" maxlength="1000"></textarea></label>
+<p class="note">Select anything you’d like us to include in your quote.</p>
+<div class="choices">${proposalDecorOptions.map(item=>`<label class="choice"><input type="checkbox" name="Proposal décor" value="${item}" disabled><span>${item}</span></label>`).join('')}</div>
+<label id="proposalRoseColor" hidden>Rose color<select name="Rose color" disabled><option value="">Please choose</option><option>Red</option><option>White</option><option>Other</option></select></label>
+<label id="proposalOtherRoseColor" hidden>Which rose color?<input name="Other rose color" maxlength="100" disabled></label>
+<label id="proposalCandleType" hidden>Candle type<select name="Candle type" disabled><option value="">Please choose</option><option>Real candles</option><option>Flameless candles (battery-operated)</option></select></label>
+<label id="proposalOtherDecor" hidden>What else would you like?<input name="Other proposal décor" maxlength="300" disabled></label>
+</fieldset>
+</div>
+</div>
+</fieldset>
+<label class="form-wide">If other, tell us the event type<input name="Other event type" maxlength="200"></label>
+${Object.entries(occasionQuestions).map(([type,questions])=>`<fieldset class="form-wide" data-occasion="${type}" hidden disabled>
+<legend>${type==='Other'?'Décor details':type+' details'}</legend>
+<div class="form-fields">${questions.map(([label,answer])=>Array.isArray(answer)
+  ? inquirySelect(label+' (optional)',label,answer,false)
+  : `<label>${label} (optional)<input name="${label}" maxlength="240" placeholder="${answer}"></label>`).join('')}
+${type==='Baby shower'?'<label id="babyShowerOtherArea" hidden>What else would you like decorated?<input name="Other baby shower area" maxlength="240" disabled></label>':''}
+</div>
+</fieldset>`).join('')}
+<p class="form-wide note" id="hotelRoomPrice" hidden><strong>Hotel room décor starts at $125.</strong></p>
+
+<label id="hotelRoomReady" hidden>Room ready by (Eastern time, optional)<input type="text" name="Room ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
+<label>Event start time (Eastern time) *<input type="text" name="Event start time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" required></label>
+<label>Event end time (Eastern time) *<input type="text" name="Event end time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" required></label>
+<p class="form-wide" data-full-event><strong>Please note décor setup requires a minimum of 2 hours prior to the start of the event and a minimum of one hour for breakdown.</strong></p>
+<label>Estimated guest count *<input name="Guest count" required maxlength="80" placeholder="For example, 35 or about 50"></label>
+<div class="form-wide venue-setting-fields">
+${inquirySelect('Venue type','Venue type',['Private residence / home / backyard','Event venue / banquet hall','Park / outdoor public space','Boat / yacht','Hotel room','Other','Not sure yet'])}
+${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indoors and outdoors','Not sure yet'])}
+<p class="form-wide note">Outdoor setups have an additional $100 fee.</p>
+</div>
+<label><span id="venueNameLabel">Venue name</span><input id="venueName" name="Venue name" maxlength="150" placeholder="If known"></label>
+<label>Event street address<input name="Event street address" maxlength="200" placeholder="If known"></label>
+
+</div><p class="note" data-full-event>Outdoor installations depend on weather, venue restrictions and setup requirements.</p></fieldset>
+
+
+
+<button type="button" class="btn btn-gold" data-step="1">Continue to styling</button></section><section data-stage hidden><h4 tabindex="-1">Styling preferences</h4><fieldset id="quotePackageSection"><legend>Your package and budget</legend>
 <label>Preferred package<select name="Preferred package"><option value="">Not sure yet</option>${packages.map(p=>`<option ${p.name===pkg?'selected':''}>${p.name}</option>`).join('')}</select></label>
 <fieldset class="included-package" id="includedPackage" hidden>
 <legend id="includedPackageTitle"></legend>
@@ -714,79 +792,7 @@ ${inquirySelect('Décor budget','Décor budget',['Signage only','$280–$349','$
 <p class="note">Select any that fit your event.</p>
 <div class="choices" id="stylingChoices"></div><label id="otherStylingLabel" hidden>What else would you like styled?<input name="Other styling request" maxlength="500" disabled></label>
 </fieldset>
-<fieldset><legend>Your event</legend><div class="form-fields">
-${inquirySelect('Event type','Event type',['Birthday party','Engagement','Graduation','Baby shower','Hotel room décor','Dinner party / table setup','Intimate wedding reception (fewer than 50 guests)','Other'])}
-<label>Event date *<input type="date" name="Event date" required></label>
-<label>Event city *<input name="Event city" required maxlength="100"></label>
-<label>Event state *<input name="Event state" required maxlength="50" value="FL"></label>
-<label>Event ZIP code *<input name="Event ZIP code" required inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" placeholder="Planned ZIP code"></label>
-<fieldset class="form-wide" id="engagementDetails" hidden disabled>
-<legend>Engagement details</legend>
-<div class="form-fields">
-${inquirySelect('What are you planning?','Engagement type',['Proposal setup','Engagement party','Both (proposal setup and engagement party)','Not sure yet'])}
-<label class="form-wide">Where should we set up? (optional)<textarea name="Engagement setup location" rows="4" maxlength="1000" placeholder="Describe where the décor should go, such as a rooftop terrace, dinner table, or entrance."></textarea></label>
-<label id="partySetupTime" hidden>Engagement party setup ready by (Eastern time, optional)<input type="text" name="Engagement party setup ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
-<label id="partyEventTime" hidden>Engagement party start time (Eastern time, optional)<input type="text" name="Engagement party start time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
-<label id="proposalEventTime" hidden>Proposal time (Eastern time, optional)<input type="text" name="Proposal time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
-${inquirySelect('What support would you like on the day? (optional)','Engagement day-of support',['Day-of coordination','Décor setup only','Both'],false)}
-<label id="engagementVenueChoice" hidden>Same venue or different venues? *<select name="Proposal and party venues" disabled><option value="">Please choose</option><option>Same venue</option><option>Different venues</option></select></label>
-<fieldset class="form-wide" id="partyVenue" hidden disabled><legend>Engagement party venue</legend><div class="form-fields">
-${inquirySelect('Venue type','Engagement party venue type',['Private residence','Event venue','Restaurant','Park','Hotel','Other','Not sure yet'],false)}
-${inquirySelect('Event setting','Engagement party setting',['Indoors','Outdoors','Both indoors and outdoors','Not sure yet'],false)}
-<label>Venue name<input name="Engagement party venue name" maxlength="150"></label>
-<label>Street address<input name="Engagement party street address" maxlength="200"></label>
-<label>City<input name="Engagement party city" maxlength="100"></label>
-<label>State<input name="Engagement party state" maxlength="50"></label>
-<label>ZIP code<input name="Engagement party ZIP code" inputmode="numeric" maxlength="10"></label>
-<p class="form-wide note">Outdoor setups have an additional $100 fee.</p>
-</div></fieldset>
-<div class="form-wide form-fields" id="proposalDetails" hidden>
-<p class="form-wide note">Share what you have in mind, even if it’s just a few ideas. We can help you plan the décor, time the setup, and keep the surprise under wraps.</p>
-<label>Proposal setup ready by (Eastern time, optional)<input type="text" name="Proposal setup ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
-<label>Is it a surprise?<select name="Surprise proposal" disabled><option value="">Please choose</option><option>Yes</option><option>No</option><option>Not sure yet</option></select></label>
-<label id="partnerArrival" hidden>What time will your partner arrive? (Eastern time, optional)<input name="Partner arrival time" data-eastern-time placeholder="3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
-<fieldset class="form-wide">
-<legend>Proposal décor (optional)</legend>
-<label>What is your proposal theme, and what colors are must-haves? (optional)<textarea name="Proposal theme and must-have colors" rows="3" maxlength="1000"></textarea></label>
-<p class="note">Select anything you’d like us to include in your quote.</p>
-<div class="choices">${proposalDecorOptions.map(item=>`<label class="choice"><input type="checkbox" name="Proposal décor" value="${item}" disabled><span>${item}</span></label>`).join('')}</div>
-<label id="proposalRoseColor" hidden>Rose color<select name="Rose color" disabled><option value="">Please choose</option><option>Red</option><option>White</option><option>Other</option></select></label>
-<label id="proposalOtherRoseColor" hidden>Which rose color?<input name="Other rose color" maxlength="100" disabled></label>
-<label id="proposalCandleType" hidden>Candle type<select name="Candle type" disabled><option value="">Please choose</option><option>Real candles</option><option>Flameless candles (battery-operated)</option></select></label>
-<label id="proposalOtherDecor" hidden>What else would you like?<input name="Other proposal décor" maxlength="300" disabled></label>
-</fieldset>
-</div>
-</div>
-</fieldset>
-<label class="form-wide">If other, tell us the event type<input name="Other event type" maxlength="200"></label>
-${Object.entries(occasionQuestions).map(([type,questions])=>`<fieldset class="form-wide" data-occasion="${type}" hidden disabled>
-<legend>${type==='Other'?'Décor details':type+' details'}</legend>
-<div class="form-fields">${questions.map(([label,answer])=>Array.isArray(answer)
-  ? inquirySelect(label+' (optional)',label,answer,false)
-  : `<label>${label} (optional)<input name="${label}" maxlength="240" placeholder="${answer}"></label>`).join('')}
-${type==='Baby shower'?'<label id="babyShowerOtherArea" hidden>What else would you like decorated?<input name="Other baby shower area" maxlength="240" disabled></label>':''}
-</div>
-</fieldset>`).join('')}
-<p class="form-wide note" id="hotelRoomPrice" hidden><strong>Hotel room décor starts at $125.</strong></p>
-
-<label id="hotelRoomReady" hidden>Room ready by (Eastern time, optional)<input type="text" name="Room ready by" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" disabled></label>
-<label>Event start time (Eastern time) *<input type="text" name="Event start time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" required></label>
-<label>Event end time (Eastern time) *<input type="text" name="Event end time" data-eastern-time placeholder="3:30 PM" title="Enter Eastern time with AM or PM, for example 3:30 PM" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9] ?[AaPp][Mm]" maxlength="8" required></label>
-<p class="form-wide" data-full-event><strong>Please note décor setup requires a minimum of 2 hours prior to the start of the event and a minimum of one hour for breakdown.</strong></p>
-<label>Estimated guest count *<input name="Guest count" required maxlength="80" placeholder="For example, 35 or about 50"></label>
-<div class="form-wide venue-setting-fields">
-${inquirySelect('Venue type','Venue type',['Private residence / home / backyard','Event venue / banquet hall','Park / outdoor public space','Boat / yacht','Hotel room','Other','Not sure yet'])}
-${inquirySelect('Event setting','Event setting',['Indoors','Outdoors','Both indoors and outdoors','Not sure yet'])}
-<p class="form-wide note">Outdoor setups have an additional $100 fee.</p>
-</div>
-<label><span id="venueNameLabel">Venue name</span><input id="venueName" name="Venue name" maxlength="150" placeholder="If known"></label>
-<label>Event street address<input name="Event street address" maxlength="200" placeholder="If known"></label>
-
-</div><p class="note" data-full-event>Outdoor installations depend on weather, venue restrictions and setup requirements.</p></fieldset>
-
-
-
-<fieldset><legend>Your contact details</legend><div class="form-fields">
+<button type="button" class="btn btn-outline" data-step="-1">Back</button> <button type="button" class="btn btn-gold" data-step="1">Continue to contact</button></section><section data-stage hidden><h4 tabindex="-1">Contact and review</h4><fieldset><legend>Your contact details</legend><div class="form-fields">
 <label>Full name *<input name="Full name" autocomplete="name" required maxlength="150"></label>
 <label>Email address *<input type="email" name="Email address" autocomplete="email" required maxlength="254"></label>
 <label>Phone number *<input type="tel" name="Phone number" autocomplete="tel" required maxlength="40"></label>
@@ -802,8 +808,8 @@ ${inquirySelect('How did you hear about us? (optional)','How did you hear about 
 <label id="otherSourceDetails" hidden>Tell us how you heard about us (optional)<input type="text" name="Other referral source" maxlength="150" disabled></label>
 </div></fieldset>
 <p class="note">Submitting an inquiry does not confirm availability or reserve your date. Your booking is secured after availability is confirmed and the required nonrefundable retainer is received.</p>
-<button type="submit" class="btn btn-gold">Review my inquiry →</button><p class="note">Review your answers before sending them to RivDecor.</p>
-</form><div id="inquiryReview" hidden>
+<button type="button" class="btn btn-outline" data-step="-1">Back</button> <button type="submit" class="btn btn-gold">Review my inquiry →</button><p class="note">Review your answers before sending them to RivDecor.</p>
+</section></form><div id="inquiryReview" hidden>
 <h4>Review your event details</h4><p>Check your answers before sending your inquiry to RIVDECOR.</p>
 <pre class="inquiry-review" id="inquirySummary"></pre>
 <p id="inquiryPhotoCount"></p>
@@ -993,6 +999,29 @@ useContactCode.addEventListener('change',()=>{
 });
 proposalDetails.addEventListener('change',updateIncludedPackage);
 updateIncludedPackage();
+const stages=[...form.querySelectorAll('[data-stage]')];
+let currentStage=0;
+function showStage(index){
+  currentStage=index;
+  stages.forEach((stage,i)=>stage.hidden=i!==index);
+  form.querySelector('#inquiryProgress').textContent='Step '+(index+1)+' of '+stages.length;
+}
+form.addEventListener('click',event=>{
+  const button=event.target.closest('[data-step]');
+  if(!button)return;
+  const direction=Number(button.dataset.step);
+  if(direction>0){
+    const invalid=[...stages[currentStage].querySelectorAll('input,select,textarea')].find(field=>field.willValidate&&!field.validity.valid);
+    if(invalid){invalid.reportValidity();return;}
+  }
+  showStage(currentStage+direction);
+  stages[currentStage].querySelector('h4').focus();
+});
+form.addEventListener('invalid',event=>{
+  const index=stages.indexOf(event.target.closest('[data-stage]'));
+  if(index>=0 && index!==currentStage)showStage(index);
+},true);
+showStage(0);
 const referralSource=form.elements.namedItem('How did you hear about us?');
 const referralDetails=$('#referralDetails');
 const referralName=referralDetails.querySelector('input');
@@ -1072,6 +1101,7 @@ function updateSendButton(){
 }
 
 form.onsubmit=e=>{
+  if(currentStage!==stages.length-1){e.preventDefault();return;}
   e.preventDefault();
   summary.textContent=inquiryMessage(form);
   textFallback.href=`sms:+17867911833?body=${encodeURIComponent(summary.textContent)}`;
