@@ -454,7 +454,7 @@ if(e.key==='Tab'){
   if(e.shiftKey&&(document.activeElement===first||!modal.contains(document.activeElement))){e.preventDefault();last?.focus()}
   else if(!e.shiftKey&&(document.activeElement===last||!modal.contains(document.activeElement))){e.preventDefault();first?.focus()}
 }});
-const sharedPackageNote='All three packages include up to 3 standard balloon colors, professional setup, and rental pickup.';
+const sharedPackageNote='All three packages include up to 3 standard balloon colors, professional setup, and rental pickup. Final pricing varies by event details, add-ons, and travel.';
 const comparisonRows=[
   ['Design planning','planning'],
   ['Display rentals','setup'],
@@ -507,7 +507,7 @@ packageOptions.addEventListener('click',event=>{
       </section>`).join('')}
     </div>
     <div class="package-comparison desktop-package-comparison">
-      <div class="compare-row compare-head"><span>Package</span>${options.map(option=>`<div class="${option===pkg?'compare-selected':''}"><strong>${option.name}</strong><span class="package-purpose">${option.summary}</span></div>`).join('')}</div>
+      <div class="compare-row compare-head"><strong>Package</strong>${options.map(option=>`<div class="${option===pkg?'compare-selected':''}"><strong>${option.name}</strong><span class="package-purpose">${option.summary}</span></div>`).join('')}</div>
       ${rows.map(([label,getItems])=>`<section class="compare-row ${label==="Starting price"?"compare-price":""}" aria-label="${label}">
         <h4>${label}</h4>
         ${options.map(option=>{
@@ -518,7 +518,7 @@ packageOptions.addEventListener('click',event=>{
           </div>`;
         }).join('')}
       </section>`).join('')}
-    </div><p class="note">${sharedPackageNote}</p>`);
+    </div><p class="note"><strong>${sharedPackageNote}</strong></p>`);
   const phonePackages=modal.querySelector('.phone-packages');
   phonePackages.addEventListener('click',event=>{
     const selected=event.target.closest('[data-phone-package]');
