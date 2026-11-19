@@ -815,7 +815,7 @@ ${inquirySelect('How did you hear about us? (optional)','How did you hear about 
 <label id="otherSourceDetails" hidden>Tell us how you heard about us (optional)<input type="text" name="Other referral source" maxlength="150" disabled></label>
 </div></fieldset>
 <p class="note">Submitting an inquiry does not confirm availability or reserve your date. Your booking is secured after availability is confirmed and the required nonrefundable retainer is received.</p>
-<button type="submit" class="btn btn-gold">Review my inquiry →</button><p class="note">Review your answers before sending them to RivDecor.</p>
+<button type="submit" class="btn btn-gold">Review my inquiry →</button><p class="note">Review your answers before sending them to RivDecor. We&#8217;ll respond within two business days.</p>
 </section></form><div id="inquiryReview" hidden>
 <h4>Review your event details</h4><p>Check your answers before sending your inquiry to RIVDECOR.</p>
 <pre class="inquiry-review" id="inquirySummary"></pre>
@@ -823,7 +823,7 @@ ${inquirySelect('How did you hear about us? (optional)','How did you hear about 
 <div id="inquiryChallenge"></div>
 <div class="review-actions">
 <button type="button" class="btn btn-outline" id="editInquiry">Edit details</button>
-<button type="button" class="btn btn-gold" id="sendInquiry" disabled>Send inquiry →</button>
+<button type="button" class="btn btn-gold" id="sendInquiry" disabled>Send inquiry →</button><p class="note">We&#8217;ll respond within two business days.</p>
 </div>
 <p class="review-status" id="inquiryStatus" role="status"></p>
 <a class="btn btn-outline" id="inquiryTextFallback" hidden>Send by text instead</a>
@@ -1152,7 +1152,7 @@ sendInquiry.onclick=async()=>{
     if(!response.ok||!response.headers.get("content-type")?.includes("application/json"))throw new Error("Submission failed");
     sent=true;
     textFallback.hidden=true;
-    status.innerHTML='<strong>Thank you for considering RivDecor!</strong><br>We received your inquiry. We will review your event details and follow up using your preferred contact method to discuss availability and your quote.<br><br>Your date is reserved once we confirm availability and receive your booking retainer.';
+    status.innerHTML='<strong>Thank you for considering RivDecor!</strong><br>We received your inquiry. We&#8217;ll respond within two business days. We will review your event details and follow up using your preferred contact method to discuss availability and your quote.<br><br>Your date is reserved once we confirm availability and receive your booking retainer.';
     if(review.isConnected){
       clearInquiryPhotos();
       removeInquiryChallenge();
