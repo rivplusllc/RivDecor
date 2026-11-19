@@ -338,6 +338,7 @@ html{font-size:112.5%}
 .comparison-inclusions{grid-column:1/-1;border-top:1px solid var(--line);padding:14px;text-align:center;font-size:var(--text-small);line-height:1.5}
 .compare-row[aria-label="Request a quote"] ul{list-style:none;padding-inline-start:0}
 @media(min-width:651px){.package-comparison .compare-row>*+*{border-left:1px solid var(--line)}}
+.comparison-header-price{display:block;margin:4px 0;font-size:var(--text-body)}
 </style></head><body>
 <header class="header"><div class="service-strip"><span style="color:#f1cd75">Balloon décor and event styling</span><span class="service-strip-divider" aria-hidden="true">·</span><span>Serving Miami-Dade, Broward, and Palm Beach counties</span></div><div class="shell nav"><div class="nav-brand"><a href="#home" class="logo" aria-label="RIVDECOR home"><img class="brand-logo" src="assets/rivdecor-wordmark.png" alt="RIVDECOR"></a></div><button class="menu" aria-label="Toggle navigation" aria-expanded="false" id="menu">☰</button><nav class="navlinks" id="navlinks"><a href="#home">Home</a><a href="#packages">Packages</a><a href="#reviews">Reviews</a><a href="#booking" class="btn btn-gold" id="navQuoteLink">Request a quote</a></nav></div></header>
 <main><section class="shell hero" id="home"><h1 class="hero-title">Good times deserve<br><em>a great backdrop</em></h1><div class="hero-content"><div class="hero-actions"><a class="btn btn-navy" href="assets/rivdecor-montage-slower-ending.mp4" id="workMontageLink" aria-haspopup="dialog">Event montage</a><a class="btn btn-gold" href="#packages">Explore packages</a><a class="btn btn-navy" href="#reviews">Customer reviews</a></div></div><figure class="hero-work" id="work"><img src="assets/personalized-event-collage-v2.webp" width="1349" height="795" alt="Fifteen RivDecor setups featuring balloon arches, baby shower backdrops, table styling, and room décor" fetchpriority="high"><img class="hero-work-drapery" src="assets/homepage-blue-drapery.png" alt="White draping framed by blue and white balloons and a floral arch"><img class="hero-work-prom" src="assets/homepage-prom-tile.png" alt="Emerald, black, and gold prom send-off décor"><img class="hero-work-dinner" src="assets/styled-dinner.webp" alt="Green drapery and gold dinner place settings"><div class="hero-work-intro" aria-hidden="true"><span>Book with</span><img src="assets/rivdecor-wordmark.png" alt=""><span>Today</span></div></figure></section>
@@ -495,25 +496,24 @@ packageOptions.addEventListener('click',event=>{
   const options=packages.filter(option=>option.price);
   const rows=[
     ['Package photo',option=>[`<img class="compare-package-photo" src="assets/${option.image}.webp" alt="${photoAlt[option.image]}">`]],
-    ['Starting price',option=>['<strong>$'+option.price+'</strong>']],
     ...comparisonRows.map(([label,key])=>[label,option=>option[key]||[]]),
 
     ['Request a quote',option=>[`<button class="btn btn-navy" type="button" data-compare-quote="${option.name}">Request ${option.name} quote</button>`]],
   ];
   show(`<h3 id="modalTitle">Compare packages</h3>
-    <p class="desktop-package-comparison"><b>${pkg.name}</b> is highlighted.</p><p class="desktop-package-comparison"><button class="btn btn-navy" type="button" data-compare-quote="${pkg.name}">Request a quote for ${pkg.name}</button></p>
+    <p class="desktop-package-comparison"><b>${pkg.name}</b> is highlighted.</p><p class="desktop-package-comparison"><button class="btn btn-navy" type="button" data-compare-quote="${pkg.name}">Request ${pkg.name} quote</button></p>
     <div class="phone-packages">
       <nav class="phone-package-tabs" aria-label="Choose a package">${options.map(option=>`<button type="button" data-phone-package="${option.name}" aria-pressed="${option===pkg}">${option.name}</button>`).join('')}</nav>
       ${options.map(option=>`<section data-phone-panel="${option.name}" ${option===pkg?'':'hidden'}>
         <h4>${option.name}</h4><p>${option.summary}</p><p><b>Starting at $${option.price}</b></p>
         <img class="compare-package-photo" src="assets/${option.image}.webp" alt="${photoAlt[option.image]}">
         <ul>${packageSummaries[option.name].map((item,index)=>`<li><b>${packageSummaryLabels[index]}:</b> ${item}</li>`).join('')}</ul>
-        <button type="button" class="btn btn-gold" data-compare-quote="${option.name}">Request a quote for ${option.name}</button>
+        <button type="button" class="btn btn-gold" data-compare-quote="${option.name}">Request ${option.name} quote</button>
         <details><summary>See all inclusions</summary><ul>${[...comparisonRows.flatMap(([,key])=>option[key]||[])].map(item=>`<li>${item}</li>`).join('')}</ul></details>
       </section>`).join('')}
     </div>
     <div class="package-comparison desktop-package-comparison">
-      <div class="compare-row compare-head"><strong>Package</strong>${options.map(option=>`<div class="${option===pkg?'compare-selected':''}"><strong>${option.name}</strong><span class="package-purpose">${option.summary}</span></div>`).join('')}</div>
+      <div class="compare-row compare-head"><strong>Package</strong>${options.map(option=>`<div class="${option===pkg?'compare-selected':''}"><strong>${option.name}</strong><b class="comparison-header-price">Starting at $${option.price}</b><span class="package-purpose">${option.summary}</span></div>`).join('')}</div>
       ${rows.map(([label,getItems])=>`<section class="compare-row ${label==="Starting price"?"compare-price":""}" aria-label="${label}">
         <h4>${label}</h4>
         ${options.map(option=>{
@@ -524,7 +524,7 @@ packageOptions.addEventListener('click',event=>{
           </div>`;
         }).join('')}
       </section>`).join('')}
-      <div class="comparison-inclusions"><strong>All three package prices include design preparation, up to 3 standard balloon colors, professional setup, and rental pickup.</strong></div>
+      <div class="comparison-inclusions"><strong>All three packages include</strong> design preparation, up to 3 standard balloon colors, professional setup, and rental pickup.</div>
     </div><p class="note"><strong>${sharedPackageNote.replace('All three package prices include design preparation, up to 3 standard balloon colors, professional setup, and rental pickup.<br>','')}</strong></p>`);
   const phonePackages=modal.querySelector('.phone-packages');
   phonePackages.addEventListener('click',event=>{
